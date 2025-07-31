@@ -7,7 +7,8 @@ The github repository is organized as shown below. `from_mqtt` has modules for v
 ```
 ├───mfi_ddb_library
 │   ├───mfi_ddb
-│       └───Data Adapters
-│       └───Streamer
-
+│       └───data_adapters
+│       └───streamer
+│       └───topic_families
+│       └───utils
 ```
