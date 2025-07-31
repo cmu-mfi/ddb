@@ -5,15 +5,9 @@ The github repository is organized as shown below. `from_mqtt` has modules for v
 <a href="https://github.com/cmu-mfi/mfi_ddb_library" class="inline-button"><i class="fab fa-github"></i>mfi_ddb_library</a>
 
 ```
-├───from_mqtt
-│   ├───mqtt_cfs
-│   ├───mqtt_pi
-│   └───mqtt_sql
-│       └───XMLtoSQL
-└───to_mqtt
-│   ├───lfs_mqtt
-│   ├───ros_mqtt_cfs
-│   └───ros_mqtt_pi
-└───retrieval
-    ├───RetrievalFiles
+├───mfi_ddb_library
+│   ├───mfi_ddb
+│       └───Data Adapters
+│       └───Streamer
+
 ```
