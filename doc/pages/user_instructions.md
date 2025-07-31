@@ -3,7 +3,7 @@
 
 ### Streaming Data
 
-The data adapter library will live in `C:/repos/mfi-ddb`.  
+The data adapter library will live in `C:/repos/mfi-ddb_library`.  
 There will be a `README` file with the version that is currently on the computer if there are any issues.
 
 ## Creating a New Connection
