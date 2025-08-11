@@ -10,7 +10,7 @@ Setup **Sphinx** with auto-rebuild and live browser refresh for this project’s
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-org>/<your-repo>.git
+gh repo clone cmu-mfi/ddb
 cd <your-repo>
 
 # Create and activate virtual environment
