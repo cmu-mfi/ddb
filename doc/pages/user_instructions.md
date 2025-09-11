@@ -98,7 +98,6 @@ Once an adapter is connected and streaming, you can perform the following action
 
 Each action button is available in the adapter card on the landing page, so you can manage connections without navigating away.
 
-## New Adapter
 ![New Adapter Pop-Up](../files/ui_actions.png)
 
 - **Edit** – Reopen the configuration modal to update the YAML or MQTT broker settings.
