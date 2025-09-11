@@ -98,17 +98,20 @@ Once an adapter is connected and streaming, you can perform the following action
 
 Each action button is available in the adapter card on the landing page, so you can manage connections without navigating away.
 
-## ![New Adapter Pop-Up](../files/ui_actions.png)
+## New Adapter
+![New Adapter Pop-Up](../files/ui_actions.png)
 
 - **Edit** – Reopen the configuration modal to update the YAML or MQTT broker settings.
 - **Pause** – Temporarily stop data streaming without disconnecting the adapter.
 - **Resume/Play** – Restart streaming after it has been paused, using the existing configuration.
 
-## ![New Adapter Pop-Up](../files/ui_pause.png)
+##New Adapter 
+![New Adapter Pop-Up](../files/ui_pause.png)
 
 - **Delete** – Disconnect the adapter and remove it from the active connections list.
 
-## ![New Adapter Pop-Up](../files/ui_ondelete.png)
+## Delete Adapter
+![New Adapter Pop-Up](../files/ui_ondelete.png)
 
 Delete would remove the adapter from the list but wont affect the streaming of other adapters in the list
 
