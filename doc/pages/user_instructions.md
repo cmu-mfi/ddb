@@ -105,7 +105,7 @@ Each action button is available in the adapter card on the landing page, so you 
 - **Pause** – Temporarily stop data streaming without disconnecting the adapter.
 - **Resume/Play** – Restart streaming after it has been paused, using the existing configuration.
 
-##New Adapter 
+## New Adapter 
 ![New Adapter Pop-Up](../files/ui_pause.png)
 
 - **Delete** – Disconnect the adapter and remove it from the active connections list.
