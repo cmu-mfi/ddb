@@ -88,7 +88,7 @@ Once configured and saved:
 3. Data will begin streaming via the configured MQTT broker.
 4. The adapter will appear on the landing page, and the **status indicator** will turn **green** when streaming is active.
 
-## ![New Adapter Pop-Up](../files/ui_streaming_mtconnect.png)
+![New Adapter Pop-Up](../files/ui_streaming_mtconnect.png)
 
 You can similarly add "N" number of connections and stream them at once.
 
