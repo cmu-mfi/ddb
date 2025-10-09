@@ -118,6 +118,6 @@ Delete would remove the adapter from the list but wont affect the streaming of o
 
 When the server goes down you see :
 
-## ![New Adapter Pop-Up](../files/ui_server_down.png)
+![New Adapter Pop-Up](../files/ui_server_down.png)
 
 At times when the adapter can't be reached, UI throws an **"Adapter not connected"** error. Check logs to catch the issue.
