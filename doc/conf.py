@@ -6,9 +6,11 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import time
+
 project = 'MFI Digital Data Backbone'
-copyright = 'CMU'
-author = 'Manufacturing Futures Institute'
+author = 'Carnegie Mellon University, Manufacturing Futures Institute'
+copyright = '{}, {}'.format(time.strftime('%Y'), author)
 release = '1.0'
 
 # -- General configuration ---------------------------------------------------
