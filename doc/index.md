@@ -1,8 +1,10 @@
 # MFI Digital Data Backbone
 
 ```{include} pages/intro.md
+:relative-docs:
+:relative-images:
 ```
-```{include} pages/intro.md
+```{include} pages/architecture.md
 :relative-docs:
 :relative-images:
 ```
