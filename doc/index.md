@@ -2,6 +2,8 @@
 
 ```{include} pages/intro.md
 ```
+```{include} pages/architecture.md
+```
 
 ***
 
