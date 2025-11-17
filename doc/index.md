@@ -2,7 +2,9 @@
 
 ```{include} pages/intro.md
 ```
-```{include} pages/architecture.md
+```{include} pages/intro.md
+:relative-docs:
+:relative-images:
 ```
 
 ***
