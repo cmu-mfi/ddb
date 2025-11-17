@@ -5,11 +5,15 @@ The <b>Manufacturing Futures Institute</b> at Carnegie Mellon University has emb
 Commonly known as a digital backbone, this foundational infrastructure for connecting, collecting and contextualizing research data generated throughout the Mill 19 facility will enable researchers to build, apply and leverage curated and trusted data sources for the transformation of manufacturing. This same foundational infrastructure provides a platform upon which comprehensive virtual representations of equipment, processes, products and materials can be built to mirror their physical counterparts, creating “digital twins”, in real-time or near-real-time.
 </p>
 
-### Build data collection and curation infrastructure, on top of existing R&D infrastructure, to support large initiatives in AI 
+```{raw} html
+<p style="font-size: 20px; font-weight: bold;">
+Build data collection and curation infrastructure, on top of existing R&D infrastructure, to support large initiatives in AI
+</p>
+```
 
 [![ddb](../files/ccc.png)](../files/ccc.png)
 
-<b>Connect</b> equipment and sensors to the digital backbone through communication protocols and interfaces, <br>
+**Connect** equipment and sensors to the digital backbone through communication protocols and interfaces, <br>
 <b>Collect</b> time series data, video files, photographs, images and sketches, and <br>
 <b>Contextualize</b> data through user entered data descriptions (metadata) to ensure integrity and usefulness<br>
 
