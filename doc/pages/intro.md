@@ -8,8 +8,8 @@ Commonly known as a digital backbone, this foundational infrastructure for conne
 ### Build data collection and curation infrastructure, on top of existing R&D infrastructure, to support large initiatives in AI 
 
 <b>Connect</b> equipment and sensors to the digital backbone through communication protocols and interfaces, <br>
-Collect time series data, video files, photographs, images and sketches, and <br>
-Contextualize data through user entered data descriptions (metadata) to ensure integrity and usefulness<br>
+<b>Collect</b> time series data, video files, photographs, images and sketches, and <br>
+<b>Contextualize</b> data through user entered data descriptions (metadata) to ensure integrity and usefulness<br>
 
 <b>Archive:</b> Store data systematically in secure databases or physical repositories for preservation and future retrieval. <br>
 <b>Access:</b> Retrieve and interact with archived data through user-friendly interfaces and APIs<br>
