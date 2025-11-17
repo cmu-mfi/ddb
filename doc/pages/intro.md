@@ -7,6 +7,8 @@ Commonly known as a digital backbone, this foundational infrastructure for conne
 
 ### Build data collection and curation infrastructure, on top of existing R&D infrastructure, to support large initiatives in AI 
 
+[![ddb](../files/ccc.png)](../files/ccc.png)
+
 <b>Connect</b> equipment and sensors to the digital backbone through communication protocols and interfaces, <br>
 <b>Collect</b> time series data, video files, photographs, images and sketches, and <br>
 <b>Contextualize</b> data through user entered data descriptions (metadata) to ensure integrity and usefulness<br>
@@ -17,5 +19,5 @@ Commonly known as a digital backbone, this foundational infrastructure for conne
 
 
 
-[![ddb](../files/approach.png)](../files/approach.png)
+
 
