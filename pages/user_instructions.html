@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Instructions &mdash; MFI Digital Data Backbone 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/ddb_logo.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MFI Digital Data Backbone
+              <img src="../_static/ddb_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="current_capabilities.html">Current Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future_roadmap.html">Future Roadmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFI Digital Data Backbone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">User Instructions</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/ddb/blob/main/doc/pages/user_instructions.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-instructions">
+<h1>User Instructions<a class="headerlink" href="#user-instructions" title="Link to this heading"></a></h1>
+<section id="adapter-ui-installation-instructions">
+<h2>Adapter UI Installation Instructions<a class="headerlink" href="#adapter-ui-installation-instructions" title="Link to this heading"></a></h2>
+</section>
+<section id="streaming-data">
+<h2>Streaming Data<a class="headerlink" href="#streaming-data" title="Link to this heading"></a></h2>
+<p>The data adapter library is located at:</p>
+<p><code class="docutils literal notranslate"><span class="pre">C:/repos/mfi-ddb_library</span></code></p>
+<p>Inside this directory, you will find a <code class="docutils literal notranslate"><span class="pre">README</span></code> file containing the currently installed version and troubleshooting information if you encounter issues.</p>
+</section>
+<hr class="docutils" />
+<section id="creating-a-new-connection">
+<h2>Creating a New Connection<a class="headerlink" href="#creating-a-new-connection" title="Link to this heading"></a></h2>
+<p>Connections are created through the <strong>webpage interface</strong>.</p>
+<section id="step-1-landing-page">
+<h3>Step 1 – Landing Page<a class="headerlink" href="#step-1-landing-page" title="Link to this heading"></a></h3>
+<p>When you open the UI, you will be taken to the <strong>Landing Page</strong>. This page displays the Data Adapters section. If there are no active connections, it will show the message <strong>“No active adapter connection”</strong> along with a prompt to click <strong>+ New Adapter</strong>. The + New Adapter button in blue is located at the top-right corner, which you will click to start creating a new adapter. The <strong>server status</strong> is shown in the top-right corner (red indicates offline, green indicates online).</p>
+<p><img alt="Landing Page" src="../_images/ui_landing.png" /></p>
+<p><img alt="Landing Page" src="../_images/ui_server_online.png" /></p>
+<p>If no adapters are connected, the page will display the message: <em>“No active adapter connection”</em> along with a prompt to create one.</p>
+</section>
+<hr class="docutils" />
+<section id="step-2-1-adapter-configuration">
+<h3>Step 2.1 – Adapter Configuration<a class="headerlink" href="#step-2-1-adapter-configuration" title="Link to this heading"></a></h3>
+<p>Clicking <strong>New Adapter</strong> opens a pop-up window where you can configure your connection:</p>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_blankconfig.png" /></p>
+<ul class="simple">
+<li><p><strong>Connection Type</strong>: Choose from a list of supported adapters.</p></li>
+<li><p><strong>Topic Family</strong>: Select the topic family for the data stream.</p></li>
+<li><p><strong>Configuration(YAML)</strong>:</p>
+<ul>
+<li><p>Automatically populated for some adapter types (e.g., MTConnect defaults to <em>Historian</em> topic family).</p></li>
+<li><p>Editable so you can adjust it for your device or streaming needs.</p></li>
+</ul>
+</li>
+</ul>
+<p>You have two ways to provide the YAML configuration:</p>
+<ol class="arabic simple">
+<li><p>Edit the text directly in the input box.</p></li>
+<li><p>Upload a YAML file from your computer.</p></li>
+</ol>
+<p>The configuration is validated in real-time. Only valid configurations enable the <strong>Save</strong> button.</p>
+</section>
+<hr class="docutils" />
+<section id="step-2-2-mqtt-broker-configuration">
+<h3>Step 2.2 – MQTT Broker Configuration<a class="headerlink" href="#step-2-2-mqtt-broker-configuration" title="Link to this heading"></a></h3>
+<p>Below the YAML configuration, you will find the <strong>MQTT Broker Configuration</strong> section.</p>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_blankconfig_2.png" /></p>
+<ul class="simple">
+<li><p>This section is pre-filled with default broker details used for data streaming.</p></li>
+<li><p>You can modify the broker address, port, enterprise/site information, credentials, and security settings (e.g., TLS) to match your environment.</p></li>
+</ul>
+<p>Once both the YAML and MQTT configurations are valid, click <strong>Save</strong> to connect the adapter.</p>
+</section>
+<hr class="docutils" />
+<section id="step-3-example-mtconnect-adapter">
+<h3>Step 3 – Example: MTConnect Adapter<a class="headerlink" href="#step-3-example-mtconnect-adapter" title="Link to this heading"></a></h3>
+<p>If you select <strong>MTConnect</strong> as your adapter type from the dropdown:</p>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_select_type.png" /></p>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_mtconnect_example.png" /></p>
+<ul class="simple">
+<li><p>The <strong>Topic Family</strong> will be set to <em>Historian</em> by default.</p></li>
+<li><p>The <strong>Configuration (YAML)</strong> will be automatically populated with MTConnect-specific fields such as:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">agent_ip</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agent_url</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">device_name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trial_id</span></code></p></li>
+</ul>
+</li>
+<li><p>You can edit these fields to match your MTConnect agent setup.</p></li>
+<li><p>A <strong>Config Help</strong> icon (question mark) is available — tooltip will explain what each MTConnect field does and how to fill it.</p></li>
+</ul>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_mtconnect_help.png" /></p>
+<p>Once configured and saved:</p>
+<ol class="arabic simple">
+<li><p>The system will validate the MTConnect configuration.</p></li>
+<li><p>It will establish the connection to your MTConnect agent.</p></li>
+<li><p>Data will begin streaming via the configured MQTT broker.</p></li>
+<li><p>The adapter will appear on the landing page, and the <strong>status indicator</strong> will turn <strong>green</strong> when streaming is active.</p></li>
+</ol>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_streaming_mtconnect.png" /></p>
+<p>You can similarly add “N” number of connections and stream them at once.</p>
+</section>
+</section>
+<section id="actions-on-a-connected-adapter">
+<h2>Actions on a Connected Adapter<a class="headerlink" href="#actions-on-a-connected-adapter" title="Link to this heading"></a></h2>
+<p>Once an adapter is connected and streaming, you can perform the following actions directly from the landing page:</p>
+<p>Each action button is available in the adapter card on the landing page, so you can manage connections without navigating away.</p>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_actions.png" /></p>
+<ul class="simple">
+<li><p><strong>Edit</strong> – Reopen the configuration modal to update the YAML or MQTT broker settings.</p></li>
+<li><p><strong>Pause</strong> – Temporarily stop data streaming without disconnecting the adapter.</p></li>
+<li><p><strong>Resume/Play</strong> – Restart streaming after it has been paused, using the existing configuration.</p></li>
+</ul>
+</section>
+<section id="new-adapter">
+<h2>New Adapter<a class="headerlink" href="#new-adapter" title="Link to this heading"></a></h2>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_pause.png" /></p>
+<ul class="simple">
+<li><p><strong>Delete</strong> – Disconnect the adapter and remove it from the active connections list.</p></li>
+</ul>
+</section>
+<section id="delete-adapter">
+<h2>Delete Adapter<a class="headerlink" href="#delete-adapter" title="Link to this heading"></a></h2>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_ondelete.png" /></p>
+<p>Delete would remove the adapter from the list but wont affect the streaming of other adapters in the list</p>
+</section>
+<section id="error-handling">
+<h2>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading"></a></h2>
+<p>When the server goes down you see :</p>
+<p><img alt="New Adapter Pop-Up" src="../_images/ui_server_down.png" /></p>
+<p>At times when the adapter can’t be reached, UI throws an <strong>“Adapter not connected”</strong> error. Check logs to catch the issue.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Carnegie Mellon University, Manufacturing Futures Institute.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
