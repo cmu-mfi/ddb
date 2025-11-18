@@ -6,11 +6,6 @@
 :relative-docs:
 :relative-images:
 ```
-```{include} pages/architecture.md
-:relative-docs:
-:relative-images:
-```
-
 ***
 
 ## Site Index
