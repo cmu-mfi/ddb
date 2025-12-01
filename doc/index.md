@@ -14,6 +14,4 @@
 pages/intro.md
 pages/architecture.md
 pages/software.md
-pages/future_roadmap.md
-pages/glossary.md
 ```
