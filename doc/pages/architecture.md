@@ -1,6 +1,6 @@
 
 # Architecture
-![ddb](../files/DDB_05_01_2025.png)
+![ddb](../files/DDB_2025_12_01.png)
 
 <h1>Descriptions</h1>
 
