@@ -32,4 +32,4 @@ This layer provides retrieval services that can access data stored in the cloud 
 :hidden:
 :maxdepth: 1
 architecture_data_generators
-data_adapters
+architecture_data_adapters
