@@ -14,7 +14,7 @@ has_children: true
 The layer shows some example of current and future generators of information for the digital backbone. These sources are responsible for generating data that will be collected and processed by the system.
 
 
-**Data Adapters**
+**[Data Adapters](architecture_data_adapters.md)**
 Data adapters monitor the data generators for events. They listen for data changes or updates from the data generators and pass the information to the MQTT Broker.
 
 **Publish-Subscribe Broker**\
