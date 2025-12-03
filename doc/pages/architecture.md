@@ -11,6 +11,7 @@ has_children: true
 <h1>Descriptions</h1>
 
 **Data Generators**
+The layer shows some example of current and future generators of information for the digital backbone. These sources are responsible for generating data that will be collected and processed by the system.
 [Data Generators](architecture_data_generators.md)
 
 **Data Adapters**
