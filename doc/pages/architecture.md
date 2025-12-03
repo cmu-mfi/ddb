@@ -33,3 +33,4 @@ This layer provides retrieval services that can access data stored in the cloud 
 :maxdepth: 1
 architecture_data_generators
 architecture_data_adapters
+architecture_publishsubscribe
