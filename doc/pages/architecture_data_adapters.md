@@ -13,3 +13,4 @@ In the example, the data adapter collects MTConnect data from the machine and co
 :hidden:
 :maxdepth: 1
 architecture_schema
+architecture_topicstructure
