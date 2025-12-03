@@ -10,14 +10,14 @@ has_children: true
 
 <h1>Descriptions</h1>
 
-**[Data Generators](architecture_data_generators.md)**
+**[Data Generators](architecture_data_generators.md)**\
 The layer shows some example of current and future generators of information for the digital backbone. These sources are responsible for generating data that will be collected and processed by the system.
 
 
-**[Data Adapters](architecture_data_adapters.md)**
+**[Data Adapters](architecture_data_adapters.md)**\
 Data adapters monitor the data generators for events. They listen for data changes or updates from the data generators and pass the information to the MQTT Broker.
 
-**[Publish-Subscribe Broker](architecture_publishsubscribe.md)**
+**[Publish-Subscribe Broker](architecture_publishsubscribe.md)**\
 The MQTT Broker acts as the central communication hub in the pub-sub model. It receives messages from event listeners and distributes them to the appropriate connectors based on specified subscriptions.
 
 **[Cloud Storage](architecture_cloudstorage.md)**\
