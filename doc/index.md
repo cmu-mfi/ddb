@@ -11,6 +11,7 @@
 ## Site Index
 
 ```{toctree}
+:maxdepth: 2
 pages/architecture.md
 pages/software.md
 ```
