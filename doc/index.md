@@ -11,7 +11,6 @@
 ## Site Index
 
 ```{toctree}
-pages/intro.md
 pages/architecture.md
 pages/software.md
 ```
