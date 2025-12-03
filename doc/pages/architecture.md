@@ -20,7 +20,7 @@ Data adapters monitor the data generators for events. They listen for data chang
 **[Publish-Subscribe Broker](architecture_publishsubscribe.md)**
 The MQTT Broker acts as the central communication hub in the pub-sub model. It receives messages from event listeners and distributes them to the appropriate connectors based on specified subscriptions.
 
-**Storage Connectors**\
+**[Cloud Storage](architecture_cloudstorage.md)**\
 The cloud storage layer deliniates different storage solutions where data is stored and their associated connector. Currently, we use Aveva PI for our data historian, ProstgreSQL for our key-value storage, and a partitioned drive for our Binary Large Object (BLOB) storage. This solution allows the data storages to be switched out or new ones to be added.
 These connectors subscribe to the MQTT Broker to receive data. They facilitate the transfer of data from the broker to the various storage systems (PI, PostgresSQL, File Storage).
 
