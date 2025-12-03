@@ -1,6 +1,6 @@
 ## Payload Schema
 
-historian [time-series]
+**historian [time-series]
 
 Since we are using Aveva PI to store our time series data, we have adopted the Sparkplug B schema as an initial model for inspiration. It's flexibility allows it to be applied to other data types. The general schema for Sparkplug B v1.0 is defined in the [Sparkplug specification](https://sparkplug.eclipse.org/specification/version/3.0/documents/sparkplug-specification-3.0.0.pdf).
 
@@ -19,7 +19,7 @@ Key points to note:
 * `mfi_ddb` library uses [mqtt-spb-wrapper](https://pypi.org/project/mqtt-spb-wrapper/) to create sparkplug messages.
 * The messages while not directly human-readable, can be decoded using the [protobuf schema](./spbv.proto). Some MQTT brokers, [like EMQX](https://www.emqx.com/en/blog/mqtt-sparkplug-in-action-a-step-by-step-tutorial), have built in capability to do so.
 
-blob [binary data]
+**blob [binary data]
 
 blob topic tree expects large binary files. 
 
@@ -28,7 +28,7 @@ blob topic tree expects large binary files.
 * The schema is defined in [blob.proto](./blob.proto).
 * The messages while not directly human-readable, can be decoded using the above protobuf schema. Some MQTT brokers, [like EMQX](https://www.emqx.com/en/blog/mqtt-sparkplug-in-action-a-step-by-step-tutorial), have built in capability to do so.
 
-kv [non-time-series]
+**kv [non-time-series]
 
 * The messages in k-v topic tree can be used to send non-time series data. 
 * The schema is designed to be flexible and extensible to accommodate different types of data. 
