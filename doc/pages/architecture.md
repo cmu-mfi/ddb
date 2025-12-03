@@ -1,13 +1,19 @@
+---
+layout: default
+title: Architecture
+nav_order: 2
+has_children: true
+---
 
 # Architecture
 ![ddb](../files/DDB_2025_12_01.png)
 
 <h1>Descriptions</h1>
 
-## **Data Generators**
-![ddb](./architecture_data_generators.md)
+**Data Generators**
+[Data Generators](data-generators.md)
 
-## **Data Adapters**
+**Data Adapters**
 Data adapters monitor the data generators for events. They listen for data changes or updates from the data generators and pass the information to the MQTT Broker.
 
 **Publish-Subscribe Broker**\
