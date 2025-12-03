@@ -31,5 +31,5 @@ This layer provides retrieval services that can access data stored in the cloud 
 ```{toctree}
 :hidden:
 :maxdepth: 1
-data_generators
+architecture_data_generators
 data_adapters
