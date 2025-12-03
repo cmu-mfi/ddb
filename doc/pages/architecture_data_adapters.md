@@ -6,3 +6,9 @@ Data Schema
 In the example, the data adapter collects MTConnect data from the machine and converts it into an MQTT payload to publish to our MQTT Broker.
 
 ![ddb](../files/data_adapters.png)
+
+
+```{toctree}
+:hidden:
+:maxdepth: 1
+architecture_schema
