@@ -34,3 +34,5 @@ This layer provides retrieval services that can access data stored in the cloud 
 architecture_data_generators
 architecture_data_adapters
 architecture_publishsubscribe
+architecture_cloudstorage
+arhictecture_retrieval
