@@ -5,9 +5,7 @@
 <h1>Descriptions</h1>
 
 ## **Data Generators**
-The layer shows some example of current and future generators of information for the digital backbone. These sources are responsible for generating data that will be collected and processed by the system.
-
-![ddb](../files/data_generators.png)
+![ddb](./data_generators.png)
 
 **Data Adapters**\
 Data adapters monitor the data generators for events. They listen for data changes or updates from the data generators and pass the information to the MQTT Broker.
