@@ -7,7 +7,7 @@
 ## **Data Generators**
 ![ddb](./architecture_data_generators.md)
 
-**Data Adapters**\
+## **Data Adapters**
 Data adapters monitor the data generators for events. They listen for data changes or updates from the data generators and pass the information to the MQTT Broker.
 
 **Publish-Subscribe Broker**\
