@@ -17,7 +17,7 @@ The layer shows some example of current and future generators of information for
 **[Data Adapters](architecture_data_adapters.md)**
 Data adapters monitor the data generators for events. They listen for data changes or updates from the data generators and pass the information to the MQTT Broker.
 
-**Publish-Subscribe Broker**\
+**[Publish-Subscribe Broker](architecture_publishsubscribe.md)**
 The MQTT Broker acts as the central communication hub in the pub-sub model. It receives messages from event listeners and distributes them to the appropriate connectors based on specified subscriptions.
 
 **Storage Connectors**\
