@@ -6,7 +6,7 @@ nav_order: 1
 ---
 
 # Data Generators
-The layer shows some example of current and future generators of information for the digital backbone. These sources are responsible for generating data that will be collected and processed by the system.
+This diagram shows one of our connected machines, a HAAS 5-axis equipped with an MTConnect module. An edge device sits on the network alongside the machine and hosts our data adapter. The data adapter collects MTConnect data from the machine and converts it into an MQTT payload to publish to our MQTT Broker.
 
 ![ddb](../files/data_generators.png)
 
