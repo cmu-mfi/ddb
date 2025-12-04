@@ -1,0 +1,162 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payload Schema &mdash; MFI Digital Data Backbone 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/ddb_logo.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=30646c52"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Topic Structure" href="architecture_topicstructure.html" />
+    <link rel="prev" title="Data Adapters" href="architecture_data_adapters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MFI Digital Data Backbone
+              <img src="../_static/ddb_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="architecture.html">Architecture</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="architecture_data_generators.html">Data Generators</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="architecture_data_adapters.html">Data Adapters</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Payload Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture_topicstructure.html">Topic Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture_publishsubscribe.html">Publish-Subscribe Broker</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MFI Digital Data Backbone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="architecture.html">Architecture</a></li>
+          <li class="breadcrumb-item"><a href="architecture_data_adapters.html">Data Adapters</a></li>
+      <li class="breadcrumb-item active">Payload Schema</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/ddb/blob/main/doc/pages/architecture_schema.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="payload-schema">
+<h1>Payload Schema<a class="headerlink" href="#payload-schema" title="Link to this heading"></a></h1>
+<p><strong>historian [time-series]</strong></p>
+<p>Since we are using Aveva PI to store our time series data, we have adopted the Sparkplug B schema as an initial model for inspiration. It’s flexibility allows it to be applied to other data types. The general schema for Sparkplug B v1.0 is defined in the <a class="reference external" href="https://sparkplug.eclipse.org/specification/version/3.0/documents/sparkplug-specification-3.0.0.pdf">Sparkplug specification</a>.</p>
+<p>Key points to note:</p>
+<ul class="simple">
+<li><p>Sparkplug requires following topic structure: <code class="docutils literal notranslate"><span class="pre">namespace/group_id/message_type/node_id/[device_id]</span></code></p></li>
+<li><p>Sparkplug messages are serialized using Google Protocol Buffers (<a class="reference external" href="https://protobuf.dev/">protobuf</a>).</p></li>
+<li><p>In reference to the above structure,</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">namespace</span></code> = <code class="docutils literal notranslate"><span class="pre">mfi-v1.0-historian</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group_id</span></code> = <code class="docutils literal notranslate"><span class="pre">enterprise</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message_type</span></code> = Sparkplug B message type, like DDATA, DBIRTH, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">node_id</span></code> = <code class="docutils literal notranslate"><span class="pre">site</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">device_id</span></code> = <code class="docutils literal notranslate"><span class="pre">area</span></code> (optional)</p></li>
+</ul>
+</li>
+<li><p>mfi_ddb expects at least a DBIRTH message to establish identity and a DDATA message to send data.</p></li>
+<li><p>Metric naming convention is defined in <a class="reference internal" href="#./historian-metric-naming.md"><span class="xref myst">historian-metric-naming.md</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mfi_ddb</span></code> library uses <a class="reference external" href="https://pypi.org/project/mqtt-spb-wrapper/">mqtt-spb-wrapper</a> to create sparkplug messages.</p></li>
+<li><p>The messages while not directly human-readable, can be decoded using the <a class="reference internal" href="#./spbv.proto"><span class="xref myst">protobuf schema</span></a>. Some MQTT brokers, <a class="reference external" href="https://www.emqx.com/en/blog/mqtt-sparkplug-in-action-a-step-by-step-tutorial">like EMQX</a>, have built in capability to do so.</p></li>
+</ul>
+<p><strong>blob [binary data]</strong></p>
+<p>blob topic tree expects large binary files.</p>
+<ul class="simple">
+<li><p>The file data is sent as a binary payload of a json message.</p></li>
+<li><p>The json message is serialized using <a class="reference external" href="https://protobuf.dev/">protobuf</a> protocol.</p></li>
+<li><p>The schema is defined in <a class="reference internal" href="#./blob.proto"><span class="xref myst">blob.proto</span></a>.</p></li>
+<li><p>The messages while not directly human-readable, can be decoded using the above protobuf schema. Some MQTT brokers, <a class="reference external" href="https://www.emqx.com/en/blog/mqtt-sparkplug-in-action-a-step-by-step-tutorial">like EMQX</a>, have built in capability to do so.</p></li>
+</ul>
+<p><strong>kv [non-time-series]</strong></p>
+<ul class="simple">
+<li><p>The messages in k-v topic tree can be used to send non-time series data.</p></li>
+<li><p>The schema is designed to be flexible and extensible to accommodate different types of data.</p></li>
+<li><p>The schema is defined in <a class="reference internal" href="#./kv.json"><span class="xref myst">kv.json</span></a>.</p></li>
+<li><p>While <a class="reference internal" href="#blob-binary-data"><span class="xref myst">blob</span></a> and <a class="reference internal" href="#historian-time-series"><span class="xref myst">historian</span></a> are protobuf serialized, k-v messages are sent as json for ease of readability.</p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="architecture_data_adapters.html" class="btn btn-neutral float-left" title="Data Adapters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture_topicstructure.html" class="btn btn-neutral float-right" title="Topic Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Carnegie Mellon University, Manufacturing Futures Institute.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
