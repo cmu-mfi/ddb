@@ -14,4 +14,5 @@
 :maxdepth: -1
 pages/architecture.md
 pages/software.md
+pages/schema.md
 ```
