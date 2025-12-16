@@ -18,7 +18,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 # Install Sphinx, theme, and live reload tool
-pip install sphinx sphinx_rtd_theme sphinx-autobuild
+pip install -U sphinx sphinx_rtd_theme myst_parser sphinx_copybutton sphinx-autobuild sphinxcontrib-mermaid
 ```
 
 #### Windows CMD
@@ -32,14 +32,17 @@ python -m venv .venv
 .venv\Scripts\activate.bat
 
 REM Install Sphinx, theme, and live reload tool
-pip install sphinx sphinx_rtd_theme sphinx-autobuild
+pip install sphinx sphinx_rtd_theme sphinx-autobuild sphinxcontrib-mermaid
 
 ```
 #### Usage
 ```
 # Navigate to the documentation folder
-cd docs
+cd doc
 
 # Run Sphinx with auto-build
 sphinx-autobuild . _build/html
+
+# or use make command
+make html
 ```
