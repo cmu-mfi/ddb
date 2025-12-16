@@ -1,0 +1,55 @@
+.wy-nav-side {
+    background-color: hsl(0, 0%, 10%);
+}
+
+.wy-side-nav-search {
+    background-color: hsl(0, 0%, 10%);
+}
+
+.wy-nav-side .caption-text{
+    color: #bc0c2c;
+    font-size: medium;
+}
+
+.document .caption-text{
+    font-size: medium;
+}
+
+.github-button {
+    background-color: #2088FF;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 15px;
+    text-align: center;
+    display: inline-block;
+}
+.github-button:hover {
+    background-color: #007BFF;
+}
+
+.inline-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 1px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+.inline-button:hover {
+    background-color: #45a049;
+    color: white;
+}
+.inline-button:visited {
+    color: white; /* Color for visited links (e.g., grey) */
+}
+.inline-button .fa-github {
+    margin-right: 5px; /* Adds some space between the icon and the text */
+    vertical-align: middle; /* Aligns the icon vertically with the text */
+}

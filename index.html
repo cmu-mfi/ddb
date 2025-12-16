@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; MFI Digital Data Backbone 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=066d2f63" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="_static/ddb_logo.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=30646c52"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Architecture" href="pages/architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            MFI Digital Data Backbone
+              <img src="_static/ddb_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture/data_generators.html">Data Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture/data_adapters.html">Data Adapters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/architecture/data_adapters.html#data-adapter-schema">Data Adapter Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/architecture/data_adapters.html#topic-structure">Topic Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/architecture/data_adapters.html#payload-schema">Payload Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pages/architecture/data_adapters.html#historian-time-series">historian [time-series]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pages/architecture/data_adapters.html#blob-binary-data">blob [binary data]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pages/architecture/data_adapters.html#kv-non-time-series">kv [non-time-series]</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pages/architecture/data_adapters.html#streaming-metadata">Streaming Metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture/publishsubscribe.html">Publish-Subscribe Broker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture/cloudstorage.html">Cloud Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/architecture/retrieval.html">Retrieval</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/software.html">Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/schema.html">Schema V1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/schema.html#topic-structure">Topic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/schema.html#payload-schema">Payload Schema</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/schema.html#historian-time-series">historian [time-series]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/schema.html#blob-binary-data">blob [binary data]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/schema.html#kv-non-time-series">kv [non-time-series]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pages/schema.html#streaming-metadata">Streaming Metadata</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">MFI Digital Data Backbone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/ddb/blob/main/doc/index.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1 style="text-align: center;"> MFI Digital Data Backbone </h1><section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p>
+The <b>Manufacturing Futures Institute</b> at Carnegie Mellon University has embarked on a mission to become a leader in the digital transformation of manufacturing.  Carnegie Mellon engineers and scientists are building the foundational technology infrastructure at Mill 19 and the university that will support and enable data-driven advanced manufacturing research for decades to come.
+Commonly known as a digital backbone, this foundational infrastructure for connecting, collecting and contextualizing research data generated throughout the Mill 19 facility will enable researchers to build, apply and leverage curated and trusted data sources for the transformation of manufacturing. This same foundational infrastructure provides a platform upon which comprehensive virtual representations of equipment, processes, products and materials can be built to mirror their physical counterparts, creating “digital twins”, in real-time or near-real-time.
+</p>
+<p style="font-size: 20px; font-weight: bold;">
+Build data collection and curation infrastructure, on top of existing R&D infrastructure, to support large initiatives in AI
+</p><p><a class="reference internal" href="#../files/ccc.png"><span class="xref myst"><img alt="ddb" src="_images/ccc.png" /></span></a></p>
+<p><strong>Connect</strong> equipment and sensors to the digital backbone through communication protocols and interfaces, <br>
+<b>Collect</b> time series data, video files, photographs, images and sketches, and <br>
+<b>Contextualize</b> data through user entered data descriptions (metadata) to ensure integrity and usefulness<br></p>
+<p><b>Archive:</b> Store data systematically in secure databases or physical repositories for preservation and future retrieval. <br>
+<b>Access:</b> Retrieve and interact with archived data through user-friendly interfaces and APIs<br>
+<b>Analyze:</b> Interpret data using analytical tools and methodologies to derive meaningful insights and informed decisions<br></p>
+<hr class="docutils" />
+</section>
+<section id="site-index">
+<h1>Site Index<a class="headerlink" href="#site-index" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/software.html">Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/schema.html">Schema V1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/schema.html#topic-structure">Topic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/schema.html#payload-schema">Payload Schema</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pages/schema.html#historian-time-series">historian [time-series]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/schema.html#blob-binary-data">blob [binary data]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pages/schema.html#kv-non-time-series">kv [non-time-series]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pages/schema.html#streaming-metadata">Streaming Metadata</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pages/architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Carnegie Mellon University, Manufacturing Futures Institute.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
