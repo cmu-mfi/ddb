@@ -12,6 +12,6 @@ This diagram illustrates the different storage types used in our architecture.
   We currently use Aveva PI to store time-series data, such as spindle speed and other machine signals.
 
 - **Metadata Store**  
-  This is the core of our data retrieval strategy. It stores the mappings that link related data across systems, enabling efficient queries—    for example, retrieving all data for a given trial that includes video capture alongside machine data. 
+  This is the core of our data retrieval strategy. It stores the mappings that link related data across systems, enabling efficient queries.    For example, retrieving all data for a given trial that includes video capture alongside machine data. 
   
 ![ddb](../../files/cloudstorage.png)
