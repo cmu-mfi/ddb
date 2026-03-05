@@ -128,7 +128,6 @@
   transition: all 0.3s ease;
 }
 .status-notconnected .equip-front img {
-  filter: grayscale(100%);
-  opacity: 0.9;
+  filter: grayscale(100%) brightness(50%);
   transition: all 0.3s ease;
 }
