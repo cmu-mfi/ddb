@@ -1,0 +1,134 @@
+/* --- Equipment grid --- */
+.equip-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:18px;
+  margin-top:18px;
+}
+.equip-front, .equip-back{
+  position: relative;
+}
+.equip-card{
+  position:relative;
+  height:260px;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+  background:#111;
+  transform:translateZ(0); /* smoother hover */
+}
+
+.equip-card .inner{
+  position:absolute;
+  inset:0;
+  transform-style:preserve-3d;
+  transition:transform .55s ease;
+}
+
+.equip-card.flip:hover .inner{
+  transform:rotateY(180deg);
+}
+
+.equip-face{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+}
+
+.equip-front img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* back face */
+.equip-back{
+  transform:rotateY(180deg);
+  padding:16px;
+  color:#f5f5f5;
+  background:linear-gradient(135deg, rgba(10,10,10,.94), rgba(0,0,0,.92));
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.equip-title{
+  font-weight:700;
+  font-size:1.05rem;
+  margin:0 0 10px 0;
+}
+
+.equip-meta{
+  font-size:.95rem;
+  line-height:1.35;
+  opacity:.92;
+}
+
+.equip-badge{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 6;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 900;
+  color: #fff;
+  background: rgba(0,0,0,.65);
+  border: 1px solid rgba(255,255,255,.25);
+  backdrop-filter: blur(4px);
+}
+
+/* --- Status styles --- */
+.status-connected .equip-badge::before {
+  content: "● ";
+  color: #00d26a;
+}
+
+.status-inprogress .equip-badge::before{ content:"⏳ "; }
+.status-notconnected .equip-badge::before{ content:"⛔ "; }
+
+/* Connected hover info (no flip, just overlay tooltip) */
+.equip-card.tooltip .overlay{
+  position:absolute;
+  inset:auto 0 0 0;
+  padding:12px 14px;
+  background:linear-gradient(180deg, transparent, rgba(0,0,0,.82));
+  color:#fff;
+  opacity:0;
+  transition:opacity .25s ease;
+  font-size:.95rem;
+}
+
+.equip-card.tooltip:hover .overlay{
+  opacity:1;
+}
+
+/* Optional: show name ribbon on all cards */
+.name-ribbon{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+  font-weight: 800;
+  font-size: .88rem;
+}
+
+.status-inprogress .equip-front img {
+  filter: sepia(100%);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+.status-notconnected .equip-front img {
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}

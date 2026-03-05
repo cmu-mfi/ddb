@@ -1,0 +1,55 @@
+<div class="equip-card flip {{ status_class }}">
+  <div class="inner">
+
+    <!-- FRONT -->
+    <div class="equip-front equip-face">
+      <img src="{{ img_src }}" alt="{{ alt }}">
+      <div class="name-ribbon">{{ ribbon_name }}</div>
+      <div class="equip-badge">{{ front_badge }}</div>
+    </div>
+
+    <!-- BACK -->
+    <div class="equip-back equip-face">
+      <div>
+        <p class="equip-title">{{ title }}</p>
+
+        <p class="equip-meta">
+          <b>Adapter:</b> {{ adapter }}<br>
+
+          {% if data_options %}
+          Data collection options:
+          <ul>
+            {% for opt in data_options %}
+              <li>{{ opt }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+
+          <br>
+          Owner: {{ owner }}
+
+          {% if update %}
+          <br><br>
+          Current update: {{ update }}
+          {% endif %}
+
+          {% if next_step %}
+          <br>
+          Next step: {{ next_step }}
+          {% endif %}
+
+          {% if notes %}
+          <br>
+          Notes: {{ notes }}
+          {% endif %}
+        </p>
+      </div>
+
+      {% if back_badge %}
+      <div class="equip-badge">{{ back_badge }}</div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>

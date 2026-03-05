@@ -15,4 +15,5 @@
 pages/architecture.md
 pages/software.md
 pages/schema.md
+pages/equipment.md
 ```

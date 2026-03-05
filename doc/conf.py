@@ -23,6 +23,12 @@ extensions = [
     'sphinxcontrib.mermaid'
 ]
 
+myst_enable_extensions = ["colon_fence"]
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
+
 mathjax_path = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
 
 copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
@@ -48,6 +54,7 @@ html_static_path = ['_static']
 
 html_css_files = [
     'custom.css',
+    'equipment.css',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css',
 ]
 
