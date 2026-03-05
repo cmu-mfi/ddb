@@ -5,10 +5,10 @@
 :::{raw} html
 :file: equipment/_cards/trumpf-trulaser-cell-3000.html
 :::
-:::{raw} html
+<!-- :::{raw} html
 :file: equipment/_cards/trumpf-truprint-3000.html
-:::
-:::{raw} html
+::: -->
+<!-- :::{raw} html
 :file: equipment/_cards/swiss-instruments-ltd-peenmatic-770S.html
 :::
 :::{raw} html
@@ -22,5 +22,5 @@
 :::
 :::{raw} html
 :file: equipment/_cards/eos-m290-direct-ml0sintering.html
-:::
+::: -->
 </div>
