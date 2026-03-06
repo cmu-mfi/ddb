@@ -9,7 +9,7 @@
 :::{raw} html
 :file: equipment/_cards/keyence-vr-6200.html
 :::
-
+<!--
 :::{raw} html
 :file: equipment/_cards/gleeble.html
 :::
@@ -17,7 +17,7 @@
 :::{raw} html
 :file: equipment/_cards/split-hopkins-bar.html
 :::
-
+-->
 :::{raw} html
 </div>
 :::
