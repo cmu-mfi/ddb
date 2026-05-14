@@ -1,3 +1,10 @@
+```{button-link} https://cmu-mfi.github.io/
+:color: primary
+:shadow:
+cmu-mfi.github.io
+```
+<!-- ref: https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html -->
+
 ```{raw} html
 <h1 style="text-align: center;"> MFI Digital Data Backbone </h1>
 ```

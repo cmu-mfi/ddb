@@ -20,7 +20,8 @@ extensions = [
     'myst_parser',
     'sphinx_copybutton',
     'sphinx.ext.mathjax',
-    'sphinxcontrib.mermaid'
+    'sphinxcontrib.mermaid',
+    'sphinx_design',
 ]
 
 myst_enable_extensions = ["colon_fence"]
