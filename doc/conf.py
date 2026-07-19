@@ -4,7 +4,6 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 # -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 import time
 
@@ -14,7 +13,6 @@ copyright = '{}, {}'.format(time.strftime('%Y'), author)
 release = '1.0'
 
 # -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
     'myst_parser',
@@ -40,13 +38,14 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'pages/parked']
 
 
 # -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     'collapse_navigation': False,
-    'sticky_navigation': False,
-    'navigation_depth': -1,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False,
 }
 html_logo = 'files/ddb_logo.png'
 # html_favicon = 'files/white-logo.ico'
@@ -68,3 +67,10 @@ html_context = {
     "github_version": "main", # Version
     "conf_py_path": "/doc/", # Path in the checkout to the docs root
 }
+
+# -- MyST navigation ---------------------------------------------------------
+
+myst_enable_extensions = [
+    "colon_fence",
+    "substitution",
+]
