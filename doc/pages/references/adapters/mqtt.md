@@ -10,82 +10,60 @@ This adapter enables integration with any existing MQTT infrastructure — wheth
 |----------|-------|
 | **Adapter Type** | `mqtt` |
 | **Data Source** | Any MQTT topic |
-| **Supported Formats** | JSON (kv), Sparkplug B (historian) |
-| **Authentication** | Username/Password, TLS/SSL |
+| **Recommended Topic Family** | `historian` |
+| **Self-Update** | Yes (listens in a separate thread) |
 
 ## Configuration Parameters
 
 | Parameter | Required | Description | Example |
 |-----------|----------|-------------|---------|
-| `source_topic` | Yes | MQTT topic to subscribe to | `sensors/+/temperature` |
-| `qos` | No | Quality of Service level (0, 1, or 2) | `1` |
-| `data_format` | No | Output format: `kv` or `historian` | `kv` |
+| `mqtt.broker_address` | Yes | Address of the MQTT broker | `"mqtt.example.com"` |
+| `mqtt.broker_port` | No | Port of the MQTT broker (default: 1883) | `1883` |
+| `mqtt.username` | No | Username for MQTT broker authentication | `"user"` |
+| `mqtt.password` | No | Password for MQTT broker authentication | `"pass"` |
+| `mqtt.tls_enabled` | No | Enable TLS for MQTT connection (default: False) | `false` |
+| `mqtt.debug` | No | Enable debug mode for MQTT client (default: False) | `false` |
+| `mqtt.timeout` | No | Timeout in seconds for connecting to the MQTT broker (default: 5) | `5` |
+| `trial_id` | Yes | Trial ID for the system. No spaces or special characters allowed. | `"trial_001"` |
+| `queue_size` | No | Maximum number of messages to buffer before processing (default: 10) | `10` |
+| `topics` | Yes | List of topics to subscribe to (see below) | — |
 
-## Source Topic Patterns
+### Topics Configuration
 
-The MQTT adapter supports wildcard topic subscription patterns:
+Each topic in the `topics` list must include:
 
-| Pattern | Description | Matches |
-|---------|-------------|---------|
-| `sensors/temperature` | Single level exact match | Only `sensors/temperature` |
-| `sensors/+/temperature` | One-level wildcard | `sensors/hall/temperature`, `sensors/lab/temperature` |
-| `sensors/#` | Multi-level wildcard | All topics starting with `sensors/` |
-
-## Topic Mapping
-
-### JSON (kv) Format
-
-When streaming in **kv** format, data is republished under the DDB kv topic structure:
-
-```
-mfi-v1.0-kv/{enterprise}/{site}/mqtt/{source_topic}
-```
-
-Example source → destination mapping:
-- Source: `sensors/hall/temperature`
-- Destination: `mfi-v1.0-kv/CMU/Mill19/mqtt/sensors/hall/temperature`
-
-### Sparkplug B (historian) Format
-
-When streaming in **historian** format, the adapter wraps the MQTT payload into a Sparkplug B message and publishes it to:
-
-```
-mfi-v1.0-historian/{enterprise}/{site}/mqtt/{source_topic}
-```
+| Field | Description |
+|-------|-------------|
+| `component_id` | Identifier for the component |
+| `topic` | MQTT topic to subscribe to |
+| `trial_id` | Trial ID override per component (optional) |
 
 ## Example Configuration
 
 ```yaml
-# MQTT adapter configuration for sensor data relay
 adapter_type: mqtt
-name: hall_sensor_relay
+name: my_mqtt_adapter
 
-streamer:
-  broker_host: "localhost"
+mqtt:
+  broker_address: "mqtt.example.com"
   broker_port: 1883
-  use_tls: false
 
-topic_family: kv
-namespace: mfi-v1.0
-enterprise: CMU
-site: Mill19
+trial_id: "trial_001"
+queue_size: 10
 
-attributes:
-  description: "Relay hall temperature sensor data to DDB"
-
-mqtt_adapter:
-  source_topic: "sensors/hall/temperature"
-  qos: 1
+topics:
+  - component_id: "robot-arm-1"
+    topic: "robot-arm/1/data"
+    trial_id: "trial_001"
+  - component_id: "machine-a"
+    topic: "machine/a/data"
 ```
 
-## Connection Options
+## How It Works
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `use_tls` | Enable TLS encryption | `false` |
-| `ca_cert` | Path to CA certificate for TLS | — |
-| `client_cert` | Client certificate path (mutual TLS) | — |
-| `username` / `password` | MQTT authentication credentials | — |
+1. **Broker Connection** — Connects to the MQTT broker using configured credentials and TLS settings.
+2. **Topic Subscription** — Subscribes to each configured topic with a message callback.
+3. **Data Collection** — Buffers incoming messages (up to `queue_size`) and publishes them to DDB topics under the configured namespace.
 
 ## Use Cases
 
@@ -97,4 +75,4 @@ mqtt_adapter:
 ## Related Links
 
 - [MQTT Specification](https://mqtt.org/mqtt-specification/)
-- [`mfi_ddb_data_adapter`](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_data_adapter) — Data adapter app repository
+- [`mfi_ddb_data_adapter` Source Code](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_package/src/mfi_ddb/data_adapters)

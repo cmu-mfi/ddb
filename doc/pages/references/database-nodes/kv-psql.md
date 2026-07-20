@@ -135,31 +135,111 @@ conn.close()
 
 ## Docker Configuration
 
+The example compose files are sourced from [mfi_ddb_library/docker/kv-psql](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/docker/kv-psql).
+
+### `docker-compose.yaml`
+
 ```yaml
 services:
-  kv-psql:
-    image: postgres:16-alpine
+  kv-psql-db:
+    platform: linux/amd64
+    image: postgres:15-alpine
+    container_name: mfi-kv-psql-db
     environment:
-      POSTGRES_USER: ddb_user
-      POSTGRES_PASSWORD: ddb_password
-      POSTGRES_DB: ddbbdb_kv
+      - POSTGRES_USER=mfi
+      - POSTGRES_PASSWORD=mfiddb
+      - POSTGRES_DB=mfi_kv
     ports:
-      - "5433:5432"
+      - "5431:5432"
+    profiles:
+      - "kv"
+      - "dbn"
     volumes:
-      - kv_psql_data:/var/lib/postgresql/data
+      - ../.data/kv_psql_storage:/var/lib/postgresql/data
+    networks:
+      - mfi_network
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mfi -d mfi_kv"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  ddb-kv-consumer:
-    build: ../mfi_ddb_database_nodes/kv-psql
-    environment:
-      MQTT_BROKER: mqtt:1883
-      MQTT_TOPIC_FILTER: "mfi-v1.0-kv/#"
-      DB_HOST: kv-psql
-      DB_PORT: 5432
-      DB_NAME: ddbbdb_kv
-      DB_USER: ddb_user
-      DB_PASSWORD: ddb_password
+  kv-psql-connector:
+    platform: linux/amd64
+    build:
+      context: ../../mfi_ddb_database_nodes/kv-psql/connector
+      dockerfile: Dockerfile
+    container_name: mfi-kv-psql-connector
+    image: cmumfi/mfi-ddb-kv-psql-connector:latest
+    profiles:
+      - "kv"
+      - "dbn"
     depends_on:
-      - kv-psql
+      mqtt-broker:
+        condition: service_started
+      kv-psql-db:
+        condition: service_healthy
+    networks:
+      - mfi_network
+    volumes:
+      - ./connector-config.yaml:/app/config.yaml
+    restart: always
+
+  kv-psql-dws:
+    platform: linux/amd64
+    build:
+      context: ../../mfi_ddb_database_nodes/kv-psql/dws
+      dockerfile: Dockerfile
+    container_name: mfi-kv-psql-dws
+    image: cmumfi/mfi-ddb-kv-psql-dws:latest
+    profiles:
+      - "kv"
+      - "dbn"
+    ports:
+      - "50051:50051"
+    command: >
+      sh -c "python init_db.py && python server.py"
+    depends_on:
+      kv-psql-db:
+        condition: service_healthy
+    networks:
+      - mfi_network
+    volumes:
+      - ./dws-config.yaml:/app/config.yaml
+    restart: always
+```
+
+### `connector-config.yaml`
+
+```yaml
+mqtt:
+  broker: "mqtt-broker"
+  port: 1883
+  client_id: kv-psql-connector
+  topics:
+    - "mfi-v1.0-kv/#"
+
+postgres:
+  host: "kv-psql-db"
+  port: 5432
+  database: mfi_kv
+  user: mfi
+  password: mfiddb
+```
+
+### `dws-config.yaml`
+
+```yaml
+postgres:
+  host: "kv-psql-db"
+  port: 5432
+  database: mfi_kv
+  user: mfi
+  password: mfiddb
+
+dws:
+  port: 50051
 ```
 
 ## Use Cases

@@ -52,18 +52,45 @@ The node maps DDB data into the Aveva PI Asset Framework hierarchy:
 
 ## Docker Configuration
 
+The example compose files are sourced from [mfi_ddb_library/docker/aveva](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/docker/aveva).
+
+### `docker-compose.yaml`
+
 ```yaml
 services:
-  ddb-aveva-consumer:
-    build: ../mfi_ddb_database_nodes/aveva-pi
-    environment:
-      MQTT_BROKER: "mqtt:1883"
-      MQTT_TOPIC_FILTER: "mfi-v1.0-historian/#"
-      PI_SERVER: "piserver.local"
-      AF_DATABASE: "CMU_Mill19"
-      AF_TEMPLATE: "DefaultInstrumentTemplate"
-    depends_on:
-      - mqtt
+  aveva-pi-dws:
+    platform: linux/amd64
+    build:
+      context: ../../mfi_ddb_database_nodes/aveva-pi/dws
+      dockerfile: Dockerfile
+    container_name: mfi-aveva-pi-dws
+    image: cmumfi/mfi-ddb-aveva-pi-dws:latest
+    profiles:
+      - "aveva"
+      - "dbn"
+    ports:
+      - "50054:50054"
+    networks:
+      - mfi_network
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+    restart: always
+```
+
+### `config.yaml`
+
+```yaml
+url: "<PI Web API endpoint, e.g., http://piserver.local/piwebapi>"
+
+username: "<PI Web API username>"
+password: "<PI Web API password>"
+
+dataserver:
+  name: "<Aveva PI Data Server name>"
+  webid: "<PI Data Server WebID>"
+
+mqtt_connector:
+  path: "<Path to MQTT connector configuration file>"
 ```
 
 ## Querying Data from Aveva PI

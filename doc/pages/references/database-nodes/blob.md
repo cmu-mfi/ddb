@@ -91,39 +91,85 @@ Blob messages use a protobuf-encoded JSON envelope containing metadata and binar
 
 ## Docker Configuration (Local Storage)
 
+The example compose files are sourced from [mfi_ddb_library/docker/blob](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/docker/blob).
+
+### `docker-compose.yaml`
+
 ```yaml
 services:
-  blob-store-local:
-    build: ../mfi_ddb_database_nodes/blob
-    environment:
-      MQTT_BROKER: mqtt:1883
-      MQTT_TOPIC_FILTER: "mfi-v1.0-blob/#"
-      STORAGE_BACKEND: local
-      STORAGE_PATH: /data/blob-store
-    volumes:
-      - blob_data:/data/blob-store
-
-  ddb-kv-consumer:
-    build: ../mfi_ddb_database_nodes/kv-psql
-    environment:
-      MQTT_BROKER: mqtt:1883
-      MQTT_TOPIC_FILTER: "mfi-v1.0-kv/#"
-      DB_HOST: kv-psql
-      DB_PORT: 5432
-      DB_NAME: ddbbdb_kv
-      DB_USER: ddb_user
-      DB_PASSWORD: ddb_password
+  blob-connector:
+    platform: linux/amd64
+    build:
+      context: ../../mfi_ddb_database_nodes/blob/connector
+      dockerfile: Dockerfile
+    container_name: mfi-blob-connector
+    image: cmumfi/mfi-ddb-blob-connector:latest
+    profiles:
+      - "blob"
+      - "dbn"
     depends_on:
-      - blob-store-local
+      mqtt-broker:
+        condition: service_started
+    networks:
+      - mfi_network
+    volumes:
+      - ./connector-config.yaml:/app/config.yaml:ro
+    restart: on-failure
 
-  kv-psql:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_USER: ddb_user
-      POSTGRES_PASSWORD: ddb_password
-      POSTGRES_DB: ddbbdb_kv
-volumes:
-  blob_data:
+  blob-dws:
+    platform: linux/amd64
+    build:
+      context: ../../mfi_ddb_database_nodes/blob/dws
+      dockerfile: Dockerfile
+    container_name: mfi-blob-dws
+    image: cmumfi/mfi-ddb-blob-dws:latest
+    profiles:
+      - "blob"
+      - "dbn"
+    ports:
+      - "50053:50051"
+    depends_on:
+      mqtt-broker:
+        condition: service_started
+    networks:
+      - mfi_network
+    volumes:
+      - ./dws-config.yaml:/app/config.yaml:ro
+    restart: always
+
+networks:
+  mfi_network:
+    driver: bridge
+```
+
+### `connector-config.yaml`
+
+```yaml
+mqtt:
+  broker_address: "mqtt-broker"
+  broker_port: 1883
+  username: "username"
+  password: "password"
+  tls_enabled: false
+  debug: false
+
+config:
+  save_directory: "/data/blob_storage"
+  topic:
+    version: "1.0"
+    topic_family: "blob"
+    enterprise: "mfi"
+    site: null
+    area: null
+    device: null
+```
+
+### `dws-config.yaml`
+
+```yaml
+config:
+  blob_dir: "/data/blob_storage"
+  index_path: "/data/blob_storage/index.jsonl"
 ```
 
 ## Retrieving Blob Data

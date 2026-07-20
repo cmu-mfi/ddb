@@ -4,28 +4,11 @@
 
 The **Digital Data Backbone (DDB)** is a comprehensive Python-based framework for streaming data from various sources to the MFI Digital Data Backbone. It provides tools for data ingestion, metadata storage, and retrieval services — enabling seamless ingestion of real-time data from diverse sources including IoT sensors, file systems, and MQTT brokers into a central pub-sub messaging system.
 
-```{raw} html
-<h3 style="color: #094d57;">Core Capabilities</h3>
-<div class="sd-container-fluid sd-sphinx-override sd-w-100">
-<div class="row row-cols-2 row-cols-lg-3 g-3 g-md g-lg-4 p-3 p-md-0">
-<div class="col sd-card-wrapper"><div class="card sd-shadow-sm">
-<div class="card-body">
-<h5 class="sd-card-title">Connect</h5>
-<p class="sd-card-text">Equipment and sensors to the digital backbone through communication protocols and interfaces.</p>
-</div></div></div>
-<div class="col sd-card-wrapper"><div class="card sd-shadow-sm">
-<div class="card-body">
-<h5 class="sd-card-title">Collect</h5>
-<p class="sd-card-text">Time series data, video files, photographs, images and sketches from manufacturing equipment.</p>
-</div></div></div>
-<div class="col sd-card-wrapper"><div class="card sd-shadow-sm">
-<div class="card-body">
-<h5 class="sd-card-title">Contextualize</h5>
-<p class="sd-card-text">Data through user entered data descriptions (metadata) to ensure integrity and usefulness.</p>
-</div></div></div>
-</div>
-</div>
-```
+### Core Capabilities
+
+- **Connect**: Equipment and sensors to the digital backbone through communication protocols and interfaces.
+- **Collect**: Time series data, video files, photographs, images and sketches from manufacturing equipment.
+- **Contextualize**: Data through user entered data descriptions (metadata) to ensure integrity and usefulness.
 
 ## Architecture at a Glance
 
@@ -33,9 +16,11 @@ The DDB follows an event-driven architecture using MQTT as the central pub-sub b
 
 ```{mermaid}
 flowchart BT
-    subgraph Input["."]
+    subgraph Input["Data Adapters"]
         direction LR
-        DA[Data Adapter] --> S[Streamer]
+        DA1[Data Adapter 1]
+        DAx[Data Adapter ...]
+        DAn[Data Adapter n]
     end
 
     MQTT[Pub-Sub Broker<br>MQTT]
@@ -46,9 +31,13 @@ flowchart BT
         HISTORIAN[Historian/Time-Series]
     end
 
-    MQTT --> KV
-    MQTT --> BLOB
-    MQTT --> HISTORIAN
+    Retrieval[Retrieval API]
+
+    Input --> MQTT
+    MQTT --> Storage
+    MQTT --> Retrieval
+    Storage --> Retrieval
+
 
     classDef highlight fill:#094d57,stroke:#0a3d4d,color:white
     class MQTT highlight

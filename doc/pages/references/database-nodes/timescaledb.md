@@ -124,31 +124,108 @@ conn.close()
 
 ## Docker Configuration
 
+The example compose files are sourced from [mfi_ddb_library/docker/timescale](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/docker/timescale).
+
+### `docker-compose.yaml`
+
 ```yaml
 services:
-  timescaledb:
+  timescaledb-db:
+    platform: linux/amd64
     image: timescale/timescaledb:latest-pg16
+    container_name: mfi-timescaledb-db
     environment:
-      POSTGRES_USER: ddb_user
-      POSTGRES_PASSWORD: ddb_password
-      POSTGRES_DB: ddbbdb_historian
+      - POSTGRES_USER=tsdb
+      - POSTGRES_PASSWORD=timescale
+      - POSTGRES_DB=ddb_ts
     ports:
       - "5432:5432"
     volumes:
-      - timescaledb_data:/var/lib/postgresql/data
+      - ../.data/timescale_storage:/var/lib/postgresql/data
+    profiles:
+      - "ts"
+      - "dbn"
+    networks:
+      - mfi_network
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tsdb -d ddb_ts"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  ddb-timescale-consumer:
-    build: ../mfi_ddb_database_nodes/timescaledb
-    environment:
-      MQTT_BROKER: mqtt:1883
-      MQTT_TOPIC_FILTER: "mfi-v1.0-historian/#"
-      DB_HOST: timescaledb
-      DB_PORT: 5432
-      DB_NAME: ddbbdb_historian
-      DB_USER: ddb_user
-      DB_PASSWORD: ddb_password
+  timescaledb-connector:
+    platform: linux/amd64
+    build:
+      context: ../../mfi_ddb_database_nodes/timescaledb/connector
+      dockerfile: Dockerfile
+    container_name: mfi-timescaledb-connector
+    image: cmumfi/mfi-ddb-timescaledb-connector:latest
+    profiles:
+      - "ts"
+      - "dbn"
     depends_on:
-      - timescaledb
+      mqtt-broker:
+        condition: service_started
+      timescaledb-db:
+        condition: service_healthy
+    volumes:
+      - ./connector-config.yaml:/app/config.yaml:ro
+    networks:
+      - mfi_network
+    restart: on-failure
+
+  timescaledb-dws:
+    platform: linux/amd64
+    build:
+      context: ../../mfi_ddb_database_nodes/timescaledb/dws
+      dockerfile: Dockerfile
+    container_name: mfi-timescaledb-dws
+    image: cmumfi/mfi-ddb-timescaledb-dws:latest
+    profiles:
+      - "ts"
+      - "dbn"
+    ports:
+      - "50052:50051"
+    depends_on:
+      timescaledb-db:
+        condition: service_healthy
+    volumes:
+      - ./dws-config.yaml:/app/config.yaml:ro
+    networks:
+      - mfi_network
+    restart: always
+```
+
+### `connector-config.yaml`
+
+```yaml
+mqtt:
+  broker_address: "mqtt-broker"
+  broker_port: 1883
+  topic: "mfi-v1.0-historian/#"
+  username: ""
+  password: ""
+
+timescaledb:
+  host: "timescaledb-db"
+  port: 5432
+  user: "tsdb"
+  password: "timescale"
+  dbname: "ddb_ts"
+
+component_id: "default_component"
+```
+
+### `dws-config.yaml`
+
+```yaml
+timescaledb:
+  host: "timescaledb-db"
+  port: 5432
+  user: "tsdb"
+  password: "timescale"
+  dbname: "ddb_ts"
 ```
 
 ## Use Cases

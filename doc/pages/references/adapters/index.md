@@ -2,13 +2,19 @@
 
 Data adapters connect manufacturing equipment and external data sources to the Digital Data Backbone (DDB). Each adapter handles a specific protocol or interface, translating incoming data into DDB's standardized format for streaming via MQTT.
 
+(available-adapters)=
 ## Available Adapters
 
 | Adapter | Description | Recommended Topic Family |
 |---------|-------------|--------------------------|
 | [gRPC](grpc.md) | Connects to gRPC services to stream data | `historian` |
-| [MQTT](mqtt.md) | Subscribes to MQTT topics and relays into DDB | `kv` / `historian` |
+| [Key-Value Store](key_value_store.md) | Reads data from PostgreSQL databases and publishes as key-value pairs | `kv` |
+| [Local Files](local_files.md) | Reads structured data (CSV/JSON) from local filesystem | `historian` |
+| [MQTT](mqtt.md) | Subscribes to MQTT topics and relays into DDB | `historian` |
 | [MTConnect](mtconnect.md) | Interfaces with MTConnect-enabled CNC machines | `historian` |
+| [ROS](ros.md) | Subscribes to ROS1 topics for real-time data streaming | `historian` |
+| [ROS2](ros2.md) | Subscribes to ROS2 topics using rclpy for data streaming | `historian` |
+| [ROS Files](ros_files.md) | Captures Image and PointCloud2 messages as file blobs | `blob` |
 
 ## How Data Adapters Work
 
