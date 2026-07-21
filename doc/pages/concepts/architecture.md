@@ -54,7 +54,9 @@ flowchart BT
     style Input fill:transparent,stroke:#666
 ```
 
-> Arrow direction in the diagram above shows the data flow in the framework. It doesn't represent the direction of requests.
+```{note}
+Arrow direction in the diagram above shows the data flow in the framework. It doesn't represent the direction of requests.
+```
 
 ## Component Descriptions
 
@@ -68,7 +70,7 @@ The top layer shows example current and future generators of information for the
 ### Data Adapters
 Data adapters monitor the data generators for events. They listen for data changes or updates from the data generators and pass the information to the MQTT Broker in the correct format. Each adapter handles a specific type of data source.
 
-[Read more about available adapters →](references/adapters/mtconnect.md)
+[Read more about available adapters →](../references/adapters/index.md#available-adapters)
 
 ### Publish-Subscribe Broker (MQTT)
 The MQTT Broker acts as the central communication hub in the pub-sub model. It receives messages from streamers and distributes them to the appropriate subscribers based on topic subscriptions. This decoupling allows new database nodes and consumers to be added without modifying existing components.
@@ -84,10 +86,10 @@ The cloud storage layer contains different storage solutions where data is store
 
 | Database Node | Type | Compatible Payloads | Description |
 |---------------|------|---------------------|-------------|
-| [Aveva PI](references/database-nodes/aveva-pi.md) | Time-Series | historian | Industrial historian for time-series data |
-| [Blob](references/database-nodes/blob.md) | File Storage | blob, kv | Cloud file storage for binary objects |
-| [KV-PSQL](references/database-nodes/kv-psql.md) | Key-Value Store | kv | PostgreSQL-based key-value store |
-| [TimescaleDB](references/database-nodes/timescaledb.md) | Time-Series | historian | PostgreSQL-based time-series database |
+| [Aveva PI](../references/database-nodes/aveva-pi.md) | Time-Series | historian | Industrial historian for time-series data |
+| [Blob](../references/database-nodes/blob.md) | File Storage | blob, kv | Cloud file storage for binary objects |
+| [KV-PSQL](../references/database-nodes/kv-psql.md) | Key-Value Store | kv | PostgreSQL-based key-value store |
+| [TimescaleDB](../references/database-nodes/timescaledb.md) | Time-Series | historian | PostgreSQL-based time-series database |
 
 ### Retrieval API
 This layer provides retrieval services that can access data stored in the cloud storage. It consists of two components:
@@ -116,4 +118,4 @@ Where `topic_family` is one of:
 - `kv` — Key-value / non-time-series data (JSON format)
 - `blob` — Binary large object data (protobuf + binary payload)
 
-[Learn more about the schema →](references/payload-schema.md)
+[Learn more about the schema →](../references/payload-schema.md)

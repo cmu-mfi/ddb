@@ -9,14 +9,14 @@ Get up and running with the MFI Digital Data Backbone in minutes using Docker Co
 
 ## Single Node Deployment with Docker
 
-* **1. Clone the Repository**
+**1. Clone the Repository**
 
 ```bash
 git clone https://github.com/cmu-mfi/mfi_ddb_library.git
 cd mfi_ddb_library/docker
 ```
 
-* **2. Start All Services**
+**2. Start All Services**
 
 ```bash
 docker compose up -d
@@ -28,7 +28,7 @@ This starts all core services including:
 - **Retrieval Web Service (RWS)** — REST API for data queries
 - **Database Nodes** — configurable storage backends
 
-* **3. Verify Services Are Running**
+**3. Verify Services Are Running**
 
 ```bash
 docker compose ps

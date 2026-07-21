@@ -1,4 +1,4 @@
-# MFI Digital Data Backbone Documentation
+# MFI Digital Data Backbone
 
 ```{button-link} https://cmu-mfi.github.io/
 :color: primary
@@ -6,13 +6,6 @@
 cmu-mfi.github.io
 ```
 <!-- ref: https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html -->
-
-```{raw} html
-<h1 style="text-align: center;"> MFI Digital Data Backbone </h1>
-<p style="font-size: 20px; color: #555;">Streaming data from manufacturing equipment to the cloud</p>
-```
-
-## Welcome
 
 The **Manufacturing Futures Institute** at Carnegie Mellon University has embarked on a mission to become a leader in the digital transformation of manufacturing. The Digital Data Backbone (DDB) is the foundational infrastructure for connecting, collecting, and contextualizing research data generated throughout the Mill 19 facility.
 
@@ -59,3 +52,4 @@ pages/references/database-nodes/index.md
 
 pages/deployments/cmu-mill19/introduction.md
 pages/deployments/cmu-mill19/equipments.md
+```

@@ -12,36 +12,9 @@ The **Digital Data Backbone (DDB)** is a comprehensive Python-based framework fo
 
 ## Architecture at a Glance
 
-The DDB follows an event-driven architecture using MQTT as the central pub-sub broker:
+The DDB follows an event-driven architecture using MQTT as the central pub-sub broker.
 
-```{mermaid}
-flowchart BT
-    subgraph Input["Data Adapters"]
-        direction LR
-        DA1[Data Adapter 1]
-        DAx[Data Adapter ...]
-        DAn[Data Adapter n]
-    end
-
-    MQTT[Pub-Sub Broker<br>MQTT]
-
-    subgraph Storage["Database Nodes"]
-        KV[Key-Value Store]
-        BLOB[Blob Storage]
-        HISTORIAN[Historian/Time-Series]
-    end
-
-    Retrieval[Retrieval API]
-
-    Input --> MQTT
-    MQTT --> Storage
-    MQTT --> Retrieval
-    Storage --> Retrieval
-
-
-    classDef highlight fill:#094d57,stroke:#0a3d4d,color:white
-    class MQTT highlight
-```
+![ddb-layers](../files/DDB_05_01_2025.png)
 
 Data flows from **Data Adapters** → **MQTT Broker** → **Database Nodes**. Each component is independently configurable and pluggable.
 
