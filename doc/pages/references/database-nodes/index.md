@@ -11,6 +11,17 @@ Database nodes receive data from the DDB topic structure and persist it into spe
 | [Key-Value PostgreSQL](kv-psql.md) | Persists key-value data into a relational PostgreSQL database | `kv` (JSON) |
 | [TimescaleDB](timescaledb.md) | Time-series historian built on PostgreSQL/TimescaleDB for SQL analytics | `historian` (Sparkplug B) |
 
+**Links**
+
+```{toctree}
+:maxdepth: 1
+
+aveva-pi.md
+blob.md
+kv-psql.md
+timescaledb.md
+```
+
 ## How Database Nodes Work
 
 All database nodes inherit from the `BaseDatabaseNode` class and share common behaviors:

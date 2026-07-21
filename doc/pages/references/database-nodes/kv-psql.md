@@ -1,261 +1,154 @@
-# KV-PSQL Database Node
+# PostgreSQL Key-Value Store Database Node
 
-The KV-PSQL (Key-Value PostgreSQL) database node stores non-time-series data from the DDB into a PostgreSQL relational database. It is designed for metadata, configuration, and event-based data storage.
+<a href="https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes/kv-psql" class="inline-button"><i class="fab fa-github"></i>mfi-ddb-kv-psql</a>
+
+This directory contains the PostgreSQL-based key-value store database node for the MFI-DDB framework.
 
 ## Overview
 
-KV-PSQL provides persistent key-value storage with full SQL query capabilities via PostgreSQL. Unlike time-series historians, this node handles JSON documents indexed by their MQTT topic path.
+This database node stores MQTT data in a PostgreSQL database with three columns:
+- `timestamp`: The time when the MQTT message was received (TIMESTAMPTZ)
+- `topic`: The MQTT topic the message was published to (TEXT)
+- `payload`: The JSON payload from the MQTT message (JSONB)
 
-| Property | Value |
-|----------|-------|
-| **Node Type** | Key-Value Store |
-| **Compatible Payloads** | `kv` (JSON), `blob` (metadata) |
-| **Storage Engine** | PostgreSQL relational database |
-| **Query Interface** | SQL, REST API via Retrieval Web Service |
+## Initial Setup
 
-## Configuration Parameters
+### 1. Install and setup PostgreSQL
 
-| Parameter | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| `DB_HOST` | Yes | PostgreSQL host address | `kv-psql` |
-| `DB_PORT` | No | PostgreSQL port (default: 5432) | `5432` |
-| `DB_NAME` | Yes | Database name | `ddbdb_kv` |
-| `DB_USER` | Yes | Database username | `ddb_user` |
-| `DB_PASSWORD` | Yes | Database password | — |
-| `MQTT_TOPIC_FILTER` | Yes | MQTT topic to subscribe to | `mfi-v1.0-kv/#` |
+**Ubuntu/Debian:**
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
 
-## Data Flow
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
 
-```{mermaid}
-flowchart LR
-    MQTT[MQTT Broker] --> DBN[KV-PSQL Node]
-    DBN --> PG[(PostgreSQL)]
-    
-    classDef highlight fill:#094d57,stroke:#0a3d4d,color:white
-    class MQTT highlight
+# Create a database user. Remember the password you set
+sudo -u postgres createuser -P mfi
+
+# Create database
+sudo -u postgres createdb -O mfi mfi_kv
+
+# Verify database setup
+psql -U mfi -d mfi_kv -h localhost
 ```
 
-1. The node subscribes to the configured MQTT topic filter (typically `mfi-v1.0-kv/#`)
-2. Incoming JSON messages are parsed and stored as key-value pairs
-3. Each unique topic path becomes a primary key in the database
-4. The message body is stored as a JSONB column for flexible querying
+### 2. Initialize Database Schema
+
+Run the initialization script to create the kv_data table:
+
+```bash
+cd kv-psql/dws
+python3 init_db.py --host localhost --port 5432 --database mfi_kv --user mfi --password your_password
+```
+
+### 3. Configure config.yaml
+
+Edit `config.yaml` file in the `dws` and `connector` directory.
+
+### 4. Run Tests (Optional)
+
+To run the test suite:
+
+```bash
+cd kv-psql
+pytest tests/ -v
+```
+
+For a fresh test database, you can use Docker:
+
+```bash
+docker run --rm -e POSTGRES_PASSWORD=testpass -e POSTGRES_DB=test_mfi_kv -p 5433:5432 postgres:14
+```
+
+Then run tests with:
+```bash
+pytest tests/ -v --tb=short
+```
+
+## Directory Structure
+
+```
+kv-psql/
+├── connector/              # MQTT connector components
+│   └── connector.py        # MQTT to database connector
+├── dws/                    # Database Web Service components
+│   ├── proto/              # Protobuf definitions
+│   │   ├── models.proto
+│   │   └── service.proto
+│   ├── gen/                # Generated protobuf code
+│   │   ├── models_pb2.py
+│   │   ├── models_pb2_grpc.py
+│   │   ├── service_pb2.py
+│   │   └── service_pb2_grpc.py
+│   ├── server.py           # gRPC server implementation
+│   └── init_db.py          # Database initialization script
+└── tests/                  # Test files
+    └── test_dws.py         # DWS server tests
+```
+
+## Installation
+
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+# or
+uv sync
+```
+
+2. Generate protobuf code (if proto files were modified):
+```bash
+cd dws
+bash build_all.sh
+```
+
+## Usage
+
+### Starting the DWS Server
+
+```bash
+python dws/server.py
+```
+
+The server will read configuration from `dws/config.yaml`.
+
+### Starting the Connector
+
+```bash
+python connector/connector.py
+```
+
+The connector will read configuration from `connector/config.yaml`.
 
 ## Database Schema
 
+The database uses a single table `kv_data` with the following structure:
+
 ```sql
-CREATE TABLE IF NOT EXISTS kv_store (
+CREATE TABLE kv_data (
     id SERIAL PRIMARY KEY,
-    topic_path VARCHAR(512) UNIQUE NOT NULL,
-    metadata JSONB,           -- Streaming config, adapter config
-    payload JSONB,            -- The actual data content
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
+    timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    topic TEXT NOT NULL,
+    payload JSONB NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-
-CREATE INDEX idx_kv_topic ON kv_store USING GIN (topic_path gin_trgm_ops);
 ```
 
-## Storing Data
+### Indexes
 
-### Via MQTT (Automatic)
+- `idx_kv_data_timestamp`: For efficient timestamp-based queries
+- `idx_kv_data_topic`: For efficient topic-based queries
+- `idx_kv_data_topic_timestamp`: For efficient combined topic and timestamp queries
+- `idx_kv_data_created_at`: For efficient created_at queries
 
-Data is automatically stored when an adapter publishes to a `kv` topic. The topic path becomes the key:
+## Running Tests
 
-| Topic Path | Stored As |
-|-----------|-----------|
-| `mfi-v1.0-kv/CMU/Mill19/Lab/device-metadata` | Key: `CMU/Mill19/Lab/device-metadata` |
-| `mfi-v1.0-kv/CMU/Mill19/config/system-settings` | Key: `CMU/Mill19/config/system-settings` |
+### Pytest with Test Database
 
-### Via SQL Directly
-
-```sql
--- Insert a new key-value record
-INSERT INTO kv_store (topic_path, metadata, payload)
-VALUES (
-    'CMU/Mill19/Lab/device-metadata',
-    '{"namespace": "mfi-v1.0-kv", "enterprise": "CMU"}',
-    '{
-        "device_name": "HAAS-UMC750",
-        "manufacturer": "HAAS Automation",
-        "model": "UMC-750"
-    }'
-) ON CONFLICT (topic_path) DO UPDATE SET payload = EXCLUDED.payload;
-```
-
-## Querying Data
-
-### Using psql
+To run tests with a temporary test database:
 
 ```bash
-psql -h localhost -U ddb_user -d ddbbdb_kv
+pytest tests/ -v
 ```
 
-```sql
--- Get a specific record by topic path
-SELECT * FROM kv_store WHERE topic_path = 'CMU/Mill19/Lab/device-metadata';
-
--- Query nested JSON fields
-SELECT topic_path, payload->>'device_name' AS device_name
-FROM kv_store
-WHERE payload ? 'device_name';
-
--- List all records for an enterprise/site
-SELECT topic_path, created_at
-FROM kv_store
-WHERE topic_path LIKE 'CMU/Mill19/%'
-ORDER BY created_at DESC;
-
--- Update a record
-UPDATE kv_store 
-SET payload = jsonb_set(payload, '{status}', '"offline"'),
-    updated_at = NOW()
-WHERE topic_path = 'CMU/Mill19/Lab/device-metadata';
-```
-
-### Using Python
-
-```python
-import psycopg2
-import json
-
-conn = psycopg2.connect(
-    host="localhost", dbname="ddbdb_kv",
-    user="ddb_user", password="secret"
-)
-
-# Get a record
-cur = conn.cursor()
-cur.execute("SELECT payload FROM kv_store WHERE topic_path = %s", 
-            ("CMU/Mill19/Lab/device-metadata",))
-record = cur.fetchone()[0]
-print(json.dumps(record, indent=2))
-
-conn.close()
-```
-
-## Docker Configuration
-
-The example compose files are sourced from [mfi_ddb_library/docker/kv-psql](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/docker/kv-psql).
-
-### `docker-compose.yaml`
-
-```yaml
-services:
-  kv-psql-db:
-    platform: linux/amd64
-    image: postgres:15-alpine
-    container_name: mfi-kv-psql-db
-    environment:
-      - POSTGRES_USER=mfi
-      - POSTGRES_PASSWORD=mfiddb
-      - POSTGRES_DB=mfi_kv
-    ports:
-      - "5431:5432"
-    profiles:
-      - "kv"
-      - "dbn"
-    volumes:
-      - ../.data/kv_psql_storage:/var/lib/postgresql/data
-    networks:
-      - mfi_network
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U mfi -d mfi_kv"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  kv-psql-connector:
-    platform: linux/amd64
-    build:
-      context: ../../mfi_ddb_database_nodes/kv-psql/connector
-      dockerfile: Dockerfile
-    container_name: mfi-kv-psql-connector
-    image: cmumfi/mfi-ddb-kv-psql-connector:latest
-    profiles:
-      - "kv"
-      - "dbn"
-    depends_on:
-      mqtt-broker:
-        condition: service_started
-      kv-psql-db:
-        condition: service_healthy
-    networks:
-      - mfi_network
-    volumes:
-      - ./connector-config.yaml:/app/config.yaml
-    restart: always
-
-  kv-psql-dws:
-    platform: linux/amd64
-    build:
-      context: ../../mfi_ddb_database_nodes/kv-psql/dws
-      dockerfile: Dockerfile
-    container_name: mfi-kv-psql-dws
-    image: cmumfi/mfi-ddb-kv-psql-dws:latest
-    profiles:
-      - "kv"
-      - "dbn"
-    ports:
-      - "50051:50051"
-    command: >
-      sh -c "python init_db.py && python server.py"
-    depends_on:
-      kv-psql-db:
-        condition: service_healthy
-    networks:
-      - mfi_network
-    volumes:
-      - ./dws-config.yaml:/app/config.yaml
-    restart: always
-```
-
-### `connector-config.yaml`
-
-```yaml
-mqtt:
-  broker: "mqtt-broker"
-  port: 1883
-  client_id: kv-psql-connector
-  topics:
-    - "mfi-v1.0-kv/#"
-
-postgres:
-  host: "kv-psql-db"
-  port: 5432
-  database: mfi_kv
-  user: mfi
-  password: mfiddb
-```
-
-### `dws-config.yaml`
-
-```yaml
-postgres:
-  host: "kv-psql-db"
-  port: 5432
-  database: mfi_kv
-  user: mfi
-  password: mfiddb
-
-dws:
-  port: 50051
-```
-
-## Use Cases
-
-1. **Device Metadata** — Store device descriptions, manufacturer info, serial numbers
-2. **Configuration Management** — Persist system configurations and settings
-3. **Event Logging** — Record non-time-series events (maintenance logs, alarms)
-4. **Relational Data Integration** — Join DDB data with business relational data in PostgreSQL
-
-## Limitations
-
-- Not designed for high-frequency time-series writes; use Aveva PI or TimescaleDB for that
-- JSONB storage is less efficient than columnar stores for large datasets
-- Requires a running PostgreSQL instance (PostgreSQL 12+ recommended)
-
-## Related Links
-
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [`mfi_ddb_database_nodes`](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes/kv-psql) — Source code repository
+Tests will automatically create and clean up a test database.

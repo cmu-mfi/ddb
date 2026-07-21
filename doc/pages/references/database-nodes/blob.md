@@ -1,152 +1,72 @@
-# Blob Database Node
+# Blob DWS (Data Warehouse Service)
 
-The Blob database node stores binary large objects (files, images, documents) from the DDB into cloud or local file storage. It provides persistent, scalable object storage for non-textual data.
+<a href="https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes/blob" class="inline-button"><i class="fab fa-github"></i>mfi-ddb-blob</a>
 
-## Overview
+A gRPC-based data warehouse service for storing and retrieving binary blob files, with support for MQTT-based ingestion and a PI Web API data source.
 
-Blob storage handles large files and binary payloads that cannot be efficiently stored in key-value stores or time-series databases. Data is organized by topic path within a configurable storage backend (local filesystem, S3-compatible, Azure Blob, etc.).
+---
 
-| Property | Value |
-|----------|-------|
-| **Node Type** | Object/Blob Storage |
-| **Compatible Payloads** | `blob` (binary), `kv` (metadata) |
-| **Storage Backends** | Local filesystem, S3, Azure Blob, Google Cloud Storage |
-| **Protocol** | MQTT consumer + REST API via Retrieval Web Service |
+## Project Structure
 
-## Configuration Parameters
-
-| Parameter | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| `MQTT_TOPIC_FILTER` | Yes | MQTT topic to subscribe to | `mfi-v1.0-blob/#` |
-| `STORAGE_BACKEND` | No | Storage type: `local`, `s3`, `azure` | `local` |
-| `STORAGE_PATH` / `BUCKET` | No | Local path or cloud bucket name | `/data/blob-store` |
-
-## Data Flow
-
-```{mermaid}
-flowchart LR
-    MQTT[MQTT Broker] --> DBN[Blob Node]
-    DBN --> Storage[(Blob Storage)]
-    
-    classDef highlight fill:#094d57,stroke:#0a3d4d,color:white
-    class MQTT highlight
+```
+blob/
+├── connector/
+│   ├── connector.py        # MQTT subscriber — ingests blob messages and saves to disk
+│   └── config.yaml         # Connector config (broker address, topic, save directory)
+├── dws/
+│   ├── gen/           # gRPC server — serves blob data to clients
+│   │   ├── models.pb2_grpc.py
+│   │   ├── models.pb2.py
+│   │   ├── service.pb2_grpc.py
+│   │   └── service.pb2.py 
+│   ├── proto/           # gRPC server — serves blob data to clients
+│   │   ├── models.proto
+│   │   └── server.proto
+│   ├── server.py           # gRPC server — serves blob data to clients
+│   ├── blobapi.py          # Core blob storage API (read/query logic)
+│   ├── error_codes.py      # gRPC error code definitions
+│   └── config.yaml         # DWS server config (blob_dir, index_path)
+├── gen/
+│   ├── models_pb2.py       # Generated protobuf models
+│   ├── service_pb2.py      # Generated protobuf service
+│   └── service_pb2_grpc.py # Generated gRPC service
+└── tests/
+    ├── test_blobapi_unit.py          # Unit tests for BlobAPI (mocked, no real files)
+    ├── test_blobapi_integration.py   # Integration tests for BlobAPI (real index.jsonl)
+    ├── test_connector_unit.py        # Unit tests for connector (mocked, no MQTT)
+    └── test_connector_integration.py # Integration tests for connector (live MQTT)
 ```
 
-1. The node subscribes to the configured MQTT topic filter (typically `mfi-v1.0-blob/#`)
-2. Incoming messages contain a JSON envelope with metadata and binary payload
-3. The binary data is written to the configured storage backend at the path derived from the topic
-4. Metadata about the blob is optionally stored in the kv store
+---
 
-## Storage Backends
+## Components
 
-### Local Filesystem (Default)
+### Connector (`connector/connector.py`)
+Subscribes to an MQTT broker and listens for blob messages. On receiving a message it:
+- Validates the message format
+- Saves the blob file to disk
+- Saves a metadata `.json` file
+- Appends an entry to `index.jsonl`
 
-```yaml
-blob_node:
-  storage_backend: "local"
-  storage_path: "/var/lib/ddb/blob-store"
-```
+### DWS Server (`dws/server.py`)
+A gRPC server exposing three endpoints:
+- `GetDataPoint` — returns the blob closest to a requested timestamp
+- `GetDataRange` — returns a paginated list of blobs within a time range
+- `StreamData` — not yet implemented
 
-Files are written to disk preserving the topic path structure:
-- Topic: `mfi-v1.0-blob/CMU/Mill19/Lab/photo-001.jpg`
-- File: `/var/lib/ddb/blob-store/CMU/Mill19/Lab/photo-001.jpg`
+### BlobAPI (`dws/blobapi.py`)
+Core read logic used by the DWS server. Reads from `index.jsonl` and loads blob files from disk. Supports:
+- Exact and wildcard topic matching (`sensors/temp` or `sensors/#`)
+- Closest-past or closest-future lookup
+- Paginated range queries with per-topic token tracking
 
-### S3-Compatible (AWS, MinIO, etc.)
 
-```yaml
-blob_node:
-  storage_backend: "s3"
-  bucket: "ddb-blob-storage"
-  region: "us-east-1"
-  endpoint_url: "http://minio.local:9000"  # For MinIO or custom endpoints
-  access_key: "${S3_ACCESS_KEY}"
-  secret_key: "${S3_SECRET_KEY}"
-```
+## Configuration
 
-### Azure Blob Storage
-
-```yaml
-blob_node:
-  storage_backend: "azure"
-  container_name: "ddb-blobs"
-  connection_string: "${AZURE_CONNECTION_STRING}"
-```
-
-## Message Format
-
-Blob messages use a protobuf-encoded JSON envelope containing metadata and binary data:
-
-```json
-{
-    "message_id": "msg-001",
-    "topic": "mfi-v1.0-blob/CMU/Mill19/Lab/photo-001.jpg",
-    "metadata": {
-        "content_type": "image/jpeg",
-        "size_bytes": 245760,
-        "timestamp": "2025-01-15T10:30:00Z"
-    },
-    "binary_data": "<base64-encoded binary content>"
-}
-```
-
-## Docker Configuration (Local Storage)
-
-The example compose files are sourced from [mfi_ddb_library/docker/blob](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/docker/blob).
-
-### `docker-compose.yaml`
-
-```yaml
-services:
-  blob-connector:
-    platform: linux/amd64
-    build:
-      context: ../../mfi_ddb_database_nodes/blob/connector
-      dockerfile: Dockerfile
-    container_name: mfi-blob-connector
-    image: cmumfi/mfi-ddb-blob-connector:latest
-    profiles:
-      - "blob"
-      - "dbn"
-    depends_on:
-      mqtt-broker:
-        condition: service_started
-    networks:
-      - mfi_network
-    volumes:
-      - ./connector-config.yaml:/app/config.yaml:ro
-    restart: on-failure
-
-  blob-dws:
-    platform: linux/amd64
-    build:
-      context: ../../mfi_ddb_database_nodes/blob/dws
-      dockerfile: Dockerfile
-    container_name: mfi-blob-dws
-    image: cmumfi/mfi-ddb-blob-dws:latest
-    profiles:
-      - "blob"
-      - "dbn"
-    ports:
-      - "50053:50051"
-    depends_on:
-      mqtt-broker:
-        condition: service_started
-    networks:
-      - mfi_network
-    volumes:
-      - ./dws-config.yaml:/app/config.yaml:ro
-    restart: always
-
-networks:
-  mfi_network:
-    driver: bridge
-```
-
-### `connector-config.yaml`
-
+### Connector (`connector/config.yaml`)
 ```yaml
 mqtt:
-  broker_address: "mqtt-broker"
+  broker_address: "127.0.0.1"
   broker_port: 1883
   username: "username"
   password: "password"
@@ -154,57 +74,103 @@ mqtt:
   debug: false
 
 config:
-  save_directory: "/data/blob_storage"
-  topic:
-    version: "1.0"
-    topic_family: "blob"
-    enterprise: "mfi"
-    site: null
-    area: null
-    device: null
+  save_directory: "/path/to/blob/storage"
+  topic: "mfi-v1.0-blob/site/#"
 ```
 
-### `dws-config.yaml`
-
+### DWS Server (`dws/config.yaml`)
 ```yaml
 config:
-  blob_dir: "/data/blob_storage"
-  index_path: "/data/blob_storage/index.jsonl"
+  blob_dir: "/path/to/blob/storage"
+  index_path: "/path/to/blob/storage/index.jsonl"
 ```
 
-## Retrieving Blob Data
+---
 
-### Via Retrieval Web Service (Recommended)
+## Running
 
+### Start the Connector
 ```bash
-# Download a file via the RWS API
-curl -o photo.jpg "http://localhost:8000/api/v1/blob/CMU/Mill19/Lab/photo-001.jpg"
+python connector/connector.py connector/config.yaml
 ```
 
-### Via Local Filesystem
-
-Access files directly from the storage path:
-
+### Start the DWS Server
 ```bash
-ls /var/lib/ddb/blob-store/CMU/Mill19/Lab/
-# photo-001.jpg  report-2025.pdf  firmware.bin
+cd dws
+python server.py
 ```
 
-## Use Cases
+---
 
-1. **Image Storage** — Store camera captures, inspection images, or photos from equipment
-2. **Document Archiving** — Archive PDFs, reports, and configuration documents
-3. **Firmware/Software Distribution** — Store binary files for device OTA updates
-4. **Large Data Export** — Handle data too large for key-value or time-series storage
+## Storage Format
 
-## Limitations
+All blobs are stored in a flat directory with three file types per blob:
 
-- Binary payload size limited by MQTT message size (typically < 256KB per message)
-- For very large files, consider chunked transfer protocols outside the DDB scope
-- Local filesystem backend has no built-in redundancy; use S3/Azure for production durability
-- Metadata must be included in each message envelope
+| File | Description |
+|---|---|
+| `<file_id>.<ext>` | The raw blob file |
+| `<file_id>.json` | Metadata (topic, timestamp, trial_id, file_type) |
+| `index.jsonl` | One JSON record per blob for fast querying |
 
-## Related Links
+### index.jsonl record format
+```json
+{
+  "file_id": "abc123def456",
+  "trial_id": "trial_1",
+  "timestamp": "1704067200.0",
+  "topic": "mfi-v1.0-blob/CMU/filesystem/data",
+  "file_type": "jpg"
+}
+```
 
-- [AWS S3 Documentation](https://docs.aws.amazon.com/s3/)
-- [`mfi_ddb_database_nodes`](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes/blob) — Source code repository
+---
+
+## Testing
+
+### Run all unit tests
+```bash
+pytest -v -s tests/test_blobapi_unit.py tests/test_connector_unit.py
+```
+
+### Run BlobAPI integration tests
+Requires a real `index.jsonl` and blob files in `tests/test_output/`:
+```bash
+pytest -v -s tests/test_blobapi_integration.py
+```
+
+### Run connector integration tests
+Requires a real MQTT broker and `connector/config.yaml`:
+```bash
+pytest -v -s tests/test_connector_integration.py
+```
+
+### Run all tests
+```bash
+pytest -v -s tests/
+```
+
+Unit tests use synthetic in-memory data and run without any external dependencies. Integration tests skip automatically if the required files or broker are not available.
+
+---
+
+## gRPC API
+
+### GetDataPoint
+Returns the single blob closest to the requested timestamp for a given topic.
+
+| Field | Type | Description |
+|---|---|---|
+| `topic` | string | Topic name, supports wildcard (`/#`) |
+| `timestamp` | Timestamp | Target timestamp |
+| `do_closest_past` | bool | If true, returns closest past; if false, closest future |
+
+### GetDataRange
+Returns a paginated list of blobs within a time range.
+
+| Field | Type | Description |
+|---|---|---|
+| `topic` | string | Topic name, supports wildcard (`/#`) |
+| `start_time` | Timestamp | Range start (exclusive) |
+| `end_time` | Timestamp | Range end (inclusive) |
+| `page_size` | int32 | Results per page (default: 1000) |
+| `page_token` | string | Pagination token from previous response |

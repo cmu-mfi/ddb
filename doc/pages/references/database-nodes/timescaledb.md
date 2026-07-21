@@ -1,248 +1,268 @@
-# TimescaleDB Database Node
+# TimeScaleDB Database Node
 
-The TimescaleDB database node stores time-series data from the DDB into a PostgreSQL/TimescaleDB instance, enabling powerful SQL-based analytics on manufacturing data.
+<a href="https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes/timescaledb" class="inline-button"><i class="fab fa-github"></i>mfi-ddb-timescaledb</a>
 
-## Overview
+This directory implements an open-source historian replacement for Aveva PI using TimeScaleDB. It follows the standard MFI-DDB database node pattern:
 
-TimescaleDB is an open-source time-series database built as a PostgreSQL extension. It provides high-performance time-series storage with full SQL query capabilities, making it ideal for analytics and reporting use cases.
+* **Connector:** Subscribes to MQTT historian topics, decodes incoming Sparkplug B payloads, and batches writes to TimeScaleDB.
+* **Database:** TimeScaleDB (PostgreSQL enhanced with time-series extensions/hypertables).
+* **DWS (Data Web Service):** A gRPC service that exposes APIs for high-performance time-series data retrieval (`GetDataPoint`, `GetDataRange`, and `StreamData` using an intelligent polling tail-loop).
 
-| Property | Value |
-|----------|-------|
-| **Node Type** | Time-Series Historian |
-| **Compatible Payloads** | `historian` (Sparkplug B) |
-| **Storage Engine** | PostgreSQL + TimescaleDB extension |
-| **Query Interface** | SQL (psql, JDBC, ODBC) |
+## Folder Structure
 
-## Configuration Parameters
+```text
+timescaledb/
+│
+├── connector/                      # THE INGESTION ENGINE (Write Path)
+│   │                               # Manages real-time MQTT subscription and high-throughput ingestion.
+│   │
+│   ├── main.py                     # Pipeline Coordinator & Queue Worker
+│   │                               └── Core Logic: 
+│   │                                   • Establishes the Paho-MQTT client connection loop.
+│   │                                   • Subscribes to the industrial network root topic (`mfi-v1.0-historian/#`).
+│   │                                   • Intercepts raw Sparkplug B Protocol Buffer binary payloads.
+│   │                                   • Extracts timestamps, maps metric names, and determines type classifications.
+│   │                                   • Hands data over to an in-memory `queue.Queue` buffer with drop-safe boundaries.
+│   │                                   • Spawns a background worker thread (`db_batch_writer_worker`) that runs a 
+│   │                                     micro-batch loop, flushing items when `max_batch_size` 
+│   │                                     or `flush_interval_sec` is reached to prevent write lockouts.
+│   │
+│   ├── db.py                       # TimeScaleDB Writer Client Layer
+│   │                               └── Core Logic:
+│   │                                   • Concrete implementation subclassing the core database writer interface.
+│   │                                   • Implements the `insert_rows(rows)` method using Psycopg single-transaction blocks.
+│   │                                   • Uses bulk execution arrays (`executemany`) targeting the Timescale hypertable.
+│   │                                   • Handles connection drop-outs, transaction rollbacks, and reconnection retries.
+│   │
+│   ├── config.yaml                 # Connector Operational Profiles
+│   │                               └── Details: Broking addresses, authentication credentials, batching limits 
+│   │                                            (sizes/timeouts), and target PostgreSQL credentials.
+│   │
+│   └── requirements.txt            # Ingestion Dependencies (paho-mqtt, psycopg2-binary, sparkplug-b-protobuf).
+│
+├── dws/                            # THE DATA WEB SERVICE (Read Path)
+│   │                               # Exposes the standard MFI-DDB gRPC query and streaming interfaces.
+│   │
+│   ├── server.py                   # gRPC Interface Layer (DataService)
+│   │                               └── Core Logic:
+│   │                                   • Implements the generated Protobuf gRPC base class compiled specs.
+│   │                                   • `GetDataPoint`: Uses a one-sided timestamp lookup.
+│   │                                     - `do_closest_past=True` returns the newest row at or before the timestamp.
+│   │                                     - `do_closest_past=False` returns the oldest row at or after the timestamp.
+│   │                                     - If no row exists on that side, the response stays empty.
+│   │                                   • `GetDataRange`: Handles time-bounded pagination windows and returns an
+│   │                                     ISO-8601 string continuation token based on the last row timestamp.
+│   │                                     It is suitable for simple paging, but exact same-timestamp collisions are not
+│   │                                     fully disambiguated yet.
+│   │                                   • `StreamData`: Executes a polling live tailing loop. It yields records
+│   │                                     immediately when present, sleeps for a fixed interval when idle, and monitors
+│   │                                     `context.is_active()` to free resources instantly if a client drops.
+│   │
+│   ├── db.py                       # TimeScaleDB Reader Client Layer
+│   │                               └── Core Logic:
+│   │                                   • Manages a thread-safe `ThreadedConnectionPool` to isolate concurrent read operations.
+│   │                                   • Wraps all queries in safe `with` context managers to prevent socket leaks.
+│   │                                   • Supports exact topic matches and MQTT wildcards.
+│   │                                     - Exact topics use `topic = %s`.
+│   │                                     - Wildcards (`+` and `#`) are translated into PostgreSQL regex matching.
+│   │                                   • Implements time-series SQL lookups with one-sided nearest-point selection
+│   │                                     (`ORDER BY time DESC LIMIT 1` or `ORDER BY time ASC LIMIT 1`).
+│   │
+│   ├── config.yaml                 # gRPC Server Deployment Profiles
+│   │                               └── Details: Network port bindings (default gRPC port), pool capacities, 
+│   │                                            and localized database reader access credentials.
+│   │
+│   └── requirements.txt            # DWS Service Dependencies (grpcio, grpcio-tools, protobuf, psycopg2-binary).
+│
+├── tests/                          # VALIDATION & AGNOSTIC MOCKING LAYER
+│   │                               # Full test suite running on isolated paths without live database sockets.
+│   │
+│   ├── test_connector.py           # Ingestion Validation Suite
+│   │                               └── Test Coverage:
+│   │                                   • Data conversion mappings (numbers, strings, and complex serialized JSON arrays).
+│   │                                   • Edge cases for telemetry faults (handling sensor values like `NaN` and `+/- Infinity`).
+│   │                                   • Queue pressure capabilities (validating drop-safe boundaries during buffer overflow).
+│   │                                   • Micro-batch worker clock timing, chunking, and group transaction flushes.
+│   │
+│   └── test_dws.py                 # Retrieval Validation Suite
+│   │                               └── Test Coverage:
+│   │                                   • Relational query database tuple conversion to Protobuf formats.
+│   │                                   • Safe server responses during "cold boot" states (empty tables).
+│   │                                   • Pagination boundaries during high-frequency timestamp collisions.
+│   │                                   • MQTT wildcard matching and one-sided timestamp selection rules.
+│   │                                   • Live stream polling back-offs and graceful connection drop resource cleanups.
+│   │                                   • Threaded connection pool leak protection during transaction failures.
+│   │
+└── timescale_build.sh              # INFRASTRUCTURE DEPLOYMENT AUTOMATION
+                                    └── Details: Script to spin up localized Docker multi-stage structures, build out the 
+                                                 underlying PostgreSQL container, enable the Timescale time-series extension, 
+                                                 and configure the operational data hypertables automatically.
 
-| Parameter | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| `DB_HOST` | Yes | TimescaleDB host address | `timescaledb` |
-| `DB_PORT` | No | PostgreSQL port | `5432` |
-| `DB_NAME` | Yes | Database name | `ddbdb_historian` |
-| `DB_USER` | Yes | Database username | `ddb_user` |
-| `DB_PASSWORD` | Yes | Database password | — |
-| `MQTT_TOPIC_FILTER` | Yes | MQTT topic to subscribe to | `mfi-v1.0-historian/#` |
-
-## Data Flow
-
-```{mermaid}
-flowchart LR
-    MQTT[MQTT Broker] --> DBN[TimescaleDB Node]
-    DBN --> PG[(PostgreSQL/TimescaleDB)]
-    
-    classDef highlight fill:#094d57,stroke:#0a3d4d,color:white
-    class MQTT highlight
 ```
 
-1. The node subscribes to the configured MQTT topic filter
-2. Incoming Sparkplug B messages are decoded and parsed
-3. Data points are written into a hypertable (auto-created TimescaleDB time-series table)
-4. Each device gets its own hypertable for data isolation
+## Prerequisites
 
-## Database Schema
+* Docker & Docker Compose
+* `psql` client (for manual verification)
+* Python 3.12+ virtual environment
 
-The TimescaleDB node creates tables following this pattern:
+---
 
-```sql
--- Hypertable for each device
-CREATE TABLE IF NOT EXISTS measurements_haas_umc750 (
-    timestamp TIMESTAMPTZ NOT NULL,
-    device VARCHAR(128),
-    namespace VARCHAR(64),
-    enterprise VARCHAR(64),
-    site VARCHAR(64),
-    area VARCHAR(64),
-    -- Dynamic metrics columns based on Sparkplug B payload
-    metric_0 DOUBLE PRECISION,
-    metric_1 DOUBLE PRECISION,
-    ...
-);
+## Getting Started Using Docker
 
--- Convert to hypertable for time-series optimization
-SELECT create_hypertable('measurements_haas_umc750', 'timestamp');
+### Running the Historian Using Docker:
+
+1. Configure your target database environment variables and broker targets inside `mfi_ddb_library/docker/timescale/connector-config.yaml`
+2. Run the following docker compose commands with profile tag:
+
+```
+docker compose --profile ts up -d
+```
+3. Check your docker processes either using ui or the following command:
+
+```
+docker ps
 ```
 
-## Querying Data
+4. Manual Database Query Verification
+*Change configs in command if other than default is chosen
 
-### Using psql
+```
+docker exec -it mfi-timescaledb-db psql -U tsdb -d ddb_ts \
+    -c "SELECT time, topic, metric, value_num, value_text FROM timeseries_data ORDER BY time DESC LIMIT 10;"
+```
+
+
+## Getting Started Locally
+
+### 1. Start TimeScaleDB Engine
+
+Create a .env file and add a variable `DB_PORT`:`your_desired_port_no`.
+You can also directly add the port number in the timescale_build.sh file.
+If port number is not provided it defaults to 5432.
 
 ```bash
-psql -h localhost -U ddb_user -d ddbbdb_historian
+bash timescale_build.sh
+
 ```
+
+This script initializes a localized TimeScaleDB container instance. If your automation setup does not automatically build out the relational constraints, execute the target schema layout manually inside your SQL shell:
 
 ```sql
--- Get latest readings for a device
-SELECT * FROM measurements_haas_umc750
-ORDER BY timestamp DESC LIMIT 10;
+CREATE EXTENSION IF NOT EXISTS timescaledb;
 
--- Aggregate by hour
-SELECT 
-    time_bucket('1 hour', timestamp) AS hour,
-    AVG(metric_0) AS avg_metric_0,
-    MAX(metric_1) AS max_metric_1
-FROM measurements_haas_umc750
-WHERE timestamp > NOW() - INTERVAL '24 hours'
-GROUP BY hour
-ORDER BY hour DESC;
+CREATE TABLE IF NOT EXISTS timeseries_data (
+    time        TIMESTAMPTZ NOT NULL,
+    topic       TEXT NOT NULL,
+    component   TEXT NOT NULL,
+    metric      TEXT NOT NULL,
+    value_num   DOUBLE PRECISION,
+    value_text  TEXT,
+    value_json  JSONB
+);
 
--- Time-series analysis with built-in functions
-SELECT 
-    time_bucket('30 minutes', timestamp) AS half_hour,
-    percentile_cont(0.95) WITHIN GROUP (ORDER BY metric_0) AS p95_value
-FROM measurements_haas_umc750
-GROUP BY half_hour
-ORDER BY half_hour DESC;
+SELECT create_hypertable('timeseries_data', 'time', if_not_exists => TRUE);
+
 ```
 
-### Using Python
+Although it may not happen, but if prompted for a password during db setup, you can find the password in timescale_build.sh or connector config in docker folder
 
-```python
-import psycopg2
-import pandas as pd
+### 2. Start MQTT Broker Infrastructure
 
-conn = psycopg2.connect(
-    host="localhost",
-    port=5432,
-    dbname="ddbdb_historian",
-    user="ddb_user",
-    password="secret"
-)
+Spin up a localized isolated Eclipse-Mosquitto engine instance to route your industrial network messaging:
 
-# Query data into a DataFrame
-query = """
-SELECT timestamp, metric_0 AS spindle_speed
-FROM measurements_haas_umc750
-WHERE timestamp > NOW() - INTERVAL '1 day'
-ORDER BY timestamp;
-"""
-df = pd.read_sql(query, conn)
-print(df.head())
+```bash
+docker run -d --name mqtt -p 1883:1883 emqx/emqx:5.8.0
 
-conn.close()
 ```
 
-## Docker Configuration
+---
 
-The example compose files are sourced from [mfi_ddb_library/docker/timescale](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/docker/timescale).
+## Service Operations
 
-### `docker-compose.yaml`
+### TimescaleDB Node All Dependencies Download
 
-```yaml
-services:
-  timescaledb-db:
-    platform: linux/amd64
-    image: timescale/timescaledb:latest-pg16
-    container_name: mfi-timescaledb-db
-    environment:
-      - POSTGRES_USER=tsdb
-      - POSTGRES_PASSWORD=timescale
-      - POSTGRES_DB=ddb_ts
-    ports:
-      - "5432:5432"
-    volumes:
-      - ../.data/timescale_storage:/var/lib/postgresql/data
-    profiles:
-      - "ts"
-      - "dbn"
-    networks:
-      - mfi_network
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tsdb -d ddb_ts"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+```bash
+pip install -r requirements.txt
 
-  timescaledb-connector:
-    platform: linux/amd64
-    build:
-      context: ../../mfi_ddb_database_nodes/timescaledb/connector
-      dockerfile: Dockerfile
-    container_name: mfi-timescaledb-connector
-    image: cmumfi/mfi-ddb-timescaledb-connector:latest
-    profiles:
-      - "ts"
-      - "dbn"
-    depends_on:
-      mqtt-broker:
-        condition: service_started
-      timescaledb-db:
-        condition: service_healthy
-    volumes:
-      - ./connector-config.yaml:/app/config.yaml:ro
-    networks:
-      - mfi_network
-    restart: on-failure
-
-  timescaledb-dws:
-    platform: linux/amd64
-    build:
-      context: ../../mfi_ddb_database_nodes/timescaledb/dws
-      dockerfile: Dockerfile
-    container_name: mfi-timescaledb-dws
-    image: cmumfi/mfi-ddb-timescaledb-dws:latest
-    profiles:
-      - "ts"
-      - "dbn"
-    ports:
-      - "50052:50051"
-    depends_on:
-      timescaledb-db:
-        condition: service_healthy
-    volumes:
-      - ./dws-config.yaml:/app/config.yaml:ro
-    networks:
-      - mfi_network
-    restart: always
 ```
 
-### `connector-config.yaml`
+### Ingestion Connector
 
-```yaml
-mqtt:
-  broker_address: "mqtt-broker"
-  broker_port: 1883
-  topic: "mfi-v1.0-historian/#"
-  username: ""
-  password: ""
+The connector listens to the default root branch (`mfi-v1.0-historian/#`), translates binary Sparkplug payloads into flat database structures, and queues them into dynamic macro-transactions.
 
-timescaledb:
-  host: "timescaledb-db"
-  port: 5432
-  user: "tsdb"
-  password: "timescale"
-  dbname: "ddb_ts"
+1. Configure your target database environment variables and broker targets inside `connector/config.yaml`.
+2. Install Connector dependencies:
+```bash
+pip install -r connector/requirements.txt
 
-component_id: "default_component"
 ```
 
-### `dws-config.yaml`
+3. Run the worker process:
+```bash
+cd mfi_ddb_database_nodes/timescaledb
+PYTHONPATH=. python -m connector.main
 
-```yaml
-timescaledb:
-  host: "timescaledb-db"
-  port: 5432
-  user: "tsdb"
-  password: "timescale"
-  dbname: "ddb_ts"
 ```
 
-## Use Cases
+### DWS gRPC Engine Service
 
-1. **SQL Analytics** — Run complex SQL queries, joins, and aggregations on manufacturing data
-2. **Reporting** — Generate daily/weekly production reports using standard SQL tools
-3. **Data Warehousing** — Combine DDB time-series data with relational business data in PostgreSQL
-4. **Machine Learning** — Export data to Python/R for statistical analysis and ML pipelines
+Exposes database reads via safe API endpoint calls.
 
-## Limitations
+1. Configure port bindings and connection parameters inside `dws/config.yaml`.
+2. Install DWS dependencies:
+```bash
+pip install -r dws/requirements.txt
 
-- Requires a running PostgreSQL/TimescaleDB instance
-- Sparkplug B metric columns must be mapped to table columns (dynamic schema)
-- Not ideal for high-frequency writes (>10K/sec); consider Aveva PI for higher throughput
-- Non-time-series payloads (`kv`, `blob`) are not supported by this node
+```
 
-## Related Links
+3. Execute the service module from inside the `timescaledb/` directory so relative imports resolve cleanly:
+```bash
+cd mfi_ddb_database_nodes/timescaledb
+PYTHONPATH=. python -m dws.server
 
-- [TimescaleDB Documentation](https://docs.timescale.com/)
-- [`mfi_ddb_database_nodes`](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes/timescaledb) — Source code repository
+```
+
+
+---
+
+## Verification & Testing
+
+### Executing the Test Suite
+
+The testing engine is designed to run isolated from the larger monolithic repository structure. To execute the 17 production-ready unit and integration tests (validating memory boundaries, timestamp collisions, connection pool leaks, and network dropouts), navigate into this `timescaledb/` directory and execute `pytest`:
+
+
+```bash
+cd mfi_ddb_library/mfi_ddb_database_nodes/timescaledb
+
+```
+
+```bash
+PYTHONPATH=. pytest tests/ --import-mode=importlib
+
+```
+
+### Useful Pytest Flags
+
+* **View standard output (`print()` statements):**
+```bash
+PYTHONPATH=. pytest tests/ --import-mode=importlib -s
+
+```
+
+
+* **Run a specific test module:**
+```bash
+PYTHONPATH=. pytest tests/test_connector.py
+
+```
+
+
+### Manual Database Query Verification
+
+To check raw data tables directly inside the live table engines, execute a shell script snapshot query:
+
+```bash
+PGPASSWORD=timescale psql -h localhost -U tsdb -d ddb_ts \
+    -c "SELECT time, topic, metric, value_num, value_text FROM timeseries_data ORDER BY time DESC LIMIT 10;"
