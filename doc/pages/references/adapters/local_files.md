@@ -1,42 +1,44 @@
 # Local Files Adapter
 
-The Local Files data adapter reads data from files stored on the local filesystem, making it ideal for batch processing of historical or offline data.
+The Local Files data adapter watches local directories for new files and publishes them as file blobs into the DDB topic structure. It uses filesystem event monitoring to detect new files and stream them as they arrive.
 
 ## Overview
 
-This adapter loads structured data (CSV, JSON) from a specified directory and publishes it to the DDB topic structure. It's designed for scenarios where data is already collected and stored locally — such as from previous test runs, lab experiments, or file-based data exports.
+This adapter is designed for scenarios where files are continuously generated and need to be ingested into the Digital Data Backbone as blob data. It monitors configured directories for new files, buffers them, and publishes each file's content as a blob under the `blob` topic family.
 
 | Property | Value |
 |----------|-------|
-| **Adapter Type** | `local_files` |
-| **Data Source** | Local filesystem (CSV/JSON files) |
-| **Recommended Topic Family** | `historian` |
-| **Self-Update** | No (one-time load or manual trigger) |
+| **Data Source** | Local filesystem (file watching) |
+| **Recommended Topic Family** | `blob` |
+| **Self-Update** | Yes (filesystem event-based via watchdog) |
 
 ## Configuration Parameters
 
-| Parameter | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| `file_path` | Yes | Path to the directory containing data files | `"./data/"` |
-| `trial_id` | Yes | Trial ID for the system (no spaces or special characters) | `"trial_001"` |
+| Parameter | Description |
+|-----------|-------------|
+| `watch_dir` | List of directories to watch for new files. |
+| `buffer_size` | Maximum number of files to buffer before streaming. |
+| `wait_before_read` | Time in seconds to wait before reading a new file. |
+| `system` | System information including trial ID, name, and other attributes. |
+| `system.trial_id` | Trial ID for the system. No spaces or special characters allowed. |
+| `system.name` | Name of the system. |
 
-## Supported File Formats
+## Example Configuration
 
-- **CSV** — Row-based tabular data with headers as column names
-- **JSON** — Nested JSON objects supporting hierarchical data structures
+```yaml
+adapter_name: my_local_files_adapter
 
-## How It Works
-
-1. **File Discovery** — Scans the `file_path` directory for supported file formats (`.csv`, `.json`).
-2. **Data Parsing** — Reads and parses each file, extracting metadata (filename, size) and content.
-3. **Data Publishing** — Publishes parsed data to DDB topics under the configured namespace with appropriate component IDs derived from filenames.
-
-## Use Cases
-
-1. **Historical Data Ingestion** — Load previously collected experimental or production data into DDB
-2. **Offline Batch Processing** — Process large datasets without network connectivity
-3. **Data Migration** — Migrate data from file-based storage systems to the Digital Data Backbone
-4. **Testing & Development** — Quickly load sample datasets for application development and testing
+watch_dir:
+  - "/path/to/watch/dir"
+buffer_size: 10
+wait_before_read: 2
+system:
+  name: "local_files_system"
+  trial_id: "trial_001"
+  description: "Local files data adapter system"
+  manufacturer: "Example Corp"
+  model: "LocalFilesModel"
+```
 
 ## Related Links
 

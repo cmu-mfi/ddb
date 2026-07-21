@@ -15,42 +15,32 @@ This adapter enables integration with any existing MQTT infrastructure — wheth
 
 ## Configuration Parameters
 
-| Parameter | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| `mqtt.broker_address` | Yes | Address of the MQTT broker | `"mqtt.example.com"` |
-| `mqtt.broker_port` | No | Port of the MQTT broker (default: 1883) | `1883` |
-| `mqtt.username` | No | Username for MQTT broker authentication | `"user"` |
-| `mqtt.password` | No | Password for MQTT broker authentication | `"pass"` |
-| `mqtt.tls_enabled` | No | Enable TLS for MQTT connection (default: False) | `false` |
-| `mqtt.debug` | No | Enable debug mode for MQTT client (default: False) | `false` |
-| `mqtt.timeout` | No | Timeout in seconds for connecting to the MQTT broker (default: 5) | `5` |
-| `trial_id` | Yes | Trial ID for the system. No spaces or special characters allowed. | `"trial_001"` |
-| `queue_size` | No | Maximum number of messages to buffer before processing (default: 10) | `10` |
-| `topics` | Yes | List of topics to subscribe to (see below) | — |
-
-### Topics Configuration
-
-Each topic in the `topics` list must include:
-
-| Field | Description |
-|-------|-------------|
-| `component_id` | Identifier for the component |
-| `topic` | MQTT topic to subscribe to |
-| `trial_id` | Trial ID override per component (optional) |
+| Parameter | Description |
+|-----------|-------------|
+| `mqtt.broker_address` | Address of the MQTT broker |
+| `mqtt.broker_port` | Port of the MQTT broker (default: 1883) |
+| `mqtt.username` | Username for MQTT broker authentication |
+| `mqtt.password` | Password for MQTT broker authentication |
+| `mqtt.tls_enabled` | Enable TLS for MQTT connection (default: False) |
+| `mqtt.debug` | Enable debug mode for MQTT client (default: False) |
+| `mqtt.timeout` | Timeout in seconds for connecting to the MQTT broker (default: 5) |
+| `trial_id` | Trial ID for the system. No spaces or special characters allowed. |
+| `queue_size` | Maximum number of messages to buffer before processing. If the buffer is full, the oldest message will be removed. (default: 10) |
+| `topics` | List of topics to subscribe to. Each topic should have a 'component_id' and 'topic' key. Optionally, a 'trial_id' can be provided. |
+| `topics[].component_id` | Identifier for the component |
+| `topics[].topic` | MQTT topic to subscribe to |
+| `topics[].trial_id` | Trial ID for the component (optional) |
 
 ## Example Configuration
 
 ```yaml
-adapter_type: mqtt
-name: my_mqtt_adapter
+adapter_name: my_mqtt_adapter
 
 mqtt:
   broker_address: "mqtt.example.com"
   broker_port: 1883
-
 trial_id: "trial_001"
 queue_size: 10
-
 topics:
   - component_id: "robot-arm-1"
     topic: "robot-arm/1/data"
@@ -58,19 +48,6 @@ topics:
   - component_id: "machine-a"
     topic: "machine/a/data"
 ```
-
-## How It Works
-
-1. **Broker Connection** — Connects to the MQTT broker using configured credentials and TLS settings.
-2. **Topic Subscription** — Subscribes to each configured topic with a message callback.
-3. **Data Collection** — Buffers incoming messages (up to `queue_size`) and publishes them to DDB topics under the configured namespace.
-
-## Use Cases
-
-1. **IoT Sensor Relay** — Connect existing IoT sensor networks without modifying their protocol
-2. **Legacy System Integration** — Bridge older systems that already publish to MQTT
-3. **Multi-Source Aggregation** — Subscribe to multiple source topics and consolidate into DDB structure
-4. **Test & Development** — Quickly inject test data from any MQTT publisher for development purposes
 
 ## Related Links
 

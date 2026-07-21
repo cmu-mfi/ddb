@@ -8,83 +8,63 @@ This adapter enables integration with any system that exposes a gRPC interface �
 
 | Property | Value |
 |----------|-------|
-| **Adapter Type** | `grpc` |
 | **Data Source** | Any gRPC service endpoint |
 | **Recommended Topic Family** | `historian` |
 | **Self-Update** | No (polls via `get_data()`) |
 
 ## Configuration Parameters
 
-| Parameter | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| `server_address` | Yes | Network Address of the gRPC server | `"localhost"` |
-| `server_port` | Yes | Port of the gRPC server | `50051` |
-| `certificate_path` | No | Full path to the gRPC server certificate file (TLS) | `"/full/path/to/cert.pem"` |
-| `protobufs_dir` | Yes | Full path to the directory containing `.proto` files | `"/full/path/to/protos"` |
-| `compiled_protos_dir` | No | Full path to the compiled protobuf stubs (auto-generated if missing) | `"./compiled_protos"` |
-| `trial_id` | Yes | Trial ID for the gRPC device. No spaces or special characters allowed. | `"exp1"` |
-| `components` | Yes | List of gRPC components to monitor (see below) | — |
-
-### Components Configuration
-
-Each component in the `components` list must include:
-
-| Field | Description |
-|-------|-------------|
-| `component_id` | ID of the gRPC component to monitor |
-| `attributes` | Additional attributes for the gRPC component (optional dict) |
-| `trial_id` | Trial ID override per component (defaults to top-level `trial_id`) |
-| `proto_rel_path` | Relative path to the `.proto` file defining the gRPC service |
-| `stub_class` | Name of the gRPC stub class to use for communication |
-| `request_class` | Name of the request class to use for the gRPC service call |
-| `request` | Request parameters as a dictionary |
+| Parameter | Description |
+|-----------|-------------|
+| `server_address` | Network Address of the gRPC server |
+| `server_port` | Port of the gRPC server |
+| `certificate_path` | Full path to the gRPC server certificate file (optional) |
+| `protobufs_dir` | Full path to the directory containing .proto files |
+| `compiled_protos_dir` | Full path to the compiled protobuf stubs (optional) |
+| `trial_id` | Trial ID for the gRPC device. No spaces or special characters allowed. |
+| `components` | List of gRPC components to monitor |
+| `components[].component_id` | ID of the gRPC component to monitor |
+| `components[].attributes` | Additional attributes for the gRPC component (optional) |
+| `components[].trial_id` | Trial ID for the gRPC device. No spaces or special characters allowed (optional) |
+| `components[].proto_rel_path` | Relative path to the .proto file defining the gRPC service |
+| `components[].request_method` | Name of the gRPC service method to call. Only `Read` method is supported. |
+| `components[].stub_class` | Name of the gRPC stub class to use for communication |
+| `components[].request_class` | Name of the request class to use for the gRPC service call. |
+| `components[].request` | Request parameters for the gRPC service call |
 
 ## Example Configuration
 
 ```yaml
-adapter_type: grpc
-name: my_grpc_adapter
+adapter_name: my_grpc_adapter
 
-grpc:
-  server_address: "localhost"
-  server_port: 50051
-  certificate_path: "/full/path/to/cert.pem"
-  trial_id: "exp1"
-  protobufs_dir: "/full/path/to/protos"
-  compiled_protos_dir: "/full/path/to/compiled_protos"
-  components:
-    - component_id: "sensor.temperature"
-      attributes:
-        description: "Temperature sensor"
-        unit: "Celsius"
-      proto_rel_path: "relative/path/to/temperature.proto"
-      stub_class: "TemperatureServiceStub"
-      request_class: "TemperatureRequest"
-      request:
-        key1: "value1"
-        key2: [1, 2, 3]
-    - component_id: "sensor.humidity"
-      attributes:
-        description: "Humidity sensor"
-        unit: "Percentage"
-      proto_rel_path: "relative/path/to/humidity.proto"
-      stub_class: "HumidityServiceStub"
-      request_class: "HumidityRequest"
-      request:
-        threshold: 75
+server_address: "localhost"
+server_port: 50051
+certificate_path: "/full/path/to/cert.pem"
+trial_id: "exp1"
+protobufs_dir: "/full/path/to/protos"
+compiled_protos_dir: "/full/path/to/compiled_protos"
+components:
+  - component_id: "sensor.temperature"
+    attributes:
+      description: "something something"
+      unit: "Celsius"
+    proto_rel_path: "relative/path/to/temperature.proto"
+    stub_class: "TemperatureServiceStub"
+    request_class: "TemperatureRequest"
+    request:
+      key1: "value1"
+      key2: [1, 2, 3]
+  - component_id: "sensor.humidity"
+    attributes:
+      description: "something something"
+      unit: "Percentage"
+    trial_id: "exp1_parallelA"
+    proto_rel_path: "relative/path/to/humidity.proto"
+    stub_class: "HumidityServiceStub"
+    request_class: "HumidityRequest"
+    request:
+      threshold: 75
 ```
-
-## How It Works
-
-1. **Channel Creation** — Opens an insecure or TLS-secured gRPC channel to the server.
-2. **Proto Compilation** — Dynamically compiles `.proto` files into Python stubs using `grpc_tools.protoc`.
-3. **Data Collection** — Calls configured gRPC methods via `get_data()`, converts responses from protobuf to JSON, and publishes to MQTT under the DDB topic structure.
-
-## Use Cases
-
-1. **Microservices Integration** — Connect existing microservice architectures to the DDB
-2. **Cloud Service Relay** — Stream data from cloud-hosted gRPC services on-premise
-3. **Custom Sensor APIs** — Bridge proprietary sensor APIs exposed as gRPC endpoints
 
 ## Related Links
 

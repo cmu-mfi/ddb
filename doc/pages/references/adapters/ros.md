@@ -15,55 +15,39 @@ This adapter integrates with existing ROS1-based robotic systems, subscribing to
 
 ## Configuration Parameters
 
-| Parameter | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| `ros.trial_id` | Yes | Trial ID for the ROS device. No spaces or special characters allowed. | `"trial_001"` |
-| `ros.devices` | Yes | List of devices to subscribe to (see below) | — |
-
-### Devices Configuration
-
-Each device in the `devices` list must include:
-
-| Field | Description |
-|-------|-------------|
-| `namespace` | Namespace of the device in ROS |
-| `rostopics` | List of ROS topics to subscribe to for this device |
-| `attributes` | Optional attributes (manufacturer, model, description) |
+| Parameter | Description |
+|-----------|-------------|
+| `trial_id` | Trial ID for the ROS device. No spaces or special characters allowed. |
+| `devices` | List of devices to subscribe to. |
+| `devices[].namespace` | Namespace of the device in ROS |
+| `devices[].rostopics` | List of ROS topics to subscribe to for this device |
+| `devices[].attributes` | Attributes of the device. Optional. |
 
 ## Example Configuration
 
 ```yaml
-adapter_type: ros
-name: my_ros_adapter
-ros:
-  trial_id: "trial_001"
-  devices:
-    - namespace: "robot_arm"
-      rostopics: ["/joint_states", "/camera/image_raw"]
-      attributes:
-        manufacturer: "RobotCorp"
-        model: "RobotArmX"
-        description: "A robotic arm for testing purposes."
-    - namespace: "machine_a"
-      rostopics: ["/machine_a/status"]
-      attributes:
-        manufacturer: "MachineCorp"
-topic_family: historian
+adapter_name: my_ros_adapter
+
+trial_id: "trial_001"
+devices:
+  device1:
+    namespace: "robot_arm"
+    rostopics:
+      - "/joint_states"
+      - "/camera/image_raw"
+    attributes:
+      manufacturer: "RobotCorp"
+      model: "RobotArmX"
+      description: "A robotic arm for testing purposes."
+  device2:
+    namespace: "machine_a"
+    rostopics:
+      - "/machine_a/status"
+    attributes:
+      manufacturer: "MachineCorp"
+      version: 0.1
+      description: "A machine for testing purposes."
 ```
-
-## How It Works
-
-1. **ROS Master Check** — Verifies that a ROS master is running on the system.
-2. **Topic Discovery** — Checks if listed ROS topics exist and retrieves their message types.
-3. **Subscription** — Creates ROS subscribers for each configured topic with callback handlers.
-4. **Data Collection** — Receives messages via callbacks, deserializes them, filters out large byte arrays (uint8[]), and publishes to DDB topics under the namespace component ID.
-
-## Use Cases
-
-1. **Robotic Data Integration** — Stream joint states, sensor data, and camera feeds from ROS-enabled robots
-2. **Manufacturing Equipment Monitoring** — Connect ROS-based robotic workcells to the Digital Data Backbone
-3. **Multi-Device Aggregation** — Subscribe to multiple devices across different ROS namespaces
-4. **Research & Development** — Capture real-time data from ROS simulations or physical robots for analysis
 
 ## Related Links
 

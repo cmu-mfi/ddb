@@ -8,13 +8,27 @@ Data adapters connect manufacturing equipment and external data sources to the D
 | Adapter | Description | Recommended Topic Family |
 |---------|-------------|--------------------------|
 | [gRPC](grpc.md) | Connects to gRPC services to stream data | `historian` |
-| [Key-Value Store](key_value_store.md) | Reads data from PostgreSQL databases and publishes as key-value pairs | `kv` |
-| [Local Files](local_files.md) | Reads structured data (CSV/JSON) from local filesystem | `historian` |
+| [Key-Value Store](key_value_store.md) | Publishes key-value payload messages (project, user, tp-tag, data) into DDB | `kv` |
+| [Local Files](local_files.md) | Watches local directories for new files and publishes them as file blobs | `blob` |
 | [MQTT](mqtt.md) | Subscribes to MQTT topics and relays into DDB | `historian` |
 | [MTConnect](mtconnect.md) | Interfaces with MTConnect-enabled CNC machines | `historian` |
 | [ROS](ros.md) | Subscribes to ROS1 topics for real-time data streaming | `historian` |
 | [ROS2](ros2.md) | Subscribes to ROS2 topics using rclpy for data streaming | `historian` |
 | [ROS Files](ros_files.md) | Captures Image and PointCloud2 messages as file blobs | `blob` |
+
+**Links**
+```{toctree}
+:maxdepth: 1
+
+grpc.md
+key_value_store.md
+local_files.md
+mqtt.md
+mtconnect.md
+ros_files.md
+ros.md
+ros2.md
+```
 
 ## How Data Adapters Work
 
@@ -36,4 +50,4 @@ Each adapter defines:
 
 - [Payload Schema](../payload-schema.md)
 - [Architecture Overview](../../concepts/architecture.md)
-- [`mfi_ddb_data_adapter` Source Code](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_package/src/mfi_ddb/data_adapters)
+- [`mfi_ddb.data_adapters` Source Code](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_package/src/mfi_ddb/data_adapters)
