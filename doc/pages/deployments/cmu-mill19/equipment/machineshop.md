@@ -7,7 +7,7 @@
 :::
 <!--
 ::: {raw} html
-:file: equipment/_cards/gf-matching-solutions-ac-progress-vp3.html
+:file: _cards/gf-matching-solutions-ac-progress-vp3.html
 :::
 -->
 :::{raw} html

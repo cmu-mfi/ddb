@@ -51,5 +51,4 @@ pages/references/database-nodes/index.md
 :caption: Deployments
 
 pages/deployments/cmu-mill19/introduction.md
-pages/deployments/cmu-mill19/equipments.md
 ```
