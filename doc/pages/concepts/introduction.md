@@ -37,7 +37,7 @@ Contextualize data through user-entered data descriptions (metadata) to ensure i
 
 This documentation is organized by role and task:
 
-- **Getting Started?** → Start with the [Overview](/) and [Quick Start Guide](quickstart.md)
+- **Getting Started?** → Start with the [Overview](../overview.md) and [Quick Start Guide](../quickstart.md)
 - **Understanding the system?** → Read these Concepts next
-- **Setting up a data source?** → Go to [Guides](guides/connect-data-adapter.md)
-- **Looking for technical details?** → Check the [References](references/payload-schema.md) section
+- **Setting up a data source?** → Go to [Guides](../guides/connect-data-adapter.md)
+- **Looking for technical details?** → Check the [References](../references/payload-schema.md) section
