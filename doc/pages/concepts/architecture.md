@@ -60,6 +60,15 @@ Arrow direction in the diagram above shows the data flow in the framework. It do
 
 ## Component Descriptions
 
+**Key Components**
+
+| Component | Description | Repository |
+|-----------|-------------|------------|
+| **Core Library** | Python package providing data adapters, streamers, and topic families | [`mfi_ddb_package`](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_package) |
+| **Data Adapter App** | REST API web application for managing data adapters on edge devices | [`mfi_ddb_data_adapter`](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_data_adapter) |
+| **Database Nodes** | Compatible database storage implementations | [`mfi_ddb_database_nodes`](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes) |
+| **Retrieval API** | Metadata store and REST API for data queries | [`mfi_ddb_retrieval_api`](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_retrieval_api) |
+
 ### Data Generators
 The top layer shows example current and future generators of information for the digital backbone. These sources are responsible for generating data that will be collected and processed by the system. Examples include:
 - CNC machines and industrial equipment
