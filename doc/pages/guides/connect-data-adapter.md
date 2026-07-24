@@ -6,7 +6,7 @@ This guide walks you through connecting a data source to the Digital Data Backbo
 
 Before starting, ensure you have:
 
-- A running DDB system (see [Quick Start Guide](quickstart.md))
+- A running DDB system (see [Quick Start Guide](../quickstart.md))
 - Access to an MQTT broker (default: `localhost:1883`)
 - Knowledge of your data source type (MTConnect device, file, MQTT topic, etc.)
 
