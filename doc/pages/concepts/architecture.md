@@ -52,7 +52,7 @@ flowchart BT
     classDef highlight fill:#094d57,stroke:#0a3d4d
     class Data_Sources,DBN,Retrieval layer
     style Input fill:transparent,stroke:#666
-    linkStyle default stroke-width:4px
+    linkStyle default stroke-width:7px
 ```
 
 ```{note}
