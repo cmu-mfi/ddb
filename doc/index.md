@@ -32,9 +32,9 @@ pages/concepts/architecture.md
 :caption: Guides
 
 pages/guides/connect-data-adapter.md
+pages/guides/grafana-dashboard.md
 pages/guides/connect-database-node.md
 pages/guides/use-retrieval-api.md
-pages/guides/grafana-dashboard.md
 ```
 
 ```{toctree}
