@@ -4,12 +4,13 @@ MFI DDB Schema V1.0 defines the format for all data streamed to the Digital Data
 
 Messages are published to an MQTT broker using the publish-subscribe model, which routes them to appropriate subscribers based on topic subscriptions. The schema defines topics used for different data types and specifies payload structure for each type.
 
+(topic-structure)=
 ## Topic Structure
 
 The DDB uses a hierarchical topic structure:
 
 ```
-mfi-v1.0/{topic_family}/{enterprise}/{site}/{area}/{device}
+mfi-v1.0-{topic_family}/{enterprise}/{site}/{area}/{device}
 ```
 
 ### Topic Families
@@ -61,9 +62,9 @@ Key points:
     * `node_id` = `site`
     * `device_id` = `area` (optional)
 * `mfi_ddb` expects at least a DBIRTH message to establish identity and a DDATA message to send data
-* Metric naming convention is defined in [historian-metric-naming.md](https://github.com/cmu-mfi/mfi_ddb_library/blob/main/schema/historian-metric-naming.md)
+* Metric naming convention is defined in [historian-metric-naming.md](./historian-metric-naming.md)
 * `mfi_ddb` library uses [mqtt-spb-wrapper](https://pypi.org/project/mqtt-spb-wrapper/) to create Sparkplug messages
-* Messages can be decoded using the [protobuf schema](https://github.com/cmu-mfi/mfi_ddb_library/blob/main/schema/spbv.proto). Some MQTT brokers, [like EMQX](https://www.emqx.com/en/blog/mqtt-sparkplug-in-action-a-step-by-step-tutorial), have built-in capability to decode them
+* Messages can be decoded using the [protobuf schema](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_package/src/mfi_ddb/topic_families/schema/spbv.proto). Some MQTT brokers, [like EMQX](https://www.emqx.com/en/blog/mqtt-sparkplug-in-action-a-step-by-step-tutorial), have built-in capability to decode them
 
 ### blob [Binary Data]
 
@@ -71,7 +72,7 @@ The `blob` topic tree handles large binary files:
 
 * File data is sent as a binary payload of a JSON message
 * The JSON envelope is serialized using [protobuf](https://protobuf.dev/) protocol
-* Schema defined in [blob.proto](https://github.com/cmu-mfi/mfi_ddb_library/blob/main/schema/blob.proto)
+* Schema defined in [blob.proto](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_package/src/mfi_ddb/topic_families/schema/blob.proto)
 * Messages can be decoded using the protobuf schema
 
 ### kv [Non-Time-Series]
@@ -79,7 +80,7 @@ The `blob` topic tree handles large binary files:
 The `kv` topic tree handles non-time-series data:
 
 * Designed to be flexible and extensible for different data types
-* Schema defined in [kv.json](https://github.com/cmu-mfi/mfi_ddb_library/blob/main/schema/kv.json)
+* Schema defined in [kv.json](https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_package/src/mfi_ddb/topic_families/schema/kv.json)
 * Messages are sent as plain JSON (unlike blob/historian which use protobuf serialization)
 * Suitable for metadata, configuration, status updates, and event notifications
 
