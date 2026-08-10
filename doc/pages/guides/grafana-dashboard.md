@@ -23,11 +23,11 @@ Once a connection is established, you can retrieve and visualize data using Graf
 2. Use `admin`/`admin` for username/password if logging in for the first time.
 3. Dashboards --> RWS Infinity
 
-<!-- insert screenshot -->
+![Grafana](/files/gs5-grafana-list.png)
 
 4. Use the dashboard's visualizations to view how your data changes over a selected time period.
 5. Filter by user ID to check data for a specific user.
 
-<!-- insert screenshot -->
+![Grafana - Plot](/files/gs6-grafana-plot.png)
 
 <!-- end:grafana-guide -->

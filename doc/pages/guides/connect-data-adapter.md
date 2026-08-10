@@ -32,11 +32,11 @@ A **data adapter** bridges your data source to the DDB. It performs two key func
 
 1. Open the Data Adapter App at [http://localhost:3001](http://localhost:3001).
 
-<!-- insert-screenshot -->
+![Data Adapter App - Adapters](/files/gs2-daa-adapter.png)
 
 2. Click on `+ New Adapter` and select `MQTT` data adapter
 
-<!-- insert-screenshot -->
+![Data Adapter App Home](/files/gs1-daa-home.png)
 
 3. We are going to use a mock mqtt publisher, publishing data to a public broker (https://test.mosquitto.org/). The publisher is one of the docker services running in the background if you chose `*` profile. Fill in the **Adapter Config** and **Streamer Config** fields.
 
@@ -66,11 +66,11 @@ A **data adapter** bridges your data source to the DDB. It performs two key func
      project_name: Test Trial Project
    ```
 
-<!-- insert image -->
+![Data Adapter App - Config](/files/gs3-daa-config.png)
 
 4. Click **Save**. Once initialized, the connection will show as connected and streaming on screen.
 
-<!-- insert screenshot -->
+![Data Adapter App - Connected](/files/gs4-daa-connected.png)
 
 <!-- end:daa-guide -->
 ## Option 2: Use `mfi-ddb` python package

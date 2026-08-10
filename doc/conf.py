@@ -73,4 +73,5 @@ html_context = {
 myst_enable_extensions = [
     "colon_fence",
     "substitution",
+    "attrs_inline"
 ]
