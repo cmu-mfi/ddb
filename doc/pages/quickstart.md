@@ -20,7 +20,7 @@ cd mfi_ddb_library/docker
 **2. Start All Services**
 
 ```bash
-docker compose up -d
+docker compose --profile '*' up -d
 ```
 
 This starts all core services including:
