@@ -1,0 +1,108 @@
+/* --- Page Width Increase --- */
+.wy-nav-content {
+    /* max-width: 95% !important; */
+    max-width: 64rem;
+}
+/* 
+@media screen and (min-width: 768px) {
+    .wy-nav-content {
+        max-width: 1400px !important;
+    }
+} */
+
+/* Wide tables support */
+.wy-table-responsive table {
+    width: 100%;
+}
+
+.wy-nav-side {
+    background-color: hsl(0, 0%, 10%);
+}
+
+.wy-side-nav-search {
+    background-color: hsl(0, 0%, 10%);
+}
+
+.wy-nav-side .caption-text{
+    color: #bc0c2c;
+    font-size: medium;
+}
+
+.document .caption-text{
+    font-size: medium;
+}
+
+.github-button {
+    background-color: #2088FF;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 15px;
+    text-align: center;
+    display: inline-block;
+}
+.github-button:hover {
+    background-color: #007BFF;
+}
+
+.inline-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 1px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+.inline-button:hover {
+    background-color: #45a049;
+    color: white;
+}
+.inline-button:visited {
+    color: white; /* Color for visited links (e.g., grey) */
+}
+.inline-button .fa-github {
+    margin-right: 5px; /* Adds some space between the icon and the text */
+    vertical-align: middle; /* Aligns the icon vertically with the text */
+}
+
+/* --- Table Styles for Wrapped Content --- */
+
+/* Make tables responsive - add horizontal scrollbar if needed */
+/* .table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+} */
+
+/* Ensure table cells wrap text when content is too wide */
+/* wy-table, .rst-content .table-wrapper {
+    word-wrap: keep-all;
+    /* overflow-wrap: break-word;
+    hyphens: auto;
+} */
+
+/* Wrap long URLs and paths in tables */
+wy-table td, .rst-content table td,
+wy-table th, .rst-content table th {
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+}
+
+/* Ensure code-like content in tables wraps properly */
+wy-table code, .rst-content table code,
+.rst-content tt, .rst-content code {
+    word-break: keep-all;
+    white-space: pre-wrap;
+}
+
+/* Make thead cells also wrap if needed */
+table.footnote, table.docinfo {
+    width: 100%;
+    max-width: 100%;
+}

@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; MFI Digital Data Backbone 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=f2c1b3b1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/equipment.css?v=819b6121" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/ddb_logo.ico"/>
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            MFI Digital Data Backbone
+              <img src="../../../../_static/ddb_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#what-is-the-digital-data-backbone">What is the Digital Data Backbone?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../overview.html#core-capabilities">Core Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#architecture-at-a-glance">Architecture at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#key-components">Key Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#who-is-this-for">Who Is This For?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#single-node-deployment-with-docker">Single Node Deployment with Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#alternative-download-release-archive">Alternative: Download Release Archive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../concepts/introduction.html#what-is-mfi-digital-data-backbone">What is MFI Digital Data Backbone?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../concepts/introduction.html#core-principles">Core Principles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../concepts/introduction.html#connect">Connect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../concepts/introduction.html#collect">Collect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../concepts/introduction.html#contextualize">Contextualize</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../concepts/introduction.html#what-ddb-provides">What DDB Provides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../concepts/introduction.html#who-uses-this-documentation">Who Uses This Documentation?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts/architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../concepts/architecture.html#system-overview">System Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../concepts/architecture.html#component-descriptions">Component Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../concepts/architecture.html#data-generators">Data Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../concepts/architecture.html#data-adapters">Data Adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../concepts/architecture.html#publish-subscribe-broker-mqtt">Publish-Subscribe Broker (MQTT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../concepts/architecture.html#database-nodes">Database Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../concepts/architecture.html#retrieval-api">Retrieval API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../concepts/architecture.html#data-flow-summary">Data Flow Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../concepts/architecture.html#topic-structure">Topic Structure</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/connect-data-adapter.html">Connect a Data Adapter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-data-adapter.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-data-adapter.html#architecture-overview">Architecture Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-data-adapter.html#option-1-data-adapter-app">Option 1: Data Adapter App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-data-adapter.html#option-2-use-mfi-ddb-python-package">Option 2: Use <code class="docutils literal notranslate"><span class="pre">mfi-ddb</span></code> python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-data-adapter.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/connect-database-node.html">Connect a Database Node</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-database-node.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-database-node.html#how-database-nodes-work">How Database Nodes Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-database-node.html#step-1-choose-a-database-node">Step 1: Choose a Database Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-database-node.html#step-2-configure-the-database-node">Step 2: Configure the Database Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../guides/connect-database-node.html#using-docker-compose-recommended">Using Docker Compose (Recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../guides/connect-database-node.html#configuration-parameters">Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-database-node.html#step-3-update-rws-with-dws-host-port">Step 3: Update RWS with DWS host/port</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/connect-database-node.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/use-retrieval-api.html">Use Retrieval API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/use-retrieval-api.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/use-retrieval-api.html#how-the-retrieval-api-works">How the Retrieval API Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/use-retrieval-api.html#api-endpoints">API Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/use-retrieval-api.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guides/grafana-dashboard.html">Make Your Grafana Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/grafana-dashboard.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../guides/grafana-dashboard.html#connecting-data-sources-to-grafana">Connecting Data Sources to Grafana</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../references/payload-schema.html">Payload Schema V1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/payload-schema.html#topic-structure">Topic Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/payload-schema.html#topic-families">Topic Families</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/payload-schema.html#payload-details-by-family">Payload Details by Family</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/payload-schema.html#historian-time-series">historian [Time-Series]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/payload-schema.html#blob-binary-data">blob [Binary Data]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/payload-schema.html#kv-non-time-series">kv [Non-Time-Series]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/payload-schema.html#streaming-metadata">Streaming Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/payload-schema.html#schema-versioning">Schema Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references/adapters/index.html">Data Adapters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/adapters/index.html#available-adapters">Available Adapters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/adapters/grpc.html">gRPC Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/grpc.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/grpc.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/grpc.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/grpc.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/adapters/key_value_store.html">Key-Value Store Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/key_value_store.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/key_value_store.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/key_value_store.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/key_value_store.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/adapters/local_files.html">Local Files Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/local_files.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/local_files.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/local_files.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/local_files.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/adapters/mqtt.html">MQTT Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/mqtt.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/mqtt.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/mqtt.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/mqtt.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/adapters/mtconnect.html">MTConnect Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/mtconnect.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/mtconnect.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/mtconnect.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/mtconnect.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/adapters/ros_files.html">ROS Files Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros_files.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros_files.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros_files.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros_files.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/adapters/ros.html">ROS Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/adapters/ros2.html">ROS2 Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros2.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros2.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros2.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/adapters/ros2.html#related-links">Related Links</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/adapters/index.html#how-data-adapters-work">How Data Adapters Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/adapters/index.html#configuration-reference">Configuration Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/adapters/index.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references/database-nodes/index.html">Database Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/database-nodes/index.html#available-nodes">Available Nodes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/database-nodes/aveva-pi.html">Aveva PI Store Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/aveva-pi.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/aveva-pi.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/aveva-pi.html#initial-setup-dws">Initial Setup - DWS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/aveva-pi.html#directory-structure">Directory Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/aveva-pi.html#usage-dws">Usage - DWS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/aveva-pi.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/database-nodes/blob.html">Blob DWS (Data Warehouse Service)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/blob.html#project-structure">Project Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/blob.html#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/blob.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/blob.html#running">Running</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/blob.html#storage-format">Storage Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/blob.html#testing">Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/blob.html#grpc-api">gRPC API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/database-nodes/kv-psql.html">PostgreSQL Key-Value Store Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/kv-psql.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/kv-psql.html#initial-setup">Initial Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/kv-psql.html#directory-structure">Directory Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/kv-psql.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/kv-psql.html#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/kv-psql.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/kv-psql.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../references/database-nodes/timescaledb.html">TimeScaleDB Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/timescaledb.html#folder-structure">Folder Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/timescaledb.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/timescaledb.html#getting-started-using-docker">Getting Started Using Docker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/timescaledb.html#getting-started-locally">Getting Started Locally</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/timescaledb.html#service-operations">Service Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../references/database-nodes/timescaledb.html#verification-testing">Verification &amp; Testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/database-nodes/index.html#how-database-nodes-work">How Database Nodes Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/database-nodes/index.html#choosing-a-database-node">Choosing a Database Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../references/database-nodes/index.html#related-links">Related Links</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployments</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">CMU Mill 19 Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#equipment">Equipment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../equipment.html">Equipment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../equipment.html#materials-innovation-cloud-lab">Materials Innovation Cloud Lab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../equipment.html#machine-shop">Machine Shop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../equipment.html#robotics-workcell-cluster">Robotics Workcell Cluster</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">MFI Digital Data Backbone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/ddb/blob/main/doc/pages/deployments/cmu-mill19/equipment/miclwire.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="equip-grid"><!--
+:::{raw} html
+:file: equipment/_cards/lincoln-electric-sculptprint-rnd.html
+:::
+-->
+</div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Carnegie Mellon University, Manufacturing Futures Institute.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

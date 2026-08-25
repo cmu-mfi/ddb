@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TimeScaleDB Database Node &mdash; MFI Digital Data Backbone 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=f2c1b3b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/equipment.css?v=819b6121" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/ddb_logo.ico"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="CMU Mill 19 Deployment" href="../../deployments/cmu-mill19/introduction.html" />
+    <link rel="prev" title="PostgreSQL Key-Value Store Database Node" href="kv-psql.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            MFI Digital Data Backbone
+              <img src="../../../_static/ddb_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#what-is-the-digital-data-backbone">What is the Digital Data Backbone?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../overview.html#core-capabilities">Core Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#architecture-at-a-glance">Architecture at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#key-components">Key Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../overview.html#who-is-this-for">Who Is This For?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#single-node-deployment-with-docker">Single Node Deployment with Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#alternative-download-release-archive">Alternative: Download Release Archive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/introduction.html#what-is-mfi-digital-data-backbone">What is MFI Digital Data Backbone?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/introduction.html#core-principles">Core Principles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../concepts/introduction.html#connect">Connect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../concepts/introduction.html#collect">Collect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../concepts/introduction.html#contextualize">Contextualize</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/introduction.html#what-ddb-provides">What DDB Provides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/introduction.html#who-uses-this-documentation">Who Uses This Documentation?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts/architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/architecture.html#system-overview">System Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/architecture.html#component-descriptions">Component Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../concepts/architecture.html#data-generators">Data Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../concepts/architecture.html#data-adapters">Data Adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../concepts/architecture.html#publish-subscribe-broker-mqtt">Publish-Subscribe Broker (MQTT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../concepts/architecture.html#database-nodes">Database Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../concepts/architecture.html#retrieval-api">Retrieval API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/architecture.html#data-flow-summary">Data Flow Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../concepts/architecture.html#topic-structure">Topic Structure</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guides/connect-data-adapter.html">Connect a Data Adapter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-data-adapter.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-data-adapter.html#architecture-overview">Architecture Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-data-adapter.html#option-1-data-adapter-app">Option 1: Data Adapter App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-data-adapter.html#option-2-use-mfi-ddb-python-package">Option 2: Use <code class="docutils literal notranslate"><span class="pre">mfi-ddb</span></code> python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-data-adapter.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../guides/connect-database-node.html">Connect a Database Node</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-database-node.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-database-node.html#how-database-nodes-work">How Database Nodes Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-database-node.html#step-1-choose-a-database-node">Step 1: Choose a Database Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-database-node.html#step-2-configure-the-database-node">Step 2: Configure the Database Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../guides/connect-database-node.html#using-docker-compose-recommended">Using Docker Compose (Recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../guides/connect-database-node.html#configuration-parameters">Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-database-node.html#step-3-update-rws-with-dws-host-port">Step 3: Update RWS with DWS host/port</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/connect-database-node.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../guides/use-retrieval-api.html">Use Retrieval API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/use-retrieval-api.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/use-retrieval-api.html#how-the-retrieval-api-works">How the Retrieval API Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/use-retrieval-api.html#api-endpoints">API Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/use-retrieval-api.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../guides/grafana-dashboard.html">Make Your Grafana Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/grafana-dashboard.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../guides/grafana-dashboard.html#connecting-data-sources-to-grafana">Connecting Data Sources to Grafana</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../payload-schema.html">Payload Schema V1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../payload-schema.html#topic-structure">Topic Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../payload-schema.html#topic-families">Topic Families</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../payload-schema.html#payload-details-by-family">Payload Details by Family</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../payload-schema.html#historian-time-series">historian [Time-Series]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../payload-schema.html#blob-binary-data">blob [Binary Data]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../payload-schema.html#kv-non-time-series">kv [Non-Time-Series]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../payload-schema.html#streaming-metadata">Streaming Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../payload-schema.html#schema-versioning">Schema Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../adapters/index.html">Data Adapters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../adapters/index.html#available-adapters">Available Adapters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../adapters/grpc.html">gRPC Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/grpc.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/grpc.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/grpc.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/grpc.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../adapters/key_value_store.html">Key-Value Store Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/key_value_store.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/key_value_store.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/key_value_store.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/key_value_store.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../adapters/local_files.html">Local Files Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/local_files.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/local_files.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/local_files.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/local_files.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../adapters/mqtt.html">MQTT Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/mqtt.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/mqtt.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/mqtt.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/mqtt.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../adapters/mtconnect.html">MTConnect Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/mtconnect.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/mtconnect.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/mtconnect.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/mtconnect.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../adapters/ros_files.html">ROS Files Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros_files.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros_files.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros_files.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros_files.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../adapters/ros.html">ROS Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../adapters/ros2.html">ROS2 Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros2.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros2.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros2.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../adapters/ros2.html#related-links">Related Links</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../adapters/index.html#how-data-adapters-work">How Data Adapters Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adapters/index.html#configuration-reference">Configuration Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adapters/index.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Database Nodes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#available-nodes">Available Nodes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="aveva-pi.html">Aveva PI Store Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="aveva-pi.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aveva-pi.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aveva-pi.html#initial-setup-dws">Initial Setup - DWS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aveva-pi.html#directory-structure">Directory Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aveva-pi.html#usage-dws">Usage - DWS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aveva-pi.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blob.html">Blob DWS (Data Warehouse Service)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blob.html#project-structure">Project Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="blob.html#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="blob.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="blob.html#running">Running</a></li>
+<li class="toctree-l4"><a class="reference internal" href="blob.html#storage-format">Storage Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="blob.html#testing">Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="blob.html#grpc-api">gRPC API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kv-psql.html">PostgreSQL Key-Value Store Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kv-psql.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kv-psql.html#initial-setup">Initial Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kv-psql.html#directory-structure">Directory Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kv-psql.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kv-psql.html#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kv-psql.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kv-psql.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">TimeScaleDB Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#folder-structure">Folder Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getting-started-using-docker">Getting Started Using Docker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getting-started-locally">Getting Started Locally</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#service-operations">Service Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#verification-testing">Verification &amp; Testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-database-nodes-work">How Database Nodes Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#choosing-a-database-node">Choosing a Database Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#related-links">Related Links</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployments</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deployments/cmu-mill19/introduction.html">CMU Mill 19 Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../deployments/cmu-mill19/introduction.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../deployments/cmu-mill19/introduction.html#equipment">Equipment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../deployments/cmu-mill19/equipment.html">Equipment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../deployments/cmu-mill19/equipment.html#materials-innovation-cloud-lab">Materials Innovation Cloud Lab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../deployments/cmu-mill19/equipment.html#machine-shop">Machine Shop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../deployments/cmu-mill19/equipment.html#robotics-workcell-cluster">Robotics Workcell Cluster</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MFI Digital Data Backbone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Database Nodes</a></li>
+      <li class="breadcrumb-item active">TimeScaleDB Database Node</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/ddb/blob/main/doc/pages/references/database-nodes/timescaledb.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="timescaledb-database-node">
+<h1>TimeScaleDB Database Node<a class="headerlink" href="#timescaledb-database-node" title="Link to this heading"></a></h1>
+<p><a href="https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes/timescaledb" class="inline-button"><i class="fab fa-github"></i>mfi-ddb-timescaledb</a></p>
+<p>This directory implements an open-source historian replacement for Aveva PI using TimeScaleDB. It follows the standard MFI-DDB database node pattern:</p>
+<ul class="simple">
+<li><p><strong>Connector:</strong> Subscribes to MQTT historian topics, decodes incoming Sparkplug B payloads, and batches writes to TimeScaleDB.</p></li>
+<li><p><strong>Database:</strong> TimeScaleDB (PostgreSQL enhanced with time-series extensions/hypertables).</p></li>
+<li><p><strong>DWS (Data Web Service):</strong> A gRPC service that exposes APIs for high-performance time-series data retrieval (<code class="docutils literal notranslate"><span class="pre">GetDataPoint</span></code>, <code class="docutils literal notranslate"><span class="pre">GetDataRange</span></code>, and <code class="docutils literal notranslate"><span class="pre">StreamData</span></code> using an intelligent polling tail-loop).</p></li>
+</ul>
+<section id="folder-structure">
+<h2>Folder Structure<a class="headerlink" href="#folder-structure" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>timescaledb/
+│
+├── connector/                      # THE INGESTION ENGINE (Write Path)
+│   │                               # Manages real-time MQTT subscription and high-throughput ingestion.
+│   │
+│   ├── main.py                     # Pipeline Coordinator &amp; Queue Worker
+│   │                               └── Core Logic: 
+│   │                                   • Establishes the Paho-MQTT client connection loop.
+│   │                                   • Subscribes to the industrial network root topic (`mfi-v1.0-historian/#`).
+│   │                                   • Intercepts raw Sparkplug B Protocol Buffer binary payloads.
+│   │                                   • Extracts timestamps, maps metric names, and determines type classifications.
+│   │                                   • Hands data over to an in-memory `queue.Queue` buffer with drop-safe boundaries.
+│   │                                   • Spawns a background worker thread (`db_batch_writer_worker`) that runs a 
+│   │                                     micro-batch loop, flushing items when `max_batch_size` 
+│   │                                     or `flush_interval_sec` is reached to prevent write lockouts.
+│   │
+│   ├── db.py                       # TimeScaleDB Writer Client Layer
+│   │                               └── Core Logic:
+│   │                                   • Concrete implementation subclassing the core database writer interface.
+│   │                                   • Implements the `insert_rows(rows)` method using Psycopg single-transaction blocks.
+│   │                                   • Uses bulk execution arrays (`executemany`) targeting the Timescale hypertable.
+│   │                                   • Handles connection drop-outs, transaction rollbacks, and reconnection retries.
+│   │
+│   ├── config.yaml                 # Connector Operational Profiles
+│   │                               └── Details: Broking addresses, authentication credentials, batching limits 
+│   │                                            (sizes/timeouts), and target PostgreSQL credentials.
+│   │
+│   └── requirements.txt            # Ingestion Dependencies (paho-mqtt, psycopg2-binary, sparkplug-b-protobuf).
+│
+├── dws/                            # THE DATA WEB SERVICE (Read Path)
+│   │                               # Exposes the standard MFI-DDB gRPC query and streaming interfaces.
+│   │
+│   ├── server.py                   # gRPC Interface Layer (DataService)
+│   │                               └── Core Logic:
+│   │                                   • Implements the generated Protobuf gRPC base class compiled specs.
+│   │                                   • `GetDataPoint`: Uses a one-sided timestamp lookup.
+│   │                                     - `do_closest_past=True` returns the newest row at or before the timestamp.
+│   │                                     - `do_closest_past=False` returns the oldest row at or after the timestamp.
+│   │                                     - If no row exists on that side, the response stays empty.
+│   │                                   • `GetDataRange`: Handles time-bounded pagination windows and returns an
+│   │                                     ISO-8601 string continuation token based on the last row timestamp.
+│   │                                     It is suitable for simple paging, but exact same-timestamp collisions are not
+│   │                                     fully disambiguated yet.
+│   │                                   • `StreamData`: Executes a polling live tailing loop. It yields records
+│   │                                     immediately when present, sleeps for a fixed interval when idle, and monitors
+│   │                                     `context.is_active()` to free resources instantly if a client drops.
+│   │
+│   ├── db.py                       # TimeScaleDB Reader Client Layer
+│   │                               └── Core Logic:
+│   │                                   • Manages a thread-safe `ThreadedConnectionPool` to isolate concurrent read operations.
+│   │                                   • Wraps all queries in safe `with` context managers to prevent socket leaks.
+│   │                                   • Supports exact topic matches and MQTT wildcards.
+│   │                                     - Exact topics use `topic = %s`.
+│   │                                     - Wildcards (`+` and `#`) are translated into PostgreSQL regex matching.
+│   │                                   • Implements time-series SQL lookups with one-sided nearest-point selection
+│   │                                     (`ORDER BY time DESC LIMIT 1` or `ORDER BY time ASC LIMIT 1`).
+│   │
+│   ├── config.yaml                 # gRPC Server Deployment Profiles
+│   │                               └── Details: Network port bindings (default gRPC port), pool capacities, 
+│   │                                            and localized database reader access credentials.
+│   │
+│   └── requirements.txt            # DWS Service Dependencies (grpcio, grpcio-tools, protobuf, psycopg2-binary).
+│
+├── tests/                          # VALIDATION &amp; AGNOSTIC MOCKING LAYER
+│   │                               # Full test suite running on isolated paths without live database sockets.
+│   │
+│   ├── test_connector.py           # Ingestion Validation Suite
+│   │                               └── Test Coverage:
+│   │                                   • Data conversion mappings (numbers, strings, and complex serialized JSON arrays).
+│   │                                   • Edge cases for telemetry faults (handling sensor values like `NaN` and `+/- Infinity`).
+│   │                                   • Queue pressure capabilities (validating drop-safe boundaries during buffer overflow).
+│   │                                   • Micro-batch worker clock timing, chunking, and group transaction flushes.
+│   │
+│   └── test_dws.py                 # Retrieval Validation Suite
+│   │                               └── Test Coverage:
+│   │                                   • Relational query database tuple conversion to Protobuf formats.
+│   │                                   • Safe server responses during "cold boot" states (empty tables).
+│   │                                   • Pagination boundaries during high-frequency timestamp collisions.
+│   │                                   • MQTT wildcard matching and one-sided timestamp selection rules.
+│   │                                   • Live stream polling back-offs and graceful connection drop resource cleanups.
+│   │                                   • Threaded connection pool leak protection during transaction failures.
+│   │
+└── timescale_build.sh              # INFRASTRUCTURE DEPLOYMENT AUTOMATION
+                                    └── Details: Script to spin up localized Docker multi-stage structures, build out the 
+                                                 underlying PostgreSQL container, enable the Timescale time-series extension, 
+                                                 and configure the operational data hypertables automatically.
+</pre></div>
+</div>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Docker &amp; Docker Compose</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">psql</span></code> client (for manual verification)</p></li>
+<li><p>Python 3.12+ virtual environment</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="getting-started-using-docker">
+<h2>Getting Started Using Docker<a class="headerlink" href="#getting-started-using-docker" title="Link to this heading"></a></h2>
+<section id="running-the-historian-using-docker">
+<h3>Running the Historian Using Docker:<a class="headerlink" href="#running-the-historian-using-docker" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Configure your target database environment variables and broker targets inside <code class="docutils literal notranslate"><span class="pre">mfi_ddb_library/docker/timescale/connector-config.yaml</span></code></p></li>
+<li><p>Run the following docker compose commands with profile tag:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">compose</span> <span class="o">--</span><span class="n">profile</span> <span class="n">ts</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Check your docker processes either using ui or the following command:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">ps</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Manual Database Query Verification
+*Change configs in command if other than default is chosen</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">mfi</span><span class="o">-</span><span class="n">timescaledb</span><span class="o">-</span><span class="n">db</span> <span class="n">psql</span> <span class="o">-</span><span class="n">U</span> <span class="n">tsdb</span> <span class="o">-</span><span class="n">d</span> <span class="n">ddb_ts</span> \
+    <span class="o">-</span><span class="n">c</span> <span class="s2">"SELECT time, topic, metric, value_num, value_text FROM timeseries_data ORDER BY time DESC LIMIT 10;"</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="getting-started-locally">
+<h2>Getting Started Locally<a class="headerlink" href="#getting-started-locally" title="Link to this heading"></a></h2>
+<section id="start-timescaledb-engine">
+<h3>1. Start TimeScaleDB Engine<a class="headerlink" href="#start-timescaledb-engine" title="Link to this heading"></a></h3>
+<p>Create a .env file and add a variable <code class="docutils literal notranslate"><span class="pre">DB_PORT</span></code>:<code class="docutils literal notranslate"><span class="pre">your_desired_port_no</span></code>.
+You can also directly add the port number in the timescale_build.sh file.
+If port number is not provided it defaults to 5432.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>timescale_build.sh
+</pre></div>
+</div>
+<p>This script initializes a localized TimeScaleDB container instance. If your automation setup does not automatically build out the relational constraints, execute the target schema layout manually inside your SQL shell:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">timescaledb</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">timeseries_data</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">time</span><span class="w">        </span><span class="n">TIMESTAMPTZ</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">topic</span><span class="w">       </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">component</span><span class="w">   </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">metric</span><span class="w">      </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">value_num</span><span class="w">   </span><span class="n">DOUBLE</span><span class="w"> </span><span class="k">PRECISION</span><span class="p">,</span>
+<span class="w">    </span><span class="n">value_text</span><span class="w">  </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">value_json</span><span class="w">  </span><span class="n">JSONB</span>
+<span class="p">);</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'timeseries_data'</span><span class="p">,</span><span class="w"> </span><span class="s1">'time'</span><span class="p">,</span><span class="w"> </span><span class="n">if_not_exists</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">TRUE</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Although it may not happen, but if prompted for a password during db setup, you can find the password in timescale_build.sh or connector config in docker folder</p>
+</section>
+<section id="start-mqtt-broker-infrastructure">
+<h3>2. Start MQTT Broker Infrastructure<a class="headerlink" href="#start-mqtt-broker-infrastructure" title="Link to this heading"></a></h3>
+<p>Spin up a localized isolated Eclipse-Mosquitto engine instance to route your industrial network messaging:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>mqtt<span class="w"> </span>-p<span class="w"> </span><span class="m">1883</span>:1883<span class="w"> </span>emqx/emqx:5.8.0
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="service-operations">
+<h2>Service Operations<a class="headerlink" href="#service-operations" title="Link to this heading"></a></h2>
+<section id="timescaledb-node-all-dependencies-download">
+<h3>TimescaleDB Node All Dependencies Download<a class="headerlink" href="#timescaledb-node-all-dependencies-download" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="ingestion-connector">
+<h3>Ingestion Connector<a class="headerlink" href="#ingestion-connector" title="Link to this heading"></a></h3>
+<p>The connector listens to the default root branch (<code class="docutils literal notranslate"><span class="pre">mfi-v1.0-historian/#</span></code>), translates binary Sparkplug payloads into flat database structures, and queues them into dynamic macro-transactions.</p>
+<ol class="arabic simple">
+<li><p>Configure your target database environment variables and broker targets inside <code class="docutils literal notranslate"><span class="pre">connector/config.yaml</span></code>.</p></li>
+<li><p>Install Connector dependencies:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>connector/requirements.txt
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Run the worker process:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>mfi_ddb_database_nodes/timescaledb
+<span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>connector.main
+</pre></div>
+</div>
+</section>
+<section id="dws-grpc-engine-service">
+<h3>DWS gRPC Engine Service<a class="headerlink" href="#dws-grpc-engine-service" title="Link to this heading"></a></h3>
+<p>Exposes database reads via safe API endpoint calls.</p>
+<ol class="arabic simple">
+<li><p>Configure port bindings and connection parameters inside <code class="docutils literal notranslate"><span class="pre">dws/config.yaml</span></code>.</p></li>
+<li><p>Install DWS dependencies:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>dws/requirements.txt
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Execute the service module from inside the <code class="docutils literal notranslate"><span class="pre">timescaledb/</span></code> directory so relative imports resolve cleanly:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>mfi_ddb_database_nodes/timescaledb
+<span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>dws.server
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="verification-testing">
+<h2>Verification &amp; Testing<a class="headerlink" href="#verification-testing" title="Link to this heading"></a></h2>
+<section id="executing-the-test-suite">
+<h3>Executing the Test Suite<a class="headerlink" href="#executing-the-test-suite" title="Link to this heading"></a></h3>
+<p>The testing engine is designed to run isolated from the larger monolithic repository structure. To execute the 17 production-ready unit and integration tests (validating memory boundaries, timestamp collisions, connection pool leaks, and network dropouts), navigate into this <code class="docutils literal notranslate"><span class="pre">timescaledb/</span></code> directory and execute <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>mfi_ddb_library/mfi_ddb_database_nodes/timescaledb
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--import-mode<span class="o">=</span>importlib
+</pre></div>
+</div>
+</section>
+<section id="useful-pytest-flags">
+<h3>Useful Pytest Flags<a class="headerlink" href="#useful-pytest-flags" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>View standard output (<code class="docutils literal notranslate"><span class="pre">print()</span></code> statements):</strong></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--import-mode<span class="o">=</span>importlib<span class="w"> </span>-s
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Run a specific test module:</strong></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>pytest<span class="w"> </span>tests/test_connector.py
+</pre></div>
+</div>
+</section>
+<section id="manual-database-query-verification">
+<h3>Manual Database Query Verification<a class="headerlink" href="#manual-database-query-verification" title="Link to this heading"></a></h3>
+<p>To check raw data tables directly inside the live table engines, execute a shell script snapshot query:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PGPASSWORD</span><span class="o">=</span>timescale<span class="w"> </span>psql<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-U<span class="w"> </span>tsdb<span class="w"> </span>-d<span class="w"> </span>ddb_ts<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-c<span class="w"> </span><span class="s2">"SELECT time, topic, metric, value_num, value_text FROM timeseries_data ORDER BY time DESC LIMIT 10;"</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="kv-psql.html" class="btn btn-neutral float-left" title="PostgreSQL Key-Value Store Database Node" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../deployments/cmu-mill19/introduction.html" class="btn btn-neutral float-right" title="CMU Mill 19 Deployment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Carnegie Mellon University, Manufacturing Futures Institute.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

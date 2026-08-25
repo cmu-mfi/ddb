@@ -1,0 +1,880 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture &mdash; MFI Digital Data Backbone 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f2c1b3b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/equipment.css?v=819b6121" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../../_static/ddb_logo.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Connect a Data Adapter" href="../guides/connect-data-adapter.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MFI Digital Data Backbone
+              <img src="../../_static/ddb_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#what-is-the-digital-data-backbone">What is the Digital Data Backbone?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#core-capabilities">Core Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#architecture-at-a-glance">Architecture at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#key-components">Key Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#who-is-this-for">Who Is This For?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#single-node-deployment-with-docker">Single Node Deployment with Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#alternative-download-release-archive">Alternative: Download Release Archive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Concepts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-is-mfi-digital-data-backbone">What is MFI Digital Data Backbone?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#core-principles">Core Principles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#connect">Connect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#collect">Collect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#contextualize">Contextualize</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#what-ddb-provides">What DDB Provides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#who-uses-this-documentation">Who Uses This Documentation?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system-overview">System Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#component-descriptions">Component Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-generators">Data Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-adapters">Data Adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publish-subscribe-broker-mqtt">Publish-Subscribe Broker (MQTT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database-nodes">Database Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieval-api">Retrieval API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-flow-summary">Data Flow Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#topic-structure">Topic Structure</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/connect-data-adapter.html">Connect a Data Adapter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-data-adapter.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-data-adapter.html#architecture-overview">Architecture Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-data-adapter.html#option-1-data-adapter-app">Option 1: Data Adapter App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-data-adapter.html#option-2-use-mfi-ddb-python-package">Option 2: Use <code class="docutils literal notranslate"><span class="pre">mfi-ddb</span></code> python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-data-adapter.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/connect-database-node.html">Connect a Database Node</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-database-node.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-database-node.html#how-database-nodes-work">How Database Nodes Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-database-node.html#step-1-choose-a-database-node">Step 1: Choose a Database Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-database-node.html#step-2-configure-the-database-node">Step 2: Configure the Database Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../guides/connect-database-node.html#using-docker-compose-recommended">Using Docker Compose (Recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../guides/connect-database-node.html#configuration-parameters">Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-database-node.html#step-3-update-rws-with-dws-host-port">Step 3: Update RWS with DWS host/port</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/connect-database-node.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/use-retrieval-api.html">Use Retrieval API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/use-retrieval-api.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/use-retrieval-api.html#how-the-retrieval-api-works">How the Retrieval API Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/use-retrieval-api.html#api-endpoints">API Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/use-retrieval-api.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/grafana-dashboard.html">Make Your Grafana Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../guides/grafana-dashboard.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/grafana-dashboard.html#connecting-data-sources-to-grafana">Connecting Data Sources to Grafana</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../references/payload-schema.html">Payload Schema V1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../references/payload-schema.html#topic-structure">Topic Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../references/payload-schema.html#topic-families">Topic Families</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../references/payload-schema.html#payload-details-by-family">Payload Details by Family</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../references/payload-schema.html#historian-time-series">historian [Time-Series]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../references/payload-schema.html#blob-binary-data">blob [Binary Data]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../references/payload-schema.html#kv-non-time-series">kv [Non-Time-Series]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../references/payload-schema.html#streaming-metadata">Streaming Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/payload-schema.html#schema-versioning">Schema Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references/adapters/index.html">Data Adapters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../references/adapters/index.html#available-adapters">Available Adapters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/grpc.html">gRPC Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/grpc.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/grpc.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/grpc.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/grpc.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/key_value_store.html">Key-Value Store Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/key_value_store.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/key_value_store.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/key_value_store.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/key_value_store.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/local_files.html">Local Files Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/local_files.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/local_files.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/local_files.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/local_files.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/mqtt.html">MQTT Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mqtt.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mqtt.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mqtt.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mqtt.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/mtconnect.html">MTConnect Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mtconnect.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mtconnect.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mtconnect.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mtconnect.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/ros_files.html">ROS Files Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros_files.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros_files.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros_files.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros_files.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/ros.html">ROS Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/ros2.html">ROS2 Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros2.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros2.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros2.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros2.html#related-links">Related Links</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../references/adapters/index.html#how-data-adapters-work">How Data Adapters Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/adapters/index.html#configuration-reference">Configuration Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/adapters/index.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references/database-nodes/index.html">Database Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../references/database-nodes/index.html#available-nodes">Available Nodes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../references/database-nodes/aveva-pi.html">Aveva PI Store Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#initial-setup-dws">Initial Setup - DWS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#directory-structure">Directory Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#usage-dws">Usage - DWS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/database-nodes/blob.html">Blob DWS (Data Warehouse Service)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#project-structure">Project Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#running">Running</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#storage-format">Storage Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#testing">Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#grpc-api">gRPC API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/database-nodes/kv-psql.html">PostgreSQL Key-Value Store Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#initial-setup">Initial Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#directory-structure">Directory Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/database-nodes/timescaledb.html">TimeScaleDB Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#folder-structure">Folder Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#getting-started-using-docker">Getting Started Using Docker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#getting-started-locally">Getting Started Locally</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#service-operations">Service Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#verification-testing">Verification &amp; Testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../references/database-nodes/index.html#how-database-nodes-work">How Database Nodes Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/database-nodes/index.html#choosing-a-database-node">Choosing a Database Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/database-nodes/index.html#related-links">Related Links</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployments</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deployments/cmu-mill19/introduction.html">CMU Mill 19 Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployments/cmu-mill19/introduction.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployments/cmu-mill19/introduction.html#equipment">Equipment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployments/cmu-mill19/equipment.html">Equipment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../deployments/cmu-mill19/equipment.html#materials-innovation-cloud-lab">Materials Innovation Cloud Lab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../deployments/cmu-mill19/equipment.html#machine-shop">Machine Shop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../deployments/cmu-mill19/equipment.html#robotics-workcell-cluster">Robotics Workcell Cluster</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MFI Digital Data Backbone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/ddb/blob/main/doc/pages/concepts/architecture.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h1>
+<p>The MFI Digital Data Backbone follows an event-driven, pub-sub architecture that decouples data producers from consumers. This allows multiple downstream databases to subscribe to the broker and store data without direct integration with source systems.</p>
+<section id="system-overview">
+<h2>System Overview<a class="headerlink" href="#system-overview" title="Link to this heading"></a></h2>
+<pre  class="mermaid">
+        flowchart BT
+    subgraph Input[&quot;.&quot;]
+        direction LR
+
+        DAA[Data&lt;/br&gt;Adapter&lt;/br&gt;App&lt;/br&gt;]
+
+        subgraph Data_Sources[&quot;Data Sources&quot;]
+            direction LR
+            DS1[Data Generator 1] --&gt; DA1[Data Adapter 1]
+            DA1 --&gt; S1[Streamer 1]
+            DS2[Data Generator ...] --&gt; DA2[Data Adapter ...]
+            DA2 --&gt; S2[Streamer 2]
+            DSn[Data Generator ...] --&gt; DAn[Data Adapter ...]
+            DAn --&gt; Sn[Streamer n]
+        end
+    end
+
+    MQTT[Pub-Sub Broker: MQTT]
+
+    subgraph DBN[&quot;Database Nodes&quot;]
+        direction LR
+        KV[DBN: Key-Value Store]
+        BLOB[DBN: Blob Storage]
+        HISTORIAN[DBN: Historian/Time-Series]
+        DBNx[DBN: Other...]
+    end
+
+    subgraph Retrieval[&quot;Retrieval API&quot;]
+        direction TB
+        MDS[Metadata Store] --&gt; RWS[Retrieval Web Service]
+    end
+
+    S1 --&gt; MQTT
+    S2 --&gt; MQTT
+    Sn --&gt; MQTT
+    MQTT --&gt; KV
+    MQTT --&gt; BLOB
+    MQTT --&gt; HISTORIAN
+    MQTT --&gt; DBNx
+    MQTT --&gt; MDS
+    DBN --&gt; RWS
+    RWS --&gt; USERS[Users/Applications]
+
+    classDef layer fill:#e6f7ff,stroke:#1890ff
+    classDef highlight fill:#094d57,stroke:#0a3d4d
+    class Data_Sources,DBN,Retrieval layer
+    style Input fill:transparent,stroke:#666
+    </pre><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Arrow direction in the diagram above shows the data flow in the framework. It doesn’t represent the direction of requests.</p>
+</div>
+</section>
+<section id="component-descriptions">
+<h2>Component Descriptions<a class="headerlink" href="#component-descriptions" title="Link to this heading"></a></h2>
+<p><strong>Key Components</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Repository</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Core Library</strong></p></td>
+<td><p>Python package providing data adapters, streamers, and topic families</p></td>
+<td><p><a class="reference external" href="https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_package"><code class="docutils literal notranslate"><span class="pre">mfi_ddb_package</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Data Adapter App</strong></p></td>
+<td><p>REST API web application for managing data adapters on edge devices</p></td>
+<td><p><a class="reference external" href="https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_data_adapter"><code class="docutils literal notranslate"><span class="pre">mfi_ddb_data_adapter</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Database Nodes</strong></p></td>
+<td><p>Compatible database storage implementations</p></td>
+<td><p><a class="reference external" href="https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_database_nodes"><code class="docutils literal notranslate"><span class="pre">mfi_ddb_database_nodes</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Retrieval API</strong></p></td>
+<td><p>Metadata store and REST API for data queries</p></td>
+<td><p><a class="reference external" href="https://github.com/cmu-mfi/mfi_ddb_library/tree/main/mfi_ddb_retrieval_api"><code class="docutils literal notranslate"><span class="pre">mfi_ddb_retrieval_api</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+<section id="data-generators">
+<h3>Data Generators<a class="headerlink" href="#data-generators" title="Link to this heading"></a></h3>
+<p>The top layer shows example current and future generators of information for the digital backbone. These sources are responsible for generating data that will be collected and processed by the system. Examples include:</p>
+<ul class="simple">
+<li><p>CNC machines and industrial equipment</p></li>
+<li><p>IoT sensors (temperature, pressure, vibration)</p></li>
+<li><p>File systems and databases</p></li>
+<li><p>MQTT brokers and ROS topics</p></li>
+</ul>
+</section>
+<section id="data-adapters">
+<h3>Data Adapters<a class="headerlink" href="#data-adapters" title="Link to this heading"></a></h3>
+<p>Data adapters monitor the data generators for events. They listen for data changes or updates from the data generators and pass the information to the MQTT Broker in the correct format. Each adapter handles a specific type of data source.</p>
+<p><a class="reference internal" href="../references/adapters/index.html#available-adapters"><span class="std std-ref">Read more about available adapters →</span></a></p>
+</section>
+<section id="publish-subscribe-broker-mqtt">
+<h3>Publish-Subscribe Broker (MQTT)<a class="headerlink" href="#publish-subscribe-broker-mqtt" title="Link to this heading"></a></h3>
+<p>The MQTT Broker acts as the central communication hub in the pub-sub model. It receives messages from streamers and distributes them to the appropriate subscribers based on topic subscriptions. This decoupling allows new database nodes and consumers to be added without modifying existing components.</p>
+<p><strong>Key features:</strong></p>
+<ul class="simple">
+<li><p>Topic-based message routing</p></li>
+<li><p>Quality of Service (QoS) levels for reliable delivery</p></li>
+<li><p>Support for persistent sessions</p></li>
+<li><p>Secure connections via TLS/SSL</p></li>
+</ul>
+</section>
+<section id="database-nodes">
+<h3>Database Nodes<a class="headerlink" href="#database-nodes" title="Link to this heading"></a></h3>
+<p>The cloud storage layer contains different storage solutions where data is stored. These nodes subscribe to the MQTT Broker to receive data and facilitate transfer from the broker to the appropriate storage systems:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Database Node</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Compatible Payloads</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../references/database-nodes/aveva-pi.html"><span class="std std-doc">Aveva PI</span></a></p></td>
+<td><p>Time-Series</p></td>
+<td><p>historian</p></td>
+<td><p>Industrial historian for time-series data</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../references/database-nodes/blob.html"><span class="std std-doc">Blob</span></a></p></td>
+<td><p>File Storage</p></td>
+<td><p>blob, kv</p></td>
+<td><p>Cloud file storage for binary objects</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../references/database-nodes/kv-psql.html"><span class="std std-doc">KV-PSQL</span></a></p></td>
+<td><p>Key-Value Store</p></td>
+<td><p>kv</p></td>
+<td><p>PostgreSQL-based key-value store</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../references/database-nodes/timescaledb.html"><span class="std std-doc">TimescaleDB</span></a></p></td>
+<td><p>Time-Series</p></td>
+<td><p>historian</p></td>
+<td><p>PostgreSQL-based time-series database</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="retrieval-api">
+<h3>Retrieval API<a class="headerlink" href="#retrieval-api" title="Link to this heading"></a></h3>
+<p>This layer provides retrieval services that can access data stored in the cloud storage. It consists of two components:</p>
+<ul class="simple">
+<li><p><strong>Metadata Store (MDS)</strong> — PostgreSQL-based metadata storage that tracks data location, format, and descriptive information</p></li>
+<li><p><strong>Retrieval Web Service (RWS)</strong> — REST API for querying and retrieving data from all connected database nodes through a unified interface</p></li>
+</ul>
+</section>
+</section>
+<section id="data-flow-summary">
+<h2>Data Flow Summary<a class="headerlink" href="#data-flow-summary" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>A <strong>Data Generator</strong> produces raw data (sensor reading, file, etc.)</p></li>
+<li><p>The <strong>Data Adapter</strong> detects the new data and converts it to DDB format</p></li>
+<li><p>The <strong>Streamer</strong> publishes the formatted message to the MQTT Broker on the appropriate topic</p></li>
+<li><p><strong>Database Nodes</strong> subscribed to that topic receive and store the data</p></li>
+<li><p>Users query data through the <strong>Retrieval API</strong>, which consolidates results from all storage backends</p></li>
+</ol>
+</section>
+<section id="topic-structure">
+<h2>Topic Structure<a class="headerlink" href="#topic-structure" title="Link to this heading"></a></h2>
+<p>All messages use a hierarchical topic structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mfi</span><span class="o">-</span><span class="n">v1</span><span class="mf">.0</span><span class="o">/</span><span class="p">{</span><span class="n">topic_family</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">enterprise</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">site</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">area</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">device</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">topic_family</span></code> is one of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">historian</span></code> — Time-series data (Sparkplug B format)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kv</span></code> — Key-value / non-time-series data (JSON format)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blob</span></code> — Binary large object data (protobuf + binary payload)</p></li>
+</ul>
+<p><a class="reference internal" href="../references/payload-schema.html"><span class="std std-doc">Learn more about the schema →</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../guides/connect-data-adapter.html" class="btn btn-neutral float-right" title="Connect a Data Adapter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Carnegie Mellon University, Manufacturing Futures Institute.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
