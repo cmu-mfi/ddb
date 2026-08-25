@@ -5,11 +5,12 @@ Get up and running with the MFI Digital Data Backbone in minutes using Docker Co
 ## Prerequisites
 
 - [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed
+- Git installed (https://git-scm.com/install/)
 - Git cloned [`mfi_ddb_library`](https://github.com/cmu-mfi/mfi_ddb_library) repository
 
 ## Single Node Deployment with Docker
 
-**1. Clone the Repository**
+**1. Clone the Repository on Terminal**
 
 ```bash
 git clone https://github.com/cmu-mfi/mfi_ddb_library.git
