@@ -35,6 +35,7 @@ pages/guides/connect-data-adapter.md
 pages/guides/connect-database-node.md
 pages/guides/use-retrieval-api.md
 pages/guides/grafana-dashboard.md
+pages/guides/stream_data.md
 ```
 
 ```{toctree}
