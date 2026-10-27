@@ -154,30 +154,35 @@ docker exec mfi-metadata-store-db psql -U mfi -d mds -c "select p.project_name, 
 -->
 ## Step 3: Stream data as that user
 
-Stream data with any adapter, exactly as in [Getting Started With MFI DDB](./GettingStarted.md#setting-up-a-connection-data-adapter-app), with two changes:
+Stream some data as the user from Step 1. This guide uses the **KeyValue** adapter with `msg_type: data` payloads, so you don't need a device or an outside broker. Any other adapter works the same way, as in [Getting Started With MFI DDB](./GettingStarted.md#setting-up-a-connection-data-adapter-app), with two changes:
 
 * Set `trial_id` in the **Adapter Config** to a name for this run, e.g. `print_run_001`.
 * Set `user` in the **Streamer Config** to the user from Step 1.
 
-For the MQTT mock publisher:
-
 **Adapter Config**
 ```yaml
-mqtt:
-  broker_address: test.mosquitto.org
-  broker_port: 1883
-trial_id: print_run_001
-queue_size: 10
-topics:
-  - component_id: telemetry
-    topic: admin/feeds/avroom/telemetry/#
+trial_id: print_run_001          # the trial name; required for data payloads
+payloads:
+  - msg_type: data
+    operator: jdoe
+    material: silver_ink
+    nozzle_diameter_um: 150
+    notes: first print test
+  - msg_type: data
+    operator: jdoe
+    material: silver_ink
+    nozzle_diameter_um: 200
+    notes: second print test
 ```
+
+Each `data` payload is a set of key/value pairs that you choose. The adapter sends one payload per poll, so at the default 1 Hz the two payloads above are sent within about two seconds.
 
 **Streamer Config**
 ```yaml
+topic_family: kv
 user:
   user_id: jdoe
-  domain: cmu
+  domain: ANDREW
 mqtt:
   broker_address: mqtt-broker
   broker_port: 1883
@@ -185,10 +190,12 @@ mqtt:
   site: Test-Site
 ```
 
-The trial starts when the connection starts streaming. **Stop** the connection when the run is finished. That records the trial's end time.
+The trial starts when the connection starts streaming. Once the payloads have been sent, **Stop** the connection. That records the trial's end time.
 
 > [!WARNING]
-> * The user **must exist before you stream**. If they don't, the app still shows the connection as streaming, but no trial is recorded. The only sign is an error in the connector log: `Key (user_id, user_domain)=(jdoe, cmu) is not present in table "ddb_user"`.
+> * The user **must exist before you stream**. If they don't, the app still shows the connection as streaming, but no trial is recorded. The only sign is an error in the connector log: `Key (user_id, user_domain)=(jdoe, ANDREW) is not present in table "ddb_user"`.
+> * `trial_id` must be set. Without it, `data` payloads are dropped and the only sign is the warning `No trial_id provided` in the Data Adapter App backend log (`docker logs mfi-data-adapter-backend`).
+> * After all payloads are sent, the backend log repeats `Data not found for device data` until you stop the connection. This is expected.
 > * Adding `project:` to the Streamer Config does **not** link the trial to a project. Use a tag (Step 5).
 
 ## Step 4: Find the trial's recorded times
