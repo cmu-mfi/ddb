@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started: Users, Projects and Trials &mdash; MFI Digital Data Backbone 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=f2c1b3b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/equipment.css?v=819b6121" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  
+    <link rel="shortcut icon" href="../../_static/ddb_logo.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MFI Digital Data Backbone
+              <img src="../../_static/ddb_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#what-is-the-digital-data-backbone">What is the Digital Data Backbone?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../overview.html#core-capabilities">Core Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#architecture-at-a-glance">Architecture at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#key-components">Key Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#who-is-this-for">Who Is This For?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#single-node-deployment-with-docker">Single Node Deployment with Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#alternative-download-release-archive">Alternative: Download Release Archive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Concepts</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/introduction.html#what-is-mfi-digital-data-backbone">What is MFI Digital Data Backbone?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/introduction.html#core-principles">Core Principles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../concepts/introduction.html#connect">Connect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../concepts/introduction.html#collect">Collect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../concepts/introduction.html#contextualize">Contextualize</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/introduction.html#what-ddb-provides">What DDB Provides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/introduction.html#who-uses-this-documentation">Who Uses This Documentation?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts/architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/architecture.html#system-overview">System Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/architecture.html#component-descriptions">Component Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../concepts/architecture.html#data-generators">Data Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../concepts/architecture.html#data-adapters">Data Adapters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../concepts/architecture.html#publish-subscribe-broker-mqtt">Publish-Subscribe Broker (MQTT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../concepts/architecture.html#database-nodes">Database Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../concepts/architecture.html#retrieval-api">Retrieval API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/architecture.html#data-flow-summary">Data Flow Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/architecture.html#topic-structure">Topic Structure</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="connect-data-adapter.html">Connect a Data Adapter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="connect-data-adapter.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connect-data-adapter.html#architecture-overview">Architecture Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connect-data-adapter.html#option-1-data-adapter-app">Option 1: Data Adapter App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connect-data-adapter.html#option-2-use-mfi-ddb-python-package">Option 2: Use <code class="docutils literal notranslate"><span class="pre">mfi-ddb</span></code> python package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connect-data-adapter.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="connect-database-node.html">Connect a Database Node</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="connect-database-node.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connect-database-node.html#how-database-nodes-work">How Database Nodes Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connect-database-node.html#step-1-choose-a-database-node">Step 1: Choose a Database Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connect-database-node.html#step-2-configure-the-database-node">Step 2: Configure the Database Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="connect-database-node.html#using-docker-compose-recommended">Using Docker Compose (Recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="connect-database-node.html#configuration-parameters">Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="connect-database-node.html#step-3-update-rws-with-dws-host-port">Step 3: Update RWS with DWS host/port</a></li>
+<li class="toctree-l2"><a class="reference internal" href="connect-database-node.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="use-retrieval-api.html">Use Retrieval API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="use-retrieval-api.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-retrieval-api.html#how-the-retrieval-api-works">How the Retrieval API Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-retrieval-api.html#api-endpoints">API Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-retrieval-api.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="grafana-dashboard.html">Make Your Grafana Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="grafana-dashboard.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grafana-dashboard.html#connecting-data-sources-to-grafana">Connecting Data Sources to Grafana</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../references/payload-schema.html">Payload Schema V1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../references/payload-schema.html#topic-structure">Topic Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../references/payload-schema.html#topic-families">Topic Families</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../references/payload-schema.html#payload-details-by-family">Payload Details by Family</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../references/payload-schema.html#historian-time-series">historian [Time-Series]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../references/payload-schema.html#blob-binary-data">blob [Binary Data]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../references/payload-schema.html#kv-non-time-series">kv [Non-Time-Series]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../references/payload-schema.html#streaming-metadata">Streaming Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/payload-schema.html#schema-versioning">Schema Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references/adapters/index.html">Data Adapters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../references/adapters/index.html#available-adapters">Available Adapters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/grpc.html">gRPC Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/grpc.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/grpc.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/grpc.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/grpc.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/key_value_store.html">Key-Value Store Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/key_value_store.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/key_value_store.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/key_value_store.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/key_value_store.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/local_files.html">Local Files Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/local_files.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/local_files.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/local_files.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/local_files.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/mqtt.html">MQTT Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mqtt.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mqtt.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mqtt.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mqtt.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/mtconnect.html">MTConnect Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mtconnect.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mtconnect.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mtconnect.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/mtconnect.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/ros_files.html">ROS Files Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros_files.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros_files.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros_files.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros_files.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/ros.html">ROS Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/adapters/ros2.html">ROS2 Adapter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros2.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros2.html#configuration-parameters">Configuration Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros2.html#example-configuration">Example Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/adapters/ros2.html#related-links">Related Links</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../references/adapters/index.html#how-data-adapters-work">How Data Adapters Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/adapters/index.html#configuration-reference">Configuration Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/adapters/index.html#related-links">Related Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references/database-nodes/index.html">Database Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../references/database-nodes/index.html#available-nodes">Available Nodes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../references/database-nodes/aveva-pi.html">Aveva PI Store Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#initial-setup-dws">Initial Setup - DWS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#directory-structure">Directory Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#usage-dws">Usage - DWS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/aveva-pi.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/database-nodes/blob.html">Blob DWS (Data Warehouse Service)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#project-structure">Project Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#running">Running</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#storage-format">Storage Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#testing">Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/blob.html#grpc-api">gRPC API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/database-nodes/kv-psql.html">PostgreSQL Key-Value Store Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#initial-setup">Initial Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#directory-structure">Directory Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#database-schema">Database Schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/kv-psql.html#running-tests">Running Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../references/database-nodes/timescaledb.html">TimeScaleDB Database Node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#folder-structure">Folder Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#getting-started-using-docker">Getting Started Using Docker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#getting-started-locally">Getting Started Locally</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#service-operations">Service Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../references/database-nodes/timescaledb.html#verification-testing">Verification &amp; Testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../references/database-nodes/index.html#how-database-nodes-work">How Database Nodes Work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/database-nodes/index.html#choosing-a-database-node">Choosing a Database Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../references/database-nodes/index.html#related-links">Related Links</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployments</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deployments/cmu-mill19/introduction.html">CMU Mill 19 Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployments/cmu-mill19/introduction.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployments/cmu-mill19/introduction.html#equipment">Equipment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployments/cmu-mill19/equipment.html">Equipment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../deployments/cmu-mill19/equipment.html#materials-innovation-cloud-lab">Materials Innovation Cloud Lab</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../deployments/cmu-mill19/equipment.html#machine-shop">Machine Shop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../deployments/cmu-mill19/equipment.html#robotics-workcell-cluster">Robotics Workcell Cluster</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MFI Digital Data Backbone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting Started: Users, Projects and Trials</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/cmu-mfi/ddb/blob/main/doc/pages/guides/stream_data.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started-users-projects-and-trials">
+<h1>Getting Started: Users, Projects and Trials<a class="headerlink" href="#getting-started-users-projects-and-trials" title="Link to this heading"></a></h1>
+<p>This guide shows how to set up the Metadata Store so that people can stream data and find it again later. You will:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#step-1-add-a-user"><span class="xref myst">Add a user</span></a></p></li>
+<li><p><a class="reference internal" href="#step-2-create-a-project-and-make-the-user-its-admin"><span class="xref myst">Create a project and make that user its admin</span></a></p></li>
+<li><p><a class="reference internal" href="#step-3-stream-data-as-that-user"><span class="xref myst">Stream data as that user</span></a> (this creates a <em>trial</em>)</p></li>
+<li><p><a class="reference internal" href="#step-4-find-the-trials-recorded-times"><span class="xref myst">Find the trial’s recorded start and end times</span></a></p></li>
+<li><p><a class="reference internal" href="#step-5-tag-the-trial-to-the-project"><span class="xref myst">Tag the trial to the project</span></a></p></li>
+<li><p><a class="reference internal" href="#step-6-check-who-can-see-the-trial"><span class="xref myst">Check who can see the trial</span></a></p></li>
+</ol>
+<p>Everything is done from the Data Adapter App (<a class="reference external" href="http://localhost:3001">http://localhost:3001</a>). No code is needed.</p>
+<!-- [!IMPORTANT]
+> Complete [Getting Started With MFI DDB](./GettingStarted.md) first, so the Docker services are running and you have seen the Data Adapter App.
+-->
+<section id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Link to this heading"></a></h2>
+<p>Users, projects and tags are not created through a web form. They are <strong>messages</strong> sent over MQTT, exactly like data. The Metadata Store connector listens for them and writes them to the database.</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart LR
+    A["Data Adapter App&lt;br/&gt;KeyValue adapter"] -- "mfi-v1.0-kv/CMU/..." --&gt; B[MQTT broker]
+    B --&gt; C[Metadata Store connector]
+    C --&gt; D[(Metadata Store&lt;br/&gt;PostgreSQL)]
+    D --&gt; E["Retrieval API (RWS)&lt;br/&gt;localhost:8000"]
+</pre></div>
+</div>
+<p>To send a message you create a <strong>KeyValue</strong> connection in the Data Adapter App. The message goes in the Adapter Config. Once the connection shows as streaming, the message has been sent, and you can delete the connection.</p>
+</section>
+<section id="key-concepts">
+<h2>Key concepts<a class="headerlink" href="#key-concepts" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>User</strong></p></td>
+<td><p>A person, identified by <code class="docutils literal notranslate"><span class="pre">user_id</span></code> <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">domain</span></code> together (e.g. <code class="docutils literal notranslate"><span class="pre">jdoe</span></code> + <code class="docutils literal notranslate"><span class="pre">cmu</span></code>). A user must exist before they can stream data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>superadmin</strong></p></td>
+<td><p>Built-in user (<code class="docutils literal notranslate"><span class="pre">user_id:</span> <span class="pre">superadmin</span></code>, <code class="docutils literal notranslate"><span class="pre">domain:</span> <span class="pre">superadmin</span></code>) created when the database is first set up. Use it to create the first users and projects.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Project</strong></p></td>
+<td><p>A group of trials, identified by <code class="docutils literal notranslate"><span class="pre">project_name</span></code>. People are added to a project with a role.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Role</strong></p></td>
+<td><p>What someone can do in a project: <code class="docutils literal notranslate"><span class="pre">admin</span></code> or <code class="docutils literal notranslate"><span class="pre">maintainer</span></code> (manage the project, see all its trials), or <code class="docutils literal notranslate"><span class="pre">operator</span></code> or <code class="docutils literal notranslate"><span class="pre">researcher</span></code> (see only their own trials).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Trial</strong></p></td>
+<td><p>One streaming session. It starts when a connection starts streaming and ends when it stops. Its name is the <code class="docutils literal notranslate"><span class="pre">trial_id</span></code> in the Adapter Config, and its owner is the <code class="docutils literal notranslate"><span class="pre">user</span></code> in the Streamer Config.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Tag</strong></p></td>
+<td><p>A link from a trial to a project. Trials are <strong>not</strong> linked to a project automatically. You tag them afterwards.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="who-can-do-what">
+<h3>Who can do what<a class="headerlink" href="#who-can-do-what" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Who can do it</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Add a user</p></td>
+<td><p>Any existing user, usually <code class="docutils literal notranslate"><span class="pre">superadmin</span></code> or a project admin</p></td>
+</tr>
+<tr class="row-odd"><td><p>Create a new project</p></td>
+<td><p>Any existing user</p></td>
+</tr>
+<tr class="row-even"><td><p>Change an existing project or add people to it</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">superadmin</span></code>, or an <code class="docutils literal notranslate"><span class="pre">admin</span></code>/<code class="docutils literal notranslate"><span class="pre">maintainer</span></code> of that project</p></td>
+</tr>
+<tr class="row-odd"><td><p>Stream data (create a trial)</p></td>
+<td><p>Any user who already exists</p></td>
+</tr>
+<tr class="row-even"><td><p>Tag a trial to a project</p></td>
+<td><p>The trial’s owner, or anyone with any role in that project</p></td>
+</tr>
+<tr class="row-odd"><td><p>See a trial in the Retrieval API</p></td>
+<td><p>The trial’s owner, <code class="docutils literal notranslate"><span class="pre">admin</span></code>/<code class="docutils literal notranslate"><span class="pre">maintainer</span></code> of the project it is tagged to, or <code class="docutils literal notranslate"><span class="pre">superadmin</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-streamer-config-for-metadata-messages">
+<h3>The Streamer Config for metadata messages<a class="headerlink" href="#the-streamer-config-for-metadata-messages" title="Link to this heading"></a></h3>
+<p>Every step uses this Streamer Config. Only the <code class="docutils literal notranslate"><span class="pre">user</span></code> changes: it is <strong>who is sending the message</strong>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">topic_family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kv</span>
+<span class="nt">user</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">superadmin</span><span class="w">      </span><span class="c1"># who is sending this message</span>
+<span class="w">  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">superadmin</span>
+<span class="nt">mqtt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">broker_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mqtt-broker</span>
+<span class="w">  </span><span class="nt">broker_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1883</span>
+<span class="w">  </span><span class="nt">enterprise</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CMU</span>
+<span class="w">  </span><span class="nt">site</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test-Site</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>[!WARNING]</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">enterprise</span></code> must be <code class="docutils literal notranslate"><span class="pre">CMU</span></code>. The connector only listens to <code class="docutils literal notranslate"><span class="pre">mfi-v1.0-kv/CMU/#</span></code> (set in <a class="reference internal" href="#./metadata-rws/mds-broker.ini"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">metadata-rws/mds-broker.ini</span></code></span></a>). Messages for any other enterprise are silently ignored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">broker_address</span></code> is <code class="docutils literal notranslate"><span class="pre">mqtt-broker</span></code> because the Data Adapter App runs inside Docker. Use <code class="docutils literal notranslate"><span class="pre">localhost</span></code> only when you stream from a script on your own computer.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="sending-a-message">
+<h3>Sending a message<a class="headerlink" href="#sending-a-message" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>In the Data Adapter App, click <strong>+ New Adapter</strong> and select <strong>KeyValue</strong>.</p></li>
+<li><p>Paste the step’s <strong>Adapter Config</strong> and the <strong>Streamer Config</strong> above (with the right <code class="docutils literal notranslate"><span class="pre">user</span></code>).</p></li>
+<li><p>Click <strong>Save</strong>. When the connection shows as streaming, the message has been sent. Check the connector log.</p></li>
+<li><p>Delete the connection.</p></li>
+</ol>
+<blockquote>
+<div><p>[!NOTE]</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">trial_id</span></code> is required in every KeyValue Adapter Config, even though the help text says it is optional. For metadata messages it is just a label. This guide uses <code class="docutils literal notranslate"><span class="pre">metadata-setup</span></code>.</p></li>
+<li><p>Each KeyValue connection is itself recorded as a short trial named after that <code class="docutils literal notranslate"><span class="pre">trial_id</span></code>, owned by the sender. These <code class="docutils literal notranslate"><span class="pre">metadata-setup</span></code> trials are harmless.</p></li>
+<li><p>Timestamps are ISO 8601 in UTC, in quotes, for example <code class="docutils literal notranslate"><span class="pre">&quot;2026-10-20T15:00:00Z&quot;</span></code>. Use the current time.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="step-1-add-a-user">
+<h2>Step 1: Add a user<a class="headerlink" href="#step-1-add-a-user" title="Link to this heading"></a></h2>
+<p>Send this as <code class="docutils literal notranslate"><span class="pre">superadmin</span></code>:</p>
+<p><strong>Adapter Config</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">trial_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metadata-setup</span>
+<span class="nt">payloads</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">msg_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user</span>
+<span class="w">    </span><span class="nt">user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span>
+<span class="w">    </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ANDREW</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Jane Doe</span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe@andrew.cmu.edu</span>
+<span class="w">    </span><span class="nt">created_by_user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">superadmin</span>
+<span class="w">    </span><span class="nt">created_by_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">superadmin</span>
+<span class="w">    </span><span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="s">"2026-10-20T15:00:00Z"</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">created_by_user_id</span></code>/<code class="docutils literal notranslate"><span class="pre">created_by_domain</span></code> must be a user that already exists. It does not have to match the Streamer Config <code class="docutils literal notranslate"><span class="pre">user</span></code>, but keep them the same to avoid confusion.</p>
+<!--**Check it worked:**
+
+```
+docker exec mfi-metadata-store-db psql -U mfi -d mds -c "select user_id, domain, name, created_by_user_id from ddb_user;"
+```
+
+```
+  user_id   |   domain   |    name     | created_by_user_id
+------------+------------+-------------+--------------------
+ superadmin | superadmin | Super Admin |
+ jdoe       | cmu        | Jane Doe    | superadmin
+```
+-->
+</section>
+<section id="step-2-create-a-project-and-make-the-user-its-admin">
+<h2>Step 2: Create a project and make the user its admin<a class="headerlink" href="#step-2-create-a-project-and-make-the-user-its-admin" title="Link to this heading"></a></h2>
+<p>Send this as <code class="docutils literal notranslate"><span class="pre">superadmin</span></code>. The project is created, and everyone listed in <code class="docutils literal notranslate"><span class="pre">user_roles</span></code> is added to it with that role:</p>
+<p><strong>Adapter Config</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">trial_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metadata-setup</span>
+<span class="nt">payloads</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">msg_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project</span>
+<span class="w">    </span><span class="nt">project_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Aerosol Printing</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Print quality study</span><span class="w">      </span><span class="c1"># optional; any extra keys are stored as project details</span>
+<span class="w">    </span><span class="nt">user_roles</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span>
+<span class="w">        </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ANDREW</span>
+<span class="w">        </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span><span class="w">                       </span><span class="c1"># admin, maintainer, operator or researcher</span>
+<span class="w">    </span><span class="nt">created_by_user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">superadmin</span>
+<span class="w">    </span><span class="nt">created_by_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">superadmin</span>
+<span class="w">    </span><span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="s">"2026-10-20T15:05:00Z"</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>[!WARNING]</p>
+<ul class="simple">
+<li><p>Every user in <code class="docutils literal notranslate"><span class="pre">user_roles</span></code> must already exist (Step 1). Otherwise their role is not saved.</p></li>
+<li><p>Choose roles carefully. Once someone has a role in a project, it cannot be changed by sending another message. See <a class="reference internal" href="#changing-or-removing-a-role"><span class="xref myst">Changing or removing a role</span></a>.</p></li>
+<li><p>Sending a <code class="docutils literal notranslate"><span class="pre">project</span></code> message with a name that does not exist yet creates a <strong>new</strong> project, so watch for typos in <code class="docutils literal notranslate"><span class="pre">project_name</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<!--**Check it worked:**
+
+```
+docker exec mfi-metadata-store-db psql -U mfi -d mds -c "select p.project_name, r.user_id, r.domain, r.role from user_project_role_linking r join project p using (project_id);"
+```
+
+```
+   project_name   | user_id | domain | role
+------------------+---------+--------+-------
+ Aerosol Printing | jdoe    | ANDREW    | admin
+```
+-->
+</section>
+<section id="step-3-stream-data-as-that-user">
+<h2>Step 3: Stream data as that user<a class="headerlink" href="#step-3-stream-data-as-that-user" title="Link to this heading"></a></h2>
+<p>Stream some data as the user from Step 1. This guide uses the <strong>KeyValue</strong> adapter with <code class="docutils literal notranslate"><span class="pre">msg_type:</span> <span class="pre">data</span></code> payloads, so you don’t need a device or an outside broker. Any other adapter works the same way, as in <a class="reference internal" href="#./GettingStarted.md#setting-up-a-connection-data-adapter-app"><span class="xref myst">Getting Started With MFI DDB</span></a>, with two changes:</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">trial_id</span></code> in the <strong>Adapter Config</strong> to a name for this run, e.g. <code class="docutils literal notranslate"><span class="pre">print_run_001</span></code>.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">user</span></code> in the <strong>Streamer Config</strong> to the user from Step 1.</p></li>
+</ul>
+<p><strong>Adapter Config</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">trial_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">print_run_001</span><span class="w">          </span><span class="c1"># the trial name; required for data payloads</span>
+<span class="nt">payloads</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">msg_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span>
+<span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span>
+<span class="w">    </span><span class="nt">material</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">silver_ink</span>
+<span class="w">    </span><span class="nt">nozzle_diameter_um</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150</span>
+<span class="w">    </span><span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">first print test</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">msg_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data</span>
+<span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span>
+<span class="w">    </span><span class="nt">material</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">silver_ink</span>
+<span class="w">    </span><span class="nt">nozzle_diameter_um</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class="w">    </span><span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">second print test</span>
+</pre></div>
+</div>
+<p>Each <code class="docutils literal notranslate"><span class="pre">data</span></code> payload is a set of key/value pairs that you choose. The adapter sends one payload per poll, so at the default 1 Hz the two payloads above are sent within about two seconds.</p>
+<p><strong>Streamer Config</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">topic_family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kv</span>
+<span class="nt">user</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span>
+<span class="w">  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ANDREW</span>
+<span class="nt">mqtt</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">broker_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mqtt-broker</span>
+<span class="w">  </span><span class="nt">broker_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1883</span>
+<span class="w">  </span><span class="nt">enterprise</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CMU</span>
+<span class="w">  </span><span class="nt">site</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test-Site</span>
+</pre></div>
+</div>
+<p>The trial starts when the connection starts streaming. Once the payloads have been sent, <strong>Stop</strong> the connection. That records the trial’s end time.</p>
+<blockquote>
+<div><p>[!WARNING]</p>
+<ul class="simple">
+<li><p>The user <strong>must exist before you stream</strong>. If they don’t, the app still shows the connection as streaming, but no trial is recorded. The only sign is an error in the connector log: <code class="docutils literal notranslate"><span class="pre">Key</span> <span class="pre">(user_id,</span> <span class="pre">user_domain)=(jdoe,</span> <span class="pre">ANDREW)</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">present</span> <span class="pre">in</span> <span class="pre">table</span> <span class="pre">&quot;ddb_user&quot;</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trial_id</span></code> must be set. Without it, <code class="docutils literal notranslate"><span class="pre">data</span></code> payloads are dropped and the only sign is the warning <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">trial_id</span> <span class="pre">provided</span></code> in the Data Adapter App backend log (<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">logs</span> <span class="pre">mfi-data-adapter-backend</span></code>).</p></li>
+<li><p>After all payloads are sent, the backend log repeats <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">not</span> <span class="pre">found</span> <span class="pre">for</span> <span class="pre">device</span> <span class="pre">data</span></code> until you stop the connection. This is expected.</p></li>
+<li><p>Adding <code class="docutils literal notranslate"><span class="pre">project:</span></code> to the Streamer Config does <strong>not</strong> link the trial to a project. Use a tag (Step 5).</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="step-4-find-the-trial-s-recorded-times">
+<h2>Step 4: Find the trial’s recorded times<a class="headerlink" href="#step-4-find-the-trial-s-recorded-times" title="Link to this heading"></a></h2>
+<p>To tag a trial you give a time window, and the trial’s <strong>recorded</strong> start and end must both fall inside it. Look them up first.</p>
+<p>Retrieval API.** Open <a class="reference external" href="http://localhost:8000/docs">http://localhost:8000/docs</a>, expand <strong>POST /mfi-ddb/type1</strong>, click <strong>Try it out</strong> and send:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"user_domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmu"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"trial_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"print_run_001"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"time_start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-19T00:00:00Z"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"time_end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-21T00:00:00Z"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The response lists <code class="docutils literal notranslate"><span class="pre">birth_timestamp</span></code> (start) and <code class="docutils literal notranslate"><span class="pre">death_timestamp</span></code> (end) for each trial with that name.</p>
+<!--
+**Option B: database.**
+
+```
+docker exec mfi-metadata-store-db psql -U mfi -d mds -c "select trial_name, user_id, birth_timestamp, death_timestamp from trial where trial_name = 'print_run_001';"
+```
+-->
+<blockquote>
+<div><p>[!CAUTION]
+Use the times <strong>as recorded</strong>, not the times on your clock. When the streamer runs in a timezone other than UTC, its local time is recorded as if it were UTC. For example, a run started at 12:57 in New York (16:57 UTC) is recorded as <code class="docutils literal notranslate"><span class="pre">12:57+00</span></code>. A tag built from your clock would then miss the trial.</p>
+</div></blockquote>
+<blockquote>
+<div><p>[!TIP]</p>
+<ul class="simple">
+<li><p>If you reuse the same <code class="docutils literal notranslate"><span class="pre">trial_id</span></code> for several runs, each run is a separate trial. Pick a window that contains only the run you want to tag. If more than one trial matches, the tag is not applied.</p></li>
+<li><p>In the Retrieval API, use full ISO timestamps. The value <code class="docutils literal notranslate"><span class="pre">&quot;now&quot;</span></code> is not accepted.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="step-5-tag-the-trial-to-the-project">
+<h2>Step 5: Tag the trial to the project<a class="headerlink" href="#step-5-tag-the-trial-to-the-project" title="Link to this heading"></a></h2>
+<p>Send this as the trial’s owner (<code class="docutils literal notranslate"><span class="pre">jdoe</span></code>). Set <code class="docutils literal notranslate"><span class="pre">time_start</span></code> and <code class="docutils literal notranslate"><span class="pre">time_end</span></code> to cover the recorded times from Step 4, with about a minute to spare on each side:</p>
+<p><strong>Streamer Config</strong>: the template from <a class="reference internal" href="#the-streamer-config-for-metadata-messages"><span class="xref myst">Before you start</span></a> with <code class="docutils literal notranslate"><span class="pre">user_id:</span> <span class="pre">jdoe</span></code>, <code class="docutils literal notranslate"><span class="pre">domain:</span> <span class="pre">cmu</span></code>.</p>
+<p><strong>Adapter Config</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">trial_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metadata-setup</span>
+<span class="nt">payloads</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">msg_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tp-tag</span>
+<span class="w">    </span><span class="nt">trial_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">print_run_001</span><span class="w">               </span><span class="c1"># the trial to tag</span>
+<span class="w">    </span><span class="nt">trial_user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span><span class="w">                   </span><span class="c1"># the trial's owner (who streamed it)</span>
+<span class="w">    </span><span class="nt">trial_user_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cmu</span>
+<span class="w">    </span><span class="nt">project_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Aerosol Printing</span>
+<span class="w">    </span><span class="nt">time_start</span><span class="p">:</span><span class="w"> </span><span class="s">"2026-10-20T16:53:30Z"</span><span class="w">    </span><span class="c1"># recorded start minus about 1 minute</span>
+<span class="w">    </span><span class="nt">time_end</span><span class="p">:</span><span class="w"> </span><span class="s">"2026-10-20T16:55:40Z"</span><span class="w">      </span><span class="c1"># recorded end plus about 1 minute</span>
+<span class="w">    </span><span class="nt">created_by_user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span><span class="w">              </span><span class="c1"># who is tagging: the owner or anyone with a role in the project</span>
+<span class="w">    </span><span class="nt">created_by_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cmu</span>
+<span class="w">    </span><span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="s">"2026-10-20T17:00:00Z"</span>
+</pre></div>
+</div>
+<p>The top-level <code class="docutils literal notranslate"><span class="pre">trial_id:</span> <span class="pre">metadata-setup</span></code> is only the label for this KeyValue connection. The trial being tagged is the <code class="docutils literal notranslate"><span class="pre">trial_id</span></code> <strong>inside</strong> the payload.</p>
+<!--**Check it worked:**
+
+```
+docker exec mfi-metadata-store-db psql -U mfi -d mds -c "select t.trial_name, t.user_id, p.project_name from trial t left join project p using (project_id) where t.trial_name = 'print_run_001';"
+```
+
+```
+  trial_name   | user_id |   project_name
+---------------+---------+------------------
+ print_run_001 | jdoe    | Aerosol Printing
+```
+-->
+</section>
+<section id="step-6-check-who-can-see-the-trial">
+<h2>Step 6: Check who can see the trial<a class="headerlink" href="#step-6-check-who-can-see-the-trial" title="Link to this heading"></a></h2>
+<p>In <a class="reference external" href="http://localhost:8000/docs">http://localhost:8000/docs</a>, run <strong>POST /mfi-ddb/type1</strong> with the project name:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"user_domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cmu"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"project_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aerosol Printing"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"time_start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-19T00:00:00Z"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"time_end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-21T00:00:00Z"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Found 1 trial(s)."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"trials"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"trial_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"print_run_001"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"project_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"da555019-973e-43b9-a253-476f6c830e2c"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"birth_timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-20T16:54:33.525353+00:00"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"death_timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-10-20T16:54:40.588627+00:00"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Tagged trials have a <code class="docutils literal notranslate"><span class="pre">project_id</span></code>. (The response’s <code class="docutils literal notranslate"><span class="pre">project_name</span></code> field is currently always empty, so go by <code class="docutils literal notranslate"><span class="pre">project_id</span></code>.)</p>
+<p>Tagging is what lets the project’s admins find trials that <strong>other people</strong> streamed. For a trial tagged to <em>Aerosol Printing</em>:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Who is asking</p></th>
+<th class="head"><p>Sees the trial?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>The person who streamed it</p></td>
+<td><p>Yes (always, tagged or not)</p></td>
+</tr>
+<tr class="row-odd"><td><p>An <code class="docutils literal notranslate"><span class="pre">admin</span></code> or <code class="docutils literal notranslate"><span class="pre">maintainer</span></code> of <em>Aerosol Printing</em></p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>An <code class="docutils literal notranslate"><span class="pre">operator</span></code> or <code class="docutils literal notranslate"><span class="pre">researcher</span></code> of <em>Aerosol Printing</em></p></td>
+<td><p>Only their own trials</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">superadmin</span></code></p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Anyone else</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="adding-more-people-to-a-project">
+<h2>Adding more people to a project<a class="headerlink" href="#adding-more-people-to-a-project" title="Link to this heading"></a></h2>
+<p>A project admin can add people without <code class="docutils literal notranslate"><span class="pre">superadmin</span></code>. Send both messages <strong>as the admin</strong> (Streamer Config <code class="docutils literal notranslate"><span class="pre">user</span></code> = <code class="docutils literal notranslate"><span class="pre">jdoe</span></code>/<code class="docutils literal notranslate"><span class="pre">cmu</span></code>).</p>
+<ol class="arabic">
+<li><p>Create the user, if they don’t exist yet:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">trial_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metadata-setup</span>
+<span class="nt">payloads</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">msg_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user</span>
+<span class="w">    </span><span class="nt">user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bsmith</span>
+<span class="w">    </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cmu</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bob Smith</span>
+<span class="w">    </span><span class="nt">created_by_user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span>
+<span class="w">    </span><span class="nt">created_by_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cmu</span>
+<span class="w">    </span><span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="s">"2026-10-20T15:10:00Z"</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add them to the project. Send a <code class="docutils literal notranslate"><span class="pre">project</span></code> message with the <strong>existing</strong> project name:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">trial_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metadata-setup</span>
+<span class="nt">payloads</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">msg_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project</span>
+<span class="w">    </span><span class="nt">project_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Aerosol Printing</span>
+<span class="w">    </span><span class="nt">user_roles</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bsmith</span>
+<span class="w">        </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cmu</span>
+<span class="w">        </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">operator</span>
+<span class="w">    </span><span class="nt">created_by_user_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdoe</span><span class="w">          </span><span class="c1"># must be admin or maintainer of this project</span>
+<span class="w">    </span><span class="nt">created_by_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cmu</span>
+<span class="w">    </span><span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="s">"2026-10-20T15:11:00Z"</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">bsmith</span></code> can now stream trials and tag them to <em>Aerosol Printing</em>. As an <code class="docutils literal notranslate"><span class="pre">operator</span></code>, they see only their own trials. The admin <code class="docutils literal notranslate"><span class="pre">jdoe</span></code> sees all trials tagged to the project, including <code class="docutils literal notranslate"><span class="pre">bsmith</span></code>’s.</p>
+</section>
+<section id="changing-or-removing-a-role">
+<h2>Changing or removing a role<a class="headerlink" href="#changing-or-removing-a-role" title="Link to this heading"></a></h2>
+<p>There is no message for changing or removing a role. Sending a second <code class="docutils literal notranslate"><span class="pre">project</span></code> message for someone who already has a role fails, and the connector logs <code class="docutils literal notranslate"><span class="pre">duplicate</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">violates</span> <span class="pre">unique</span> <span class="pre">constraint</span> <span class="pre">&quot;unique_user_project_role&quot;</span></code>.</p>
+<p>Until this is supported, a database administrator can change it directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">exec</span> <span class="n">mfi</span><span class="o">-</span><span class="n">metadata</span><span class="o">-</span><span class="n">store</span><span class="o">-</span><span class="n">db</span> <span class="n">psql</span> <span class="o">-</span><span class="n">U</span> <span class="n">mfi</span> <span class="o">-</span><span class="n">d</span> <span class="n">mds</span> <span class="o">-</span><span class="n">c</span> <span class="s2">"update user_project_role_linking set role = 'maintainer' where user_id = 'bsmith' and domain = 'cmu' and project_id = (select project_id from project where project_name = 'Aerosol Printing');"</span>
+</pre></div>
+</div>
+<p>To remove someone from a project, replace the <code class="docutils literal notranslate"><span class="pre">update</span> <span class="pre">...</span> <span class="pre">set</span> <span class="pre">role</span> <span class="pre">=</span> <span class="pre">'maintainer'</span></code> part with <code class="docutils literal notranslate"><span class="pre">delete</span> <span class="pre">from</span> <span class="pre">user_project_role_linking</span></code>, keeping the same <code class="docutils literal notranslate"><span class="pre">where</span></code> clause.</p>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p>Look at the connector log first (<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">logs</span> <span class="pre">mfi-metadata-store-connector</span></code>).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>What you see</p></th>
+<th class="head"><p>Likely cause</p></th>
+<th class="head"><p>Fix</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Nothing in the connector log after sending</p></td>
+<td><p>Wrong <code class="docutils literal notranslate"><span class="pre">enterprise</span></code>, <code class="docutils literal notranslate"><span class="pre">broker_address</span></code> or <code class="docutils literal notranslate"><span class="pre">topic_family</span></code> in the Streamer Config</p></td>
+<td><p>Use the <a class="reference internal" href="#the-streamer-config-for-metadata-messages"><span class="xref myst">Streamer Config template</span></a>: <code class="docutils literal notranslate"><span class="pre">enterprise:</span> <span class="pre">CMU</span></code>, <code class="docutils literal notranslate"><span class="pre">broker_address:</span> <span class="pre">mqtt-broker</span></code>, <code class="docutils literal notranslate"><span class="pre">topic_family:</span> <span class="pre">kv</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>App says <code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">configuration</span> <span class="pre">for</span> <span class="pre">adapter</span> <span class="pre">or</span> <span class="pre">streamer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">trial_id</span></code> missing from the KeyValue Adapter Config, or a required field missing from the payload</p></td>
+<td><p>Add <code class="docutils literal notranslate"><span class="pre">trial_id:</span> <span class="pre">metadata-setup</span></code>. Every payload needs <code class="docutils literal notranslate"><span class="pre">created_by_user_id</span></code>, <code class="docutils literal notranslate"><span class="pre">created_by_domain</span></code> and <code class="docutils literal notranslate"><span class="pre">timestamp</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Streaming works but no trial is recorded; log shows <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">not</span> <span class="pre">present</span> <span class="pre">in</span> <span class="pre">table</span> <span class="pre">&quot;ddb_user&quot;</span></code></p></td>
+<td><p>The Streamer Config <code class="docutils literal notranslate"><span class="pre">user</span></code> doesn’t exist</p></td>
+<td><p>Add the user (Step 1), then stream again</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Cannot</span> <span class="pre">update</span> <span class="pre">the</span> <span class="pre">tag</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">trial</span> <span class="pre">...</span></code></p></td>
+<td><p>No trial, or more than one, matches the name, owner and time window</p></td>
+<td><p>Check the recorded times (Step 4), <code class="docutils literal notranslate"><span class="pre">trial_user_id</span></code>/<code class="docutils literal notranslate"><span class="pre">trial_user_domain</span></code> and the window</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">User</span> <span class="pre">...</span> <span class="pre">not</span> <span class="pre">authorized</span> <span class="pre">to</span> <span class="pre">update</span> <span class="pre">trial</span> <span class="pre">...</span></code></p></td>
+<td><p>The person tagging is neither the trial’s owner nor in the project</p></td>
+<td><p>Tag as the owner, or add the person to the project first</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">User</span> <span class="pre">...</span> <span class="pre">not</span> <span class="pre">allowed</span> <span class="pre">to</span> <span class="pre">update</span> <span class="pre">project</span> <span class="pre">...</span></code></p></td>
+<td><p>Someone who isn’t <code class="docutils literal notranslate"><span class="pre">admin</span></code>/<code class="docutils literal notranslate"><span class="pre">maintainer</span></code> of the project tried to change it or add people</p></td>
+<td><p>Send as a project admin or <code class="docutils literal notranslate"><span class="pre">superadmin</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">duplicate</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">violates</span> <span class="pre">unique</span> <span class="pre">constraint</span> <span class="pre">&quot;unique_user_project_role&quot;</span></code></p></td>
+<td><p>The person already has a role in that project</p></td>
+<td><p>See <a class="reference internal" href="#changing-or-removing-a-role"><span class="xref myst">Changing or removing a role</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Retrieval API returns <code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">time_end:</span> <span class="pre">now</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;now&quot;</span></code> isn’t accepted</p></td>
+<td><p>Use an ISO timestamp such as <code class="docutils literal notranslate"><span class="pre">&quot;2026-10-21T00:00:00Z&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Trial tagged, but a teammate can’t find it</p></td>
+<td><p>They are an <code class="docutils literal notranslate"><span class="pre">operator</span></code>/<code class="docutils literal notranslate"><span class="pre">researcher</span></code>, who only see their own trials</p></td>
+<td><p>Give them <code class="docutils literal notranslate"><span class="pre">admin</span></code> or <code class="docutils literal notranslate"><span class="pre">maintainer</span></code> if they need to see everyone’s trials</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Message format for <code class="docutils literal notranslate"><span class="pre">user</span></code>, <code class="docutils literal notranslate"><span class="pre">project</span></code> and <code class="docutils literal notranslate"><span class="pre">tp-tag</span></code>: <a class="reference internal" href="#../mfi_ddb_package/src/mfi_ddb/topic_families/schema/kv.json"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">kv.json</span></code></span></a></p></li>
+<li><p>Database tables: <a class="reference internal" href="#../mfi_ddb_retrieval_api/metadata_store_pg/README.md"><span class="xref myst">Metadata Store README</span></a></p></li>
+<li><p>How messages are processed: <a class="reference internal" href="#../mfi_ddb_retrieval_api/metadata_store_pg/connector.py"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">connector.py</span></code></span></a></p></li>
+<li><p>Retrieval API endpoints: <a class="reference external" href="http://localhost:8000/docs">http://localhost:8000/docs</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Carnegie Mellon University, Manufacturing Futures Institute.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
