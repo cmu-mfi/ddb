@@ -92,7 +92,7 @@ trial_id: metadata-setup
 payloads:
   - msg_type: user
     user_id: jdoe
-    domain: cmu
+    domain: ANDREW
     name: Jane Doe
     email: jdoe@andrew.cmu.edu
     created_by_user_id: superadmin
@@ -128,7 +128,7 @@ payloads:
     description: Print quality study      # optional; any extra keys are stored as project details
     user_roles:
       - user_id: jdoe
-        domain: cmu
+        domain: ANDREW
         role: admin                       # admin, maintainer, operator or researcher
     created_by_user_id: superadmin
     created_by_domain: superadmin
@@ -149,7 +149,7 @@ docker exec mfi-metadata-store-db psql -U mfi -d mds -c "select p.project_name, 
 ```
    project_name   | user_id | domain | role
 ------------------+---------+--------+-------
- Aerosol Printing | jdoe    | cmu    | admin
+ Aerosol Printing | jdoe    | ANDREW    | admin
 ```
 -->
 ## Step 3: Stream data as that user
